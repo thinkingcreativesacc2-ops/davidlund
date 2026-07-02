@@ -171,40 +171,6 @@
   .plw-btn:hover svg.plw-arrow { transform: translateX(4px); }
 
   /* ==========================================================================
-     TOP BAR
-     ========================================================================== */
-  .plw-topbar { background: var(--plw-ink); padding: 10px 24px; }
-  .plw-topbar__inner {
-    max-width: var(--plw-container);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    text-align: center;
-  }
-  .plw-topbar__tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--plw-gold);
-    color: var(--plw-burgundy-deep);
-    font-family: var(--plw-font-head);
-    font-weight: 800;
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 100px;
-  }
-  .plw-topbar__tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--plw-burgundy-deep); }
-  .plw-topbar__text { color: rgba(255,255,255,0.88); font-size: 13.5px; font-weight: 500; }
-  .plw-topbar__text strong { color: var(--plw-white); font-weight: 700; }
-  .plw-topbar__link { color: var(--plw-gold-light); font-weight: 700; font-size: 13.5px; border-bottom: 1px solid rgba(229,201,120,0.4); }
-  .plw-topbar__link:hover { color: var(--plw-white); border-color: var(--plw-white); }
-
-  /* ==========================================================================
      HERO
      ========================================================================== */
   .plw-hero {
@@ -554,7 +520,6 @@
     .plw-benefits__grid { grid-template-columns: 1fr; }
     .plw-about__creds { grid-template-columns: 1fr; }
     .plw-hero__ctas .plw-btn, .plw-register__card { width: 100%; }
-    .plw-topbar__text br { display: none; }
     .plw-register__frame { height: 620px; }
   }
 
@@ -570,15 +535,6 @@
 <div class="plw-root" id="plw-pl-webinar">
 
   <a href="#plw-main" class="plw-skip" style="position:absolute;left:-9999px;">Skip to content</a>
-
-  <!-- ==== SECTION: TOP BAR ==== -->
-  <div class="plw-topbar">
-    <div class="plw-topbar__inner">
-      <span class="plw-topbar__tag">Free Live Webinar</span>
-      <span class="plw-topbar__text">Wednesday, July 22, 2026 &middot; 10:00&ndash;11:00 AM EST</span>
-      <a href="#plw-hero-register" class="plw-topbar__link">Reserve Your FREE Seat &rarr;</a>
-    </div>
-  </div>
 
   <main id="plw-main">
 

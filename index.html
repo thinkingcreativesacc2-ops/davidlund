@@ -680,7 +680,6 @@
     .hfc-promo__text { font-size: 13px; }
     .hfc-section { padding: 64px 0; }
     .hfc-stats__row { grid-template-columns: repeat(2, 1fr); gap: 26px 16px; }
-    .hfc-webinars__grid { grid-template-columns: 1fr; }
     .hfc-benefits__grid { grid-template-columns: 1fr 1fr; }
     .hfc-footer__top { grid-template-columns: 1fr; gap: 36px; }
     .hfc-hero { padding: 48px 0 116px; }
@@ -692,9 +691,16 @@
     .hfc-sticky-cta { display: none !important; }
   }
 
+  /* True phones only (not tablets like 768px iPad portrait, which should
+     keep the 2-column card grid from the 1024px breakpoint above). */
+  @media (max-width: 600px) {
+    .hfc-webinars__grid { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 520px) {
-    .hfc-promo__logo { display: none; }
+    .hfc-root .hfc-promo__logo { display: none; }
     .hfc-promo__inner { gap: 10px; }
+    .hfc-promo__datetime { display: none; }
     .hfc-benefits__grid { grid-template-columns: 1fr; }
     .hfc-about__creds { grid-template-columns: 1fr; }
     .hfc-hero__ctas .hfc-btn, .hfc-final__ctas .hfc-btn { width: 100%; }
@@ -725,7 +731,7 @@
       <img class="hfc-promo__logo" src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png" alt="The Hotel Financial Coach">
       <p class="hfc-promo__text">
         <span class="hfc-promo__tag">Free Live Webinar</span>
-        Wed, July 22 &middot; 10&ndash;11 AM EST &mdash; <strong>How to Read Your Hotel P&amp;L in 30 Minutes</strong>
+        <span class="hfc-promo__datetime">Wed, July 22 &middot; 10&ndash;11 AM EST &mdash; </span><strong>How to Read Your Hotel P&amp;L in 30 Minutes</strong>
       </p>
       <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta">
         Save My Seat
@@ -1041,7 +1047,7 @@
           <p class="hfc-modal__promo-eyebrow">Want More Than a Recording?</p>
           <p class="hfc-modal__promo-text">Join David live for open Q&amp;A on <strong>Wednesday, July 22 at 10&ndash;11 AM EST</strong> &mdash; "How to Read Your Hotel P&amp;L in 30 Minutes."</p>
           <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-btn--block">
-            Reserve My Seat &mdash; July 22
+            Reserve My Seat
             <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
           </a>
         </div>

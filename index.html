@@ -776,10 +776,10 @@
     <!-- ==== SECTION: TRUST / STATS STRIP ==== -->
     <section class="hfc-stats">
       <div class="hfc-container hfc-stats__row">
-        <div><strong>20+</strong>Years in Hotel Finance &amp; Operations</div>
-        <div><strong>1,000s</strong>Hotel Leaders Trained</div>
-        <div><strong>1</strong>Author, The Prosperous Hotelier</div>
-        <div><strong>50+</strong>Speaking Engagements Nationwide</div>
+        <div><strong data-count-target="20" data-count-suffix="+">20+</strong>Years in Hotel Finance &amp; Operations</div>
+        <div><strong data-count-target="1000" data-count-format="comma" data-count-suffix="s">1,000s</strong>Hotel Leaders Trained</div>
+        <div><strong data-count-target="1" data-count-suffix="">1</strong>Author, The Prosperous Hotelier</div>
+        <div><strong data-count-target="50" data-count-suffix="+">50+</strong>Speaking Engagements Nationwide</div>
       </div>
     </section>
 
@@ -1319,6 +1319,65 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Stats counter (counts up from 0 when the strip scrolls into view)  */
+  /* ------------------------------------------------------------------ */
+  function setupStatsCounter() {
+    var statsSection = document.querySelector('.hfc-stats');
+    if (!statsSection) return;
+    var counters = statsSection.querySelectorAll('[data-count-target]');
+    if (!counters.length) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function formatValue(el, value) {
+      var suffix = el.getAttribute('data-count-suffix') || '';
+      var display = el.hasAttribute('data-count-format') ? value.toLocaleString() : String(value);
+      return display + suffix;
+    }
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-count-target'), 10);
+      if (reduceMotion) {
+        el.textContent = formatValue(el, target);
+        return;
+      }
+      var duration = 1400;
+      var start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatValue(el, Math.floor(eased * target));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = formatValue(el, target);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Start every counter at 0 immediately so there's no flash of the final
+    // number before it animates in.
+    if (!reduceMotion) {
+      counters.forEach(function (el) { el.textContent = formatValue(el, 0); });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(animateCounter);
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          counters.forEach(animateCounter);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(statsSection);
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Smooth scroll for in-page anchors                                  */
   /* ------------------------------------------------------------------ */
   function setupSmoothScroll() {
@@ -1339,6 +1398,7 @@
     setupModal();
     setupFaq();
     setupStickyCta();
+    setupStatsCounter();
     setupSmoothScroll();
     observeReveal();
     var yearEl = document.getElementById('hfcYear');

@@ -7,43 +7,37 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html                  ← the entire deliverable (HTML + CSS + JS, one file)
-assets/images/*.svg         ← branded placeholder graphics (see below)
+index.html   ← the entire deliverable (HTML + CSS + JS, one file)
 ```
 
-## Before you go live: swap the images
+There is no `assets/` folder — every photo, thumbnail, and the logo are already
+wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),
+so nothing needs to be uploaded to this repo to preview or ship the page.
 
-GoHighLevel renders your pasted snippet on **its own domain**, not on GitHub. That
-means relative paths like `assets/images/david-headshot.svg` will not resolve once
-this is pasted into GHL — and linking directly to raw GitHub files isn't reliable
-for production either. The placeholders in this repo exist so the page previews
-correctly (nothing looks "broken") while you build; before launch you need to:
+## Image map
 
-1. Open `assets/images/`.
-2. Upload each file's **real** replacement to GoHighLevel → **Sites → Media Storage**
-   (or any public image host / CDN you control).
-3. Copy the generated URL GHL gives you.
-4. In `index.html`, search for the matching filename (e.g. `david-headshot.svg`) —
-   every `<img>` tag has an HTML comment directly above it telling you exactly what
-   the image should be and its recommended dimensions — and replace the `src` value
-   with the hosted URL.
+| Used for | Image |
+|---|---|
+| Top promo bar + footer logo | Hotel Financial Coach logo |
+| Hero section | David Lund speaking on stage |
+| "Meet David Lund" section | David Lund professional headshot |
+| Replay card + modal — "Why Hotel Leaders Get Passed Over for Promotion" | replay thumbnail |
+| Live webinar — "How to Read Your Hotel P&L in 30 Minutes" | webinar thumbnail |
+| Live webinar — "How to Build a Hotel Budget Like a Leader" | webinar thumbnail |
+| Live webinar — "The Labor Cost Problem Nobody Talks About" | webinar thumbnail |
+| Live webinar — "The 5 Numbers Every GM Should Know" | webinar thumbnail |
+| Live webinar — "From Department Head to GM: The Financial Shift" | webinar thumbnail |
 
-| Placeholder file | Used for | Recommended size |
-|---|---|---|
-| `david-headshot.svg` | "Meet David Lund" section portrait | 800×1000 (portrait) |
-| `david-hero.svg` | Hero section speaking photo | 1200×1500 (portrait) |
-| `webinar-replay.svg` | Replay card — "Why Hotel Leaders Get Passed Over for Promotion" | 1280×720 |
-| `webinar-pl-30-min.svg` | Live webinar — "How to Read Your Hotel P&L in 30 Minutes" | 1280×720 |
-| `webinar-budget-leader.svg` | Live webinar — "How to Build a Hotel Budget Like a Leader" | 1280×720 |
-| `webinar-labor-cost.svg` | Live webinar — "The Labor Cost Problem Nobody Talks About" | 1280×720 |
-| `webinar-5-numbers.svg` | Live webinar — "The 5 Numbers Every GM Should Know" | 1280×720 |
-| `webinar-dept-head-gm.svg` | Live webinar — "From Department Head to GM: The Financial Shift" | 1280×720 |
-| `og-share-image.svg` | Social share preview (Open Graph / Twitter card) | 1200×630 |
+To swap any image later: open `index.html`, search for the section by its visible
+text (e.g. search "Meet David Lund" or the webinar title), and replace the `src`
+value on the nearby `<img>` tag with a new hosted URL. The five live-webinar
+thumbnails also live together in the `WEBINARS` config object near the top of the
+`<script>` block, so you can update all five `img` values in one place.
 
-The logo in the header/footer is **not** an image file — it's built from live CSS/SVG
-text so it stays crisp at any size with zero extra image requests. If you'd rather
-use your actual logo mark, replace the `.hfc-logo` markup near the top of the body
-with an `<img>` tag pointing at your hosted logo file.
+There's no Open Graph / social-share image wired into this snippet (that's a
+`<head>`-level `<meta>` tag, which belongs to GHL's page/funnel SEO settings, not
+this element) — set that separately in the GHL page editor if you want a custom
+link-preview image.
 
 ## Pasting into GoHighLevel
 
@@ -55,6 +49,16 @@ entire contents of `index.html` and paste it into the Custom HTML element as-is.
 
 All CSS is scoped under an `.hfc-` prefix and CSS custom properties are namespaced
 to `--hfc-*` to avoid colliding with other elements/styles already on your GHL page.
+
+## Page structure
+
+There is no site navigation/header — for a single-page funnel, a nav menu mostly
+just gives visitors more ways to leave before registering. In its place is a slim
+**top promo bar** advertising the nearest upcoming live webinar (currently July 22,
+"How to Read Your Hotel P&L in 30 Minutes") with a direct "Save My Seat" link. If
+that webinar has already passed, update the date/title/link in the promo bar markup
+near the top of the page body (look for the `<!-- SECTION: TOP PROMO BAR -->` comment)
+to point at whichever session is coming up next.
 
 ## Editing copy or links later
 

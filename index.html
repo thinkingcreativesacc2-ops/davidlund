@@ -546,33 +546,6 @@
   /* ==========================================================================
      SOCIAL PROOF
      ========================================================================== */
-  .hfc-testimonials__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 72px; }
-  .hfc-testimonial {
-    background: var(--hfc-white);
-    border: 1px solid var(--hfc-border);
-    border-radius: var(--hfc-radius);
-    padding: 30px 28px;
-    position: relative;
-  }
-  .hfc-testimonial__quote { width: 34px; height: 26px; fill: var(--hfc-gold); margin-bottom: 16px; }
-  .hfc-testimonial p { font-size: 15px; color: var(--hfc-ink); margin-bottom: 22px; font-style: italic; }
-  .hfc-testimonial__person { display: flex; align-items: center; gap: 12px; }
-  .hfc-testimonial__avatar {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--hfc-burgundy), var(--hfc-gold));
-    display: flex; align-items: center; justify-content: center;
-    color: var(--hfc-white); font-family: var(--hfc-font-head); font-weight: 700; font-size: 15px;
-    flex-shrink: 0;
-  }
-  .hfc-testimonial__person strong { display: block; font-size: 14px; font-family: var(--hfc-font-head); }
-  .hfc-testimonial__person span { font-size: 12.5px; color: var(--hfc-gray); }
-  .hfc-testimonial__flag {
-    position: absolute; top: 16px; right: 16px;
-    font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em;
-    color: var(--hfc-gray-light); background: var(--hfc-cream);
-    padding: 4px 8px; border-radius: 100px;
-  }
-
   .hfc-proof-strip { text-align: center; }
   .hfc-proof-strip p { font-family: var(--hfc-font-head); font-weight: 700; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hfc-gray-light); margin-bottom: 26px; }
   .hfc-logo-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; }
@@ -727,7 +700,6 @@
     .hfc-replay__grid { grid-template-columns: 1fr; }
     .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
-    .hfc-testimonials__grid { grid-template-columns: 1fr; }
     .hfc-proof-row2 { grid-template-columns: 1fr; gap: 48px; }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
   }
@@ -1001,40 +973,7 @@
       <div class="hfc-container">
         <div class="hfc-section-head hfc-reveal">
           <p class="hfc-eyebrow" style="justify-content:center;">Trusted By Hotel Leaders</p>
-          <h2>What Hotel Leaders Say After Attending</h2>
-        </div>
-
-        <!-- [REPLACE] Testimonial content below is placeholder copy written to show
-             the intended tone/length. Swap in real quotes, names, titles, and
-             properties before launch; remove the "SAMPLE" flag once replaced. -->
-        <div class="hfc-testimonials__grid">
-          <div class="hfc-testimonial hfc-reveal">
-            <span class="hfc-testimonial__flag">SAMPLE &mdash; REPLACE</span>
-            <svg class="hfc-testimonial__quote" viewBox="0 0 44 34"><path d="M0 34V19.4C0 8.4 6.6 1.4 17.6 0l2 5.6C12.4 7 8.8 10.6 8.4 16h9.2v18H0zm26 0V19.4C26 8.4 32.6 1.4 43.6 0l2 5.6C38.4 7 34.8 10.6 34.4 16h9.2v18H26z"/></svg>
-            <p>"I used to dread the monthly ownership call. After working through David's framework, I walk in prepared &mdash; and I've heard 'great job on the numbers' more in the last year than in the five before it."</p>
-            <div class="hfc-testimonial__person">
-              <div class="hfc-testimonial__avatar">JM</div>
-              <div><strong>Jordan M.</strong><span>General Manager, Full-Service Hotel</span></div>
-            </div>
-          </div>
-          <div class="hfc-testimonial hfc-reveal">
-            <span class="hfc-testimonial__flag">SAMPLE &mdash; REPLACE</span>
-            <svg class="hfc-testimonial__quote" viewBox="0 0 44 34"><path d="M0 34V19.4C0 8.4 6.6 1.4 17.6 0l2 5.6C12.4 7 8.8 10.6 8.4 16h9.2v18H0zm26 0V19.4C26 8.4 32.6 1.4 43.6 0l2 5.6C38.4 7 34.8 10.6 34.4 16h9.2v18H26z"/></svg>
-            <p>"David makes hotel finance make sense. I built my first real budget after his session &mdash; no more guessing, no more copy-pasting last year's numbers."</p>
-            <div class="hfc-testimonial__person">
-              <div class="hfc-testimonial__avatar">AR</div>
-              <div><strong>Amara R.</strong><span>Assistant General Manager, Select-Service Hotel</span></div>
-            </div>
-          </div>
-          <div class="hfc-testimonial hfc-reveal">
-            <span class="hfc-testimonial__flag">SAMPLE &mdash; REPLACE</span>
-            <svg class="hfc-testimonial__quote" viewBox="0 0 44 34"><path d="M0 34V19.4C0 8.4 6.6 1.4 17.6 0l2 5.6C12.4 7 8.8 10.6 8.4 16h9.2v18H0zm26 0V19.4C26 8.4 32.6 1.4 43.6 0l2 5.6C38.4 7 34.8 10.6 34.4 16h9.2v18H26z"/></svg>
-            <p>"Six months after the labor cost session, our department heads finally understand where the dollars go. It changed how we schedule &mdash; and it showed on the P&amp;L."</p>
-            <div class="hfc-testimonial__person">
-              <div class="hfc-testimonial__avatar">TK</div>
-              <div><strong>Theo K.</strong><span>Hotel Owner &amp; Operator</span></div>
-            </div>
-          </div>
+          <h2>A Track Record Hotel Leaders Rely On</h2>
         </div>
 
         <div class="hfc-proof-strip hfc-reveal">

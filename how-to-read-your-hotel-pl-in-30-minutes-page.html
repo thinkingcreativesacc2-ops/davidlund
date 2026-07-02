@@ -1,0 +1,1167 @@
+<!--
+  ============================================================================
+  THE HOTEL FINANCIAL COACH — "HOW TO READ YOUR HOTEL P&L IN 30 MINUTES"
+  FREE LIVE WEBINAR — REGISTRATION LANDING PAGE
+  ============================================================================
+  Built as a single, self-contained FRAGMENT (not a full HTML document) so it
+  can be pasted directly into one GoHighLevel "Custom HTML" element. GHL
+  injects this snippet into an existing page, so we intentionally omit
+  <!DOCTYPE>/<html>/<head>/<body> wrappers and scope every style under the
+  ".plw-" prefix / "--plw-" CSS custom properties so it can safely coexist
+  with other elements (including the funnel hub page in this same project,
+  which links here) on the same GHL site.
+
+  FONT NOTE: "Gotham" is a licensed commercial typeface and isn't available on
+  Google Fonts, so it can't be embedded here. "Montserrat" is used for
+  headlines (closest free geometric-sans match to Gotham's proportions) and
+  "Inter" for body copy (excellent readability at small sizes) — the same
+  pairing used across the rest of this project. If your organization owns a
+  Gotham web-font license, drop the @font-face block in and swap the family
+  names in :root — nothing else needs to change.
+
+  IMAGES: both photos are already wired to hosted GHL Media Storage URLs
+  (assets.cdn.filesafe.space/…). To swap either later, search this file for
+  the "IMAGE:" comment above the relevant <img> tag and replace its src.
+
+  FORM: the registration iframe in the "REGISTER" section is embedded exactly
+  as supplied by GoHighLevel (same src/id/data-* attributes) — do not modify
+  those attributes when editing copy elsewhere on the page.
+
+  SECTIONS: Top bar · Hero · Quick Facts · Why It Matters · What You'll Learn
+  · Meet David Lund · Why Attend · Register · FAQ · Final CTA · Footer.
+  Every section is marked with an HTML comment so it's easy to jump to.
+  ============================================================================
+-->
+
+<!-- Preconnect + font import (safe inside a GHL Custom HTML element) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ==========================================================================
+     DESIGN TOKENS
+     ========================================================================== */
+  .plw-root {
+    --plw-burgundy: #8B0000;
+    --plw-burgundy-dark: #5c0000;
+    --plw-burgundy-deep: #3a0a0a;
+    --plw-gold: #C89B2A;
+    --plw-gold-light: #E5C978;
+    --plw-white: #FFFFFF;
+    --plw-cream: #FBF9F5;
+    --plw-ink: #201615;
+    --plw-gray: #6B615D;
+    --plw-gray-light: #948B86;
+    --plw-border: #E9E2D8;
+    --plw-green: #2E7D4F;
+    --plw-shadow: 0 20px 50px -20px rgba(32, 22, 21, 0.25);
+    --plw-shadow-sm: 0 8px 24px -12px rgba(32, 22, 21, 0.18);
+    --plw-font-head: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    --plw-font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+    --plw-radius: 16px;
+    --plw-radius-sm: 10px;
+    --plw-container: 1200px;
+
+    font-family: var(--plw-font-body);
+    color: var(--plw-ink);
+    background: var(--plw-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  .plw-root, .plw-root *, .plw-root *::before, .plw-root *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .plw-root img { max-width: 100%; display: block; }
+  .plw-root a { color: inherit; text-decoration: none; }
+  .plw-root ul { list-style: none; }
+  .plw-root button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  .plw-root svg { display: block; }
+
+  .plw-root h1, .plw-root h2, .plw-root h3, .plw-root h4 {
+    font-family: var(--plw-font-head);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--plw-ink);
+  }
+
+  .plw-container {
+    max-width: var(--plw-container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .plw-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--plw-font-head);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--plw-burgundy);
+    margin-bottom: 16px;
+  }
+  .plw-eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: var(--plw-gold);
+    display: inline-block;
+  }
+  .plw-eyebrow.plw-on-dark { color: var(--plw-gold-light); }
+  .plw-eyebrow.plw-center { justify-content: center; }
+
+  .plw-section { padding: 100px 0; }
+  .plw-section--tight { padding: 72px 0; }
+  .plw-section--cream { background: var(--plw-cream); }
+  .plw-section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
+  .plw-section-head p { color: var(--plw-gray); font-size: 17px; margin-top: 16px; }
+  .plw-section-head h2 { font-size: clamp(28px, 3.6vw, 42px); }
+
+  /* Scroll-reveal */
+  .plw-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .plw-reveal.plw-visible { opacity: 1; transform: translateY(0); }
+
+  /* Buttons */
+  .plw-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--plw-font-head);
+    font-weight: 700;
+    font-size: 15.5px;
+    letter-spacing: 0.01em;
+    padding: 17px 32px;
+    border-radius: 100px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+  }
+  .plw-btn--primary {
+    background: var(--plw-burgundy);
+    color: var(--plw-white);
+    box-shadow: 0 12px 28px -10px rgba(139, 0, 0, 0.55);
+  }
+  .plw-btn--primary:hover { background: var(--plw-burgundy-dark); transform: translateY(-2px); box-shadow: 0 16px 34px -10px rgba(139, 0, 0, 0.65); }
+  .plw-btn--gold {
+    background: var(--plw-gold);
+    color: var(--plw-burgundy-deep);
+    box-shadow: 0 12px 28px -10px rgba(200, 155, 42, 0.55);
+  }
+  .plw-btn--gold:hover { background: var(--plw-gold-light); transform: translateY(-2px); }
+  .plw-btn--on-dark {
+    background: transparent;
+    color: var(--plw-white);
+    border: 1.5px solid rgba(255,255,255,0.55);
+  }
+  .plw-btn--on-dark:hover { background: rgba(255,255,255,0.12); border-color: var(--plw-white); transform: translateY(-2px); }
+  .plw-btn--block { width: 100%; }
+  .plw-btn--lg { padding: 20px 40px; font-size: 17px; }
+  .plw-btn svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.25s ease; }
+  .plw-btn:hover svg.plw-arrow { transform: translateX(4px); }
+
+  /* ==========================================================================
+     TOP BAR
+     ========================================================================== */
+  .plw-topbar { background: var(--plw-ink); padding: 10px 24px; }
+  .plw-topbar__inner {
+    max-width: var(--plw-container);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .plw-topbar__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--plw-gold);
+    color: var(--plw-burgundy-deep);
+    font-family: var(--plw-font-head);
+    font-weight: 800;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .plw-topbar__tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--plw-burgundy-deep); }
+  .plw-topbar__text { color: rgba(255,255,255,0.88); font-size: 13.5px; font-weight: 500; }
+  .plw-topbar__text strong { color: var(--plw-white); font-weight: 700; }
+  .plw-topbar__link { color: var(--plw-gold-light); font-weight: 700; font-size: 13.5px; border-bottom: 1px solid rgba(229,201,120,0.4); }
+  .plw-topbar__link:hover { color: var(--plw-white); border-color: var(--plw-white); }
+
+  /* ==========================================================================
+     HERO
+     ========================================================================== */
+  .plw-hero {
+    position: relative;
+    background: radial-gradient(120% 140% at 15% 0%, var(--plw-burgundy-dark) 0%, var(--plw-burgundy-deep) 46%, #1c0505 100%);
+    color: var(--plw-white);
+    overflow: hidden;
+    padding: 76px 0 96px;
+  }
+  .plw-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(200,155,42,0.16) 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .plw-hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .plw-hero h1 {
+    color: var(--plw-white);
+    font-size: clamp(32px, 4.4vw, 54px);
+    margin-bottom: 20px;
+  }
+  .plw-hero h1 em { color: var(--plw-gold-light); font-style: normal; }
+  .plw-hero__sub {
+    font-size: 18.5px;
+    color: rgba(255,255,255,0.85);
+    max-width: 560px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+
+  /* Countdown */
+  .plw-countdown { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+  .plw-countdown__unit {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: var(--plw-radius-sm);
+    padding: 12px 16px;
+    min-width: 74px;
+    text-align: center;
+  }
+  .plw-countdown__num { font-family: var(--plw-font-head); font-size: 26px; font-weight: 800; color: var(--plw-gold-light); line-height: 1; }
+  .plw-countdown__label { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .plw-countdown__live { font-family: var(--plw-font-head); font-weight: 700; font-size: 16px; color: var(--plw-gold-light); }
+
+  .plw-hero__ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+  .plw-hero__micro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.62);
+    font-weight: 500;
+  }
+  .plw-hero__micro span { display: inline-flex; align-items: center; gap: 7px; }
+  .plw-hero__micro svg { width: 15px; height: 15px; fill: var(--plw-gold); flex-shrink: 0; }
+
+  .plw-hero__media { position: relative; }
+  .plw-hero__frame {
+    position: relative;
+    border-radius: var(--plw-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.65);
+    aspect-ratio: 16/10;
+  }
+  .plw-hero__frame img { width: 100%; height: 100%; object-fit: cover; }
+  .plw-hero__ribbon {
+    position: absolute;
+    top: 18px; left: 18px;
+    background: var(--plw-gold);
+    color: var(--plw-burgundy-deep);
+    font-family: var(--plw-font-head);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 100px;
+  }
+  .plw-hero__badge {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: -28px;
+    background: var(--plw-white);
+    color: var(--plw-ink);
+    border-radius: var(--plw-radius-sm);
+    padding: 16px 20px;
+    box-shadow: var(--plw-shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .plw-hero__badge svg { width: 26px; height: 26px; fill: var(--plw-burgundy); flex-shrink: 0; }
+  .plw-hero__badge strong { display: block; font-family: var(--plw-font-head); font-size: 14px; }
+  .plw-hero__badge span { font-size: 12.5px; color: var(--plw-gray); }
+
+  /* ==========================================================================
+     QUICK FACTS STRIP
+     ========================================================================== */
+  .plw-facts { background: var(--plw-ink); padding: 40px 0 68px; margin-top: -28px; position: relative; }
+  .plw-facts__row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  .plw-fact {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--plw-radius-sm);
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .plw-fact svg { width: 24px; height: 24px; fill: var(--plw-gold-light); margin: 0 auto 10px; }
+  .plw-fact strong { display: block; font-family: var(--plw-font-head); font-size: 14.5px; color: var(--plw-white); margin-bottom: 3px; }
+  .plw-fact span { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  /* ==========================================================================
+     WHY IT MATTERS
+     ========================================================================== */
+  .plw-why__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .plw-why__content h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 20px; }
+  .plw-why__content p { color: var(--plw-gray); font-size: 16.5px; margin-bottom: 16px; }
+  .plw-why__content strong { color: var(--plw-ink); }
+
+  .plw-compare { display: flex; flex-direction: column; gap: 20px; }
+  .plw-compare__card {
+    border-radius: var(--plw-radius);
+    padding: 26px 28px;
+    border: 1px solid var(--plw-border);
+  }
+  .plw-compare__card--before { background: var(--plw-cream); }
+  .plw-compare__card--after { background: var(--plw-white); border-color: var(--plw-gold); box-shadow: var(--plw-shadow-sm); }
+  .plw-compare__head { display: flex; align-items: center; gap: 10px; font-family: var(--plw-font-head); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
+  .plw-compare__card--before .plw-compare__head { color: var(--plw-gray); }
+  .plw-compare__card--after .plw-compare__head { color: var(--plw-burgundy); }
+  .plw-compare__head svg { width: 18px; height: 18px; }
+  .plw-compare__card--before .plw-compare__head svg { fill: var(--plw-gray-light); }
+  .plw-compare__card--after .plw-compare__head svg { fill: var(--plw-gold); }
+  .plw-compare ul { display: flex; flex-direction: column; gap: 10px; }
+  .plw-compare li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+  .plw-compare svg.plw-compare__icon { width: 17px; height: 17px; flex-shrink: 0; margin-top: 3px; }
+  .plw-compare__card--before svg.plw-compare__icon { fill: var(--plw-gray-light); }
+  .plw-compare__card--after svg.plw-compare__icon { fill: var(--plw-green); }
+
+  /* ==========================================================================
+     WHAT YOU'LL LEARN
+     ========================================================================== */
+  .plw-learn__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .plw-learn__card {
+    background: var(--plw-white);
+    border: 1px solid var(--plw-border);
+    border-radius: var(--plw-radius);
+    padding: 30px 26px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .plw-learn__card:hover { transform: translateY(-6px); box-shadow: var(--plw-shadow-sm); border-color: var(--plw-gold); }
+  .plw-learn__num {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--plw-burgundy), var(--plw-burgundy-dark));
+    color: var(--plw-gold-light);
+    font-family: var(--plw-font-head);
+    font-weight: 800;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .plw-learn__card h3 { font-size: 17.5px; margin-bottom: 10px; line-height: 1.3; }
+  .plw-learn__card p { font-size: 14.5px; color: var(--plw-gray); }
+
+  /* ==========================================================================
+     MEET DAVID
+     ========================================================================== */
+  .plw-about__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; }
+  .plw-about__media { position: relative; }
+  .plw-about__frame { border-radius: var(--plw-radius); overflow: hidden; box-shadow: var(--plw-shadow); aspect-ratio: 4/5; }
+  .plw-about__frame img { width: 100%; height: 100%; object-fit: cover; }
+  .plw-about__ribbon {
+    position: absolute; bottom: -22px; right: -22px;
+    background: var(--plw-burgundy);
+    color: var(--plw-white);
+    padding: 20px 22px;
+    border-radius: var(--plw-radius-sm);
+    box-shadow: var(--plw-shadow);
+    max-width: 220px;
+  }
+  .plw-about__ribbon strong { display: block; font-family: var(--plw-font-head); font-size: 14px; margin-bottom: 4px; color: var(--plw-gold-light); }
+  .plw-about__ribbon span { font-size: 12.5px; color: rgba(255,255,255,0.85); }
+
+  .plw-about__content h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 20px; }
+  .plw-about__content p { color: var(--plw-gray); font-size: 16px; margin-bottom: 16px; }
+  .plw-about__quote {
+    margin: 26px 0;
+    padding: 20px 24px;
+    border-left: 3px solid var(--plw-gold);
+    background: var(--plw-cream);
+    font-family: var(--plw-font-head);
+    font-size: 17px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--plw-ink);
+    border-radius: 0 var(--plw-radius-sm) var(--plw-radius-sm) 0;
+  }
+  .plw-about__creds { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-top: 28px; }
+  .plw-about__creds li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; font-weight: 500; }
+  .plw-about__creds svg { width: 18px; height: 18px; fill: var(--plw-gold); flex-shrink: 0; margin-top: 2px; }
+
+  /* ==========================================================================
+     WHY ATTEND
+     ========================================================================== */
+  .plw-benefits__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .plw-benefit {
+    background: var(--plw-white);
+    border: 1px solid var(--plw-border);
+    border-radius: var(--plw-radius);
+    padding: 30px 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .plw-benefit:hover { transform: translateY(-4px); box-shadow: var(--plw-shadow-sm); border-color: var(--plw-gold); }
+  .plw-benefit__icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--plw-burgundy), var(--plw-burgundy-dark));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .plw-benefit__icon svg { width: 24px; height: 24px; fill: var(--plw-gold-light); }
+  .plw-benefit h3 { font-size: 16px; margin-bottom: 8px; }
+  .plw-benefit p { font-size: 14px; color: var(--plw-gray); }
+
+  /* ==========================================================================
+     REGISTER
+     ========================================================================== */
+  .plw-register { position: relative; background: radial-gradient(120% 160% at 85% 0%, var(--plw-burgundy-dark) 0%, var(--plw-burgundy-deep) 55%, #1c0505 100%); color: var(--plw-white); overflow: hidden; }
+  .plw-register::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(200,155,42,0.14) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .plw-register__grid { position: relative; display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: center; }
+  .plw-register__content .plw-eyebrow { color: var(--plw-gold-light); }
+  .plw-register__content h2 { color: var(--plw-white); font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 18px; }
+  .plw-register__content p { color: rgba(255,255,255,0.8); font-size: 16.5px; margin-bottom: 14px; }
+  .plw-register__list { display: flex; flex-direction: column; gap: 12px; margin: 22px 0 0; }
+  .plw-register__list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: rgba(255,255,255,0.9); }
+  .plw-register__list svg { width: 19px; height: 19px; fill: var(--plw-gold-light); flex-shrink: 0; margin-top: 2px; }
+
+  .plw-register__card {
+    background: var(--plw-white);
+    border-radius: var(--plw-radius);
+    box-shadow: 0 40px 90px -20px rgba(0,0,0,0.55);
+    padding: 28px;
+  }
+  .plw-register__card-head { text-align: center; margin-bottom: 18px; }
+  .plw-register__card-head strong { display: block; font-family: var(--plw-font-head); font-size: 17px; color: var(--plw-ink); margin-bottom: 4px; }
+  .plw-register__card-head span { font-size: 13px; color: var(--plw-gray); }
+  .plw-register__frame { position: relative; width: 100%; height: 520px; border-radius: var(--plw-radius-sm); overflow: visible; }
+  .plw-register__frame iframe { display: block; width: 100%; height: 100%; }
+  .plw-register__trust { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--plw-border); }
+  .plw-register__trust li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--plw-gray); }
+  .plw-register__trust svg { width: 14px; height: 14px; fill: var(--plw-gray-light); flex-shrink: 0; margin-top: 2px; }
+
+  /* ==========================================================================
+     FAQ
+     ========================================================================== */
+  .plw-faq__list { max-width: 820px; margin: 0 auto; }
+  .plw-faq__item { border-bottom: 1px solid var(--plw-border); }
+  .plw-faq__q {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+    padding: 24px 4px;
+    text-align: left;
+    font-family: var(--plw-font-head);
+    font-weight: 600;
+    font-size: 16.5px;
+  }
+  .plw-faq__q svg { width: 20px; height: 20px; fill: var(--plw-burgundy); flex-shrink: 0; transition: transform 0.3s ease; }
+  .plw-faq__item.plw-open .plw-faq__q svg { transform: rotate(180deg); }
+  .plw-faq__a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .plw-faq__a p { padding: 0 4px 24px; color: var(--plw-gray); font-size: 15px; max-width: 700px; }
+
+  /* ==========================================================================
+     FINAL CTA
+     ========================================================================== */
+  .plw-final {
+    position: relative;
+    background: var(--plw-ink);
+    color: var(--plw-white);
+    text-align: center;
+    padding: 96px 0;
+    overflow: hidden;
+  }
+  .plw-final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(200,155,42,0.12) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .plw-final__inner { position: relative; max-width: 660px; margin: 0 auto; }
+  .plw-final h2 { color: var(--plw-white); font-size: clamp(28px, 4vw, 42px); margin-bottom: 18px; }
+  .plw-final p { color: rgba(255,255,255,0.72); font-size: 17px; margin-bottom: 36px; }
+  .plw-final__micro { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.5); }
+
+  /* ==========================================================================
+     FOOTER
+     ========================================================================== */
+  .plw-footer { background: var(--plw-ink); color: rgba(255,255,255,0.55); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .plw-footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .plw-footer__logo { height: 32px; width: auto; background: var(--plw-white); padding: 6px 12px; border-radius: 8px; }
+  .plw-footer__links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .plw-footer__links a { font-size: 13.5px; transition: color 0.2s ease; }
+  .plw-footer__links a:hover { color: var(--plw-gold-light); }
+  .plw-footer__copy { font-size: 12.5px; width: 100%; padding-top: 20px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
+
+  /* ==========================================================================
+     STICKY MOBILE CTA
+     ========================================================================== */
+  .plw-sticky-cta {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    background: var(--plw-white);
+    border-top: 1px solid var(--plw-border);
+    box-shadow: 0 -10px 30px -18px rgba(0,0,0,0.3);
+    padding: 12px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    transform: translateY(120%);
+    transition: transform 0.35s ease;
+  }
+  .plw-sticky-cta.plw-show { transform: translateY(0); }
+  .plw-sticky-cta__text { font-size: 12.5px; font-weight: 600; color: var(--plw-gray); display: none; }
+  .plw-sticky-cta .plw-btn { flex: 1; padding: 14px 20px; font-size: 14px; }
+
+  /* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+  @media (max-width: 1024px) {
+    .plw-hero__grid { grid-template-columns: 1fr; }
+    .plw-hero__media { max-width: 460px; margin: 0 auto; }
+    .plw-facts__row { grid-template-columns: repeat(3, 1fr); }
+    .plw-why__grid { grid-template-columns: 1fr; gap: 44px; }
+    .plw-learn__grid { grid-template-columns: repeat(2, 1fr); }
+    .plw-about__grid { grid-template-columns: 1fr; }
+    .plw-about__media { max-width: 420px; margin: 0 auto; }
+    .plw-benefits__grid { grid-template-columns: repeat(2, 1fr); }
+    .plw-register__grid { grid-template-columns: 1fr; gap: 44px; }
+    .plw-register__card { max-width: 560px; margin: 0 auto; width: 100%; }
+  }
+
+  @media (max-width: 780px) {
+    .plw-section { padding: 64px 0; }
+    .plw-hero { padding: 44px 0 108px; }
+    .plw-facts { padding: 36px 0 56px; }
+    .plw-facts__row { grid-template-columns: repeat(2, 1fr); }
+    .plw-learn__grid { grid-template-columns: 1fr; }
+    .plw-benefits__grid { grid-template-columns: 1fr 1fr; }
+    .plw-about__ribbon { right: 0; }
+    .plw-footer__inner { justify-content: center; text-align: center; }
+    .plw-sticky-cta { display: flex; }
+  }
+  @media (min-width: 781px) {
+    .plw-sticky-cta { display: none !important; }
+  }
+
+  @media (max-width: 560px) {
+    .plw-countdown__unit { min-width: 64px; padding: 10px 12px; }
+    .plw-countdown__num { font-size: 21px; }
+    .plw-benefits__grid { grid-template-columns: 1fr; }
+    .plw-about__creds { grid-template-columns: 1fr; }
+    .plw-hero__ctas .plw-btn, .plw-register__card { width: 100%; }
+    .plw-topbar__text br { display: none; }
+    .plw-register__frame { height: 620px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .plw-root * { animation: none !important; transition: none !important; }
+    .plw-root { scroll-behavior: auto; }
+  }
+</style>
+
+<!-- ==================================================================== -->
+<!-- ROOT WRAPPER                                                          -->
+<!-- ==================================================================== -->
+<div class="plw-root" id="plw-pl-webinar">
+
+  <a href="#plw-main" class="plw-skip" style="position:absolute;left:-9999px;">Skip to content</a>
+
+  <!-- ==== SECTION: TOP BAR ==== -->
+  <div class="plw-topbar">
+    <div class="plw-topbar__inner">
+      <span class="plw-topbar__tag">Free Live Webinar</span>
+      <span class="plw-topbar__text">Wednesday, July 22, 2026 &middot; 10:00&ndash;11:00 AM EST</span>
+      <a href="#plw-register" class="plw-topbar__link">Reserve Your FREE Seat &rarr;</a>
+    </div>
+  </div>
+
+  <main id="plw-main">
+
+    <!-- ==== SECTION: HERO ==== -->
+    <section class="plw-hero">
+      <div class="plw-container plw-hero__grid">
+        <div>
+          <p class="plw-eyebrow plw-on-dark">Free Live Webinar for Hotel Leaders</p>
+          <h1>How to Read Your Hotel <em>P&amp;L</em> in 30 Minutes</h1>
+          <p class="plw-hero__sub">You don't need an accounting degree to understand your hotel's financials. Join David Lund, The Hotel Financial Coach, for one FREE live session and leave knowing exactly what your P&amp;L is telling you &mdash; and what to do about it.</p>
+
+          <div class="plw-countdown" id="plwCountdown" aria-label="Time remaining until the webinar begins">
+            <div class="plw-countdown__unit"><div class="plw-countdown__num" data-plw-days>00</div><div class="plw-countdown__label">Days</div></div>
+            <div class="plw-countdown__unit"><div class="plw-countdown__num" data-plw-hours>00</div><div class="plw-countdown__label">Hours</div></div>
+            <div class="plw-countdown__unit"><div class="plw-countdown__num" data-plw-mins>00</div><div class="plw-countdown__label">Minutes</div></div>
+            <div class="plw-countdown__unit"><div class="plw-countdown__num" data-plw-secs>00</div><div class="plw-countdown__label">Seconds</div></div>
+          </div>
+
+          <div class="plw-hero__ctas">
+            <a href="#plw-register" class="plw-btn plw-btn--gold plw-btn--lg">
+              Reserve Your FREE Seat
+              <svg class="plw-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
+            </a>
+          </div>
+          <div class="plw-hero__micro">
+            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>100% Free</span>
+            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Live Q&amp;A With David</span>
+            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>No Accounting Background Required</span>
+          </div>
+        </div>
+
+        <div class="plw-hero__media">
+          <div class="plw-hero__frame">
+            <span class="plw-hero__ribbon">Live &middot; July 22, 2026</span>
+            <!-- IMAGE: featured webinar thumbnail -->
+            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png" alt="Webinar graphic: How to Read Your Hotel P&amp;L in 30 Minutes, with David Lund, The Hotel Financial Coach">
+          </div>
+          <div class="plw-hero__badge">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L22 9.6l-5.5 5.4 1.3 7.5-5.8-3.2-5.8 3.2 1.3-7.5L2 9.6l7.4-1z"/></svg>
+            <div><strong>Taught by David Lund</strong><span>Founder, The Hotel Financial Coach</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: QUICK FACTS ==== -->
+    <section class="plw-facts">
+      <div class="plw-container">
+        <div class="plw-facts__row">
+          <div class="plw-fact">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v13a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zM5 8h14v11H5V8z"/></svg>
+            <strong>July 22, 2026</strong>
+            <span>Wednesday</span>
+          </div>
+          <div class="plw-fact">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg>
+            <strong>10&ndash;11 AM EST</strong>
+            <span>60 minutes, live</span>
+          </div>
+          <div class="plw-fact">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v10H4zm-2 12h20v2H2zM4 4h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            <strong>Live Online</strong>
+            <span>Attend from anywhere</span>
+          </div>
+          <div class="plw-fact">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm1.1 15.3v1.4h-2.1v-1.3c-1.5-.2-2.7-1-2.9-2.6h1.8c.1.7.6 1.2 1.8 1.2 1.3 0 1.7-.6 1.7-1.1 0-.7-.6-1-2-1.4-1.7-.4-3.1-1-3.1-2.9 0-1.4 1.1-2.3 2.7-2.6V6.3h2.1v1.4c1.4.3 2.4 1.2 2.5 2.6h-1.8c-.1-.6-.5-1.1-1.6-1.1-1 0-1.7.4-1.7 1.1 0 .6.5.9 2 1.3 1.9.5 3.1 1.2 3.1 3 0 1.5-1.2 2.4-2.8 2.7z"/></svg>
+            <strong>100% Free</strong>
+            <span>No cost, no catch</span>
+          </div>
+          <div class="plw-fact">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 8 1.3 8 4v3H4v-3c0-2.7 5.3-4 8-4zm0-2a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            <strong>David Lund</strong>
+            <span>The Hotel Financial Coach</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: WHY THIS WEBINAR MATTERS ==== -->
+    <section class="plw-section" id="plw-why">
+      <div class="plw-container plw-why__grid">
+        <div class="plw-why__content plw-reveal">
+          <p class="plw-eyebrow">Why This Webinar Matters</p>
+          <h2>Your P&amp;L Isn't the Problem. Not Knowing How to Read It Is.</h2>
+          <p>Every month, a financial statement lands on your desk full of numbers that are supposed to tell you how your hotel performed &mdash; and how you performed as its leader. For most hotel professionals, it reads like a foreign language.</p>
+          <p>You nod along in the ownership meeting. You avoid the follow-up question you can't quite answer. You quietly wonder if a real financial leader would already know this. <strong>None of that means you're not capable.</strong> It means no one ever taught you how hotel finance actually works &mdash; because most financial training is built for accountants, not for the people running the hotel.</p>
+          <p>That's exactly the gap David Lund built this FREE webinar to close. In one live 60-minute session, you'll learn the same practical, plain-English approach David has used to turn thousands of hotel leaders into confident, capable financial decision-makers.</p>
+        </div>
+
+        <div class="plw-compare plw-reveal">
+          <div class="plw-compare__card plw-compare__card--before">
+            <div class="plw-compare__head">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm0-3.5V13h-2v-.9c0-1.1.5-1.8 1.3-2.4.8-.6 1.2-1 1.2-1.7 0-.8-.7-1.4-1.5-1.4-.9 0-1.5.6-1.5 1.5H8.5c0-2 1.6-3.5 3.5-3.5s3.5 1.4 3.5 3.4c0 1.4-.8 2.1-1.5 2.7-.6.4-1 .8-1 1.4z"/></svg>
+              Before the Webinar
+            </div>
+            <ul>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>You skim the P&amp;L and hope nothing stands out</li>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Ownership questions catch you off guard</li>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>You manage the budget instead of leading it</li>
+            </ul>
+          </div>
+          <div class="plw-compare__card plw-compare__card--after">
+            <div class="plw-compare__head">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.6L22 9.6l-5.5 5.4 1.3 7.5-5.8-3.2-5.8 3.2 1.3-7.5L2 9.6l7.4-1z"/></svg>
+              After This FREE Webinar
+            </div>
+            <ul>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>You read the full P&amp;L in as little as 30 minutes</li>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>You answer ownership's questions with confidence</li>
+              <li><svg class="plw-compare__icon" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>You make decisions that visibly move profitability</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: WHAT YOU'LL LEARN ==== -->
+    <section class="plw-section plw-section--cream" id="plw-learn">
+      <div class="plw-container">
+        <div class="plw-section-head plw-reveal">
+          <p class="plw-eyebrow plw-center">What You'll Learn</p>
+          <h2>A Practical, Step-by-Step Framework &mdash; Not a Lecture</h2>
+          <p>Every minute of this FREE live webinar is built around one goal: giving you a repeatable process you can use on your own hotel's P&amp;L the very next time it lands on your desk.</p>
+        </div>
+        <div class="plw-learn__grid">
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">1</div>
+            <h3>Decode Your P&amp;L Line by Line</h3>
+            <p>Understand exactly what revenue, cost of sales, and departmental profit are really telling you &mdash; in plain English, not accounting jargon.</p>
+          </div>
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">2</div>
+            <h3>Read GOP Like a Pro</h3>
+            <p>Learn the one number ownership cares about most &mdash; Gross Operating Profit &mdash; and exactly how to talk about it.</p>
+          </div>
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">3</div>
+            <h3>Spot Red Flags in Minutes</h3>
+            <p>Learn where to look first so you catch cost overruns and revenue leaks before they become bigger problems.</p>
+          </div>
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">4</div>
+            <h3>Understand Flow-Through</h3>
+            <p>Discover why a revenue increase doesn't always mean a profit increase &mdash; and what to do when it doesn't.</p>
+          </div>
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">5</div>
+            <h3>Speak Ownership's Language</h3>
+            <p>Walk into your next financial review ready to explain variances and defend your numbers with confidence.</p>
+          </div>
+          <div class="plw-learn__card plw-reveal">
+            <div class="plw-learn__num">6</div>
+            <h3>Apply It the Same Day</h3>
+            <p>Leave with a simple, repeatable process you can use on your very next P&amp;L &mdash; no follow-up course required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: MEET DAVID LUND ==== -->
+    <section class="plw-section" id="plw-about">
+      <div class="plw-container plw-about__grid">
+        <div class="plw-about__media plw-reveal">
+          <div class="plw-about__frame">
+            <!-- IMAGE: David Lund speaking -->
+            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a466a982e727c5f35dd6e68.png" alt="David Lund, The Hotel Financial Coach, speaking to hotel leaders">
+          </div>
+          <div class="plw-about__ribbon">
+            <strong>Trusted by Thousands</strong>
+            <span>of hotel leaders across North America</span>
+          </div>
+        </div>
+
+        <div class="plw-about__content plw-reveal">
+          <p class="plw-eyebrow">Meet Your Instructor</p>
+          <h2>David Lund, The Hotel Financial Coach</h2>
+          <p>David Lund is a respected hotel financial leadership expert, keynote speaker, author, and educator &mdash; and the founder of The Hotel Financial Coach. With decades of experience in hotel operations and hospitality finance, he has helped thousands of hotel professionals become stronger, more confident financial leaders.</p>
+          <p>David's mission is simple: remove the fear and confusion surrounding financial reports so hotel leaders can confidently make better business decisions, improve profitability, control labor costs, build accurate budgets, and advance their careers. Unlike a traditional accounting course, David teaches hotel finance specifically for hotel leaders &mdash; not accountants &mdash; using an approach that's practical, engaging, and immediately applicable to real hotel operations.</p>
+          <div class="plw-about__quote">"Hotel finance isn't complicated &mdash; it's just been taught wrong. This webinar changes that in 60 minutes."</div>
+
+          <ul class="plw-about__creds">
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Founder, The Hotel Financial Coach</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Decades in hotel operations &amp; finance</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Keynote speaker &amp; educator</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Author &amp; hospitality finance mentor</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Trained thousands of GMs &amp; department heads</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Practical, jargon-free teaching built for operators</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: WHY ATTEND ==== -->
+    <section class="plw-section plw-section--cream" id="plw-benefits">
+      <div class="plw-container">
+        <div class="plw-section-head plw-reveal">
+          <p class="plw-eyebrow plw-center">The Payoff</p>
+          <h2>Why Hotel Leaders Are Registering</h2>
+          <p>This FREE live webinar is built for busy, career-driven hotel professionals who want practical financial knowledge &mdash; not another theory-heavy course.</p>
+        </div>
+        <div class="plw-benefits__grid">
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm1.1 15.3v1.4h-2.1v-1.3c-1.5-.2-2.7-1-2.9-2.6h1.8c.1.7.6 1.2 1.8 1.2 1.3 0 1.7-.6 1.7-1.1 0-.7-.6-1-2-1.4-1.7-.4-3.1-1-3.1-2.9 0-1.4 1.1-2.3 2.7-2.6V6.3h2.1v1.4c1.4.3 2.4 1.2 2.5 2.6h-1.8c-.1-.6-.5-1.1-1.6-1.1-1 0-1.7.4-1.7 1.1 0 .6.5.9 2 1.3 1.9.5 3.1 1.2 3.1 3 0 1.5-1.2 2.4-2.8 2.7z"/></svg></div>
+            <h3>Completely FREE</h3>
+            <p>No cost, no credit card, no catch &mdash; David's gift to the hospitality community.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+            <h3>Live &amp; Interactive</h3>
+            <p>Bring your own hotel's numbers and questions directly to David during live Q&amp;A.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 20V10h4v10H4zm6 0V4h4v16h-4zm6 0v-7h4v7h-4z"/></svg></div>
+            <h3>Immediately Actionable</h3>
+            <p>Leave with a framework you can use on your P&amp;L the same day &mdash; not "someday."</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
+            <h3>Zero Accounting Required</h3>
+            <p>Built for operators, not accountants &mdash; plain language, real hotel examples.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.6L22 9.6l-5.5 5.4 1.3 7.5-5.8-3.2-5.8 3.2 1.3-7.5L2 9.6l7.4-1z"/></svg></div>
+            <h3>Learn From a Leading Voice</h3>
+            <p>David Lund is one of hospitality's most trusted financial educators &mdash; live, not recorded.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+            <h3>Just 60 Minutes</h3>
+            <p>A small investment of time for a skill you'll use for the rest of your career.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg></div>
+            <h3>Career-Advancing Skill</h3>
+            <p>Financial fluency is what separates department heads from GM-ready leaders.</p>
+          </div>
+          <div class="plw-benefit plw-reveal">
+            <div class="plw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 8 1.3 8 4v3H4v-3c0-2.7 5.3-4 8-4zm0-2a4 4 0 100-8 4 4 0 000 8z"/></svg></div>
+            <h3>A Judgment-Free Room</h3>
+            <p>Every hotel leader started somewhere. This session meets you exactly where you are.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: REGISTER ==== -->
+    <section class="plw-section plw-register" id="plw-register">
+      <div class="plw-container plw-register__grid">
+        <div class="plw-register__content plw-reveal">
+          <p class="plw-eyebrow">Reserve Your FREE Seat</p>
+          <h2>Save Your FREE Spot for July 22</h2>
+          <p>This is a <strong style="color:var(--plw-white);">FREE live webinar</strong> &mdash; it will not be sold as a course, and seats for live Q&amp;A are limited to keep the session personal. Register now to lock in your spot.</p>
+          <ul class="plw-register__list">
+            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Takes less than 60 seconds to register</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>You'll receive your confirmation and webinar link by email</li>
+            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Join live from any computer or phone &mdash; nothing to install</li>
+          </ul>
+        </div>
+
+        <div class="plw-register__card plw-reveal" id="plwRegisterCard">
+          <div class="plw-register__card-head">
+            <strong>Register FREE Today</strong>
+            <span>Wednesday, July 22, 2026 &middot; 10:00&ndash;11:00 AM EST</span>
+          </div>
+
+          <!-- ==== EMBEDDED REGISTRATION FORM (GoHighLevel) ====
+               Do not modify the src/id/data-* attributes below — this iframe
+               is embedded exactly as supplied by GoHighLevel. -->
+          <div class="plw-register__frame">
+            <iframe
+                src="https://link.thinkingcreatives.com/widget/form/yzBmiNDiFCqJdsdVMcU5"
+                style="width:100%;height:100%;border:none;border-radius:8px"
+                id="inline-yzBmiNDiFCqJdsdVMcU5"
+                data-layout="{'id':'INLINE'}"
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="How to Read Your Hotel P&amp;L in 30 Minutes"
+                data-height="434"
+                data-layout-iframe-id="inline-yzBmiNDiFCqJdsdVMcU5"
+                data-form-id="yzBmiNDiFCqJdsdVMcU5"
+                title="How to Read Your Hotel P&amp;L in 30 Minutes">
+            </iframe>
+          </div>
+
+          <ul class="plw-register__trust">
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l7 3v6c0 5-3.4 8.4-7 9-3.6-.6-7-4-7-9V4z"/></svg>Your information is safe and will never be sold.</li>
+            <li><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Registering takes less than a minute &mdash; no credit card required.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <script src="https://link.thinkingcreatives.com/js/form_embed.js"></script>
+
+    <!-- ==== SECTION: FAQ ==== -->
+    <section class="plw-section" id="plw-faq">
+      <div class="plw-container">
+        <div class="plw-section-head plw-reveal">
+          <p class="plw-eyebrow plw-center">Questions</p>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="plw-faq__list plw-reveal" id="plwFaqList">
+          <!-- FAQ items are toggled by JS below; content is fully static HTML so it
+               remains readable and indexable even if JavaScript fails to load. -->
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Do I need an accounting or finance background to attend?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>No. This webinar was built specifically for hotel operators &mdash; General Managers, Assistant General Managers, Department Heads, owners, and rising leaders &mdash; not for accountants. David teaches in plain language using real hotel examples, with zero jargon.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Is this webinar really free?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>Yes &mdash; 100% free to attend, with no credit card required. This is David's gift to the hospitality community.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>How long is the session, and why does the title say "30 minutes"?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>The live session runs 60 minutes total &mdash; from 10:00 to 11:00 AM EST &mdash; including live Q&amp;A with David. The "30 minutes" refers to the skill you'll walk away with: once you know David's framework, you'll be able to read your own hotel's full P&amp;L in as little as 30 minutes going forward.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Who should attend?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>Hotel General Managers, Assistant General Managers, Department Heads, hotel owners, hospitality executives, and any emerging leader who wants to lead with financial confidence.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Will there be live Q&amp;A?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>Yes. The session ends with open Q&amp;A, so you can bring your own hotel's numbers and questions directly to David. Because seats for live interaction are limited, we recommend clearing 60 minutes on your calendar to join live.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>What do I need to attend?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>Just a computer, tablet, or phone with an internet connection. There's nothing to download or install &mdash; you'll join with a single link sent to your email after you register.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Can I bring my team or colleagues?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>Absolutely. Many hotel leaders register their entire leadership team so everyone builds financial fluency together. Each attendee should register separately to receive their own confirmation and reminder emails.</p></div>
+          </div>
+          <div class="plw-faq__item">
+            <button class="plw-faq__q" aria-expanded="false"><span>Is this a sales pitch in disguise?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
+            <div class="plw-faq__a"><p>No. This is a genuine, complete 60-minute training session. David will mention how to go deeper with his coaching and community for those who are interested at the end &mdash; but the training itself stands entirely on its own.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: FINAL CTA ==== -->
+    <section class="plw-final">
+      <div class="plw-container plw-final__inner plw-reveal">
+        <h2>You Don't Need to Be an Accountant. You Need 60 Minutes With David Lund.</h2>
+        <p>Join hotel leaders across North America for this FREE live webinar on Wednesday, July 22 at 10:00 AM EST. Save your FREE spot now &mdash; live seats are limited.</p>
+        <a href="#plw-register" class="plw-btn plw-btn--gold plw-btn--lg">
+          Register FREE Today
+          <svg class="plw-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
+        </a>
+        <p class="plw-final__micro">100% free &middot; no credit card required &middot; unsubscribe anytime</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==== SECTION: FOOTER ==== -->
+  <footer class="plw-footer">
+    <div class="plw-container plw-footer__inner">
+      <!-- IMAGE: The Hotel Financial Coach logo (hosted on GHL) -->
+      <img class="plw-footer__logo" src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png" alt="The Hotel Financial Coach">
+      <nav class="plw-footer__links" aria-label="Page sections">
+        <a href="#plw-why">Why It Matters</a>
+        <a href="#plw-learn">What You'll Learn</a>
+        <a href="#plw-about">About David</a>
+        <a href="#plw-faq">FAQ</a>
+        <a href="#plw-register">Register</a>
+      </nav>
+      <p class="plw-footer__copy">&copy; <span id="plwYear"></span> The Hotel Financial Coach. All rights reserved. Hotel finance training built for leaders, not accountants.</p>
+    </div>
+  </footer>
+
+  <!-- ==== STICKY MOBILE CTA ==== -->
+  <div class="plw-sticky-cta" id="plwStickyCta">
+    <span class="plw-sticky-cta__text">FREE Live Webinar &middot; July 22</span>
+    <a href="#plw-register" class="plw-btn plw-btn--primary">Reserve Your FREE Seat</a>
+  </div>
+
+</div>
+
+<!-- JSON-LD structured data: helps this event surface as a rich result in search -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "David Lund",
+      "jobTitle": "Hotel Financial Coach",
+      "url": "https://hotelfinancialcoach.com"
+    },
+    {
+      "@type": "Event",
+      "name": "How to Read Your Hotel P&L in 30 Minutes",
+      "description": "A FREE live webinar teaching hotel General Managers, Assistant General Managers, Department Heads, owners, and hospitality executives how to read and understand their hotel's P&L statement without an accounting background.",
+      "startDate": "2026-07-22T10:00:00-04:00",
+      "endDate": "2026-07-22T11:00:00-04:00",
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" },
+      "image": "https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png",
+      "performer": { "@type": "Person", "name": "David Lund" },
+      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" }
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ */
+  /* Countdown timer — counts down to the live webinar start time       */
+  /* ------------------------------------------------------------------ */
+  function setupCountdown() {
+    var el = document.getElementById('plwCountdown');
+    if (!el) return;
+    var target = new Date('2026-07-22T10:00:00-04:00').getTime();
+    var daysEl = el.querySelector('[data-plw-days]');
+    var hoursEl = el.querySelector('[data-plw-hours]');
+    var minsEl = el.querySelector('[data-plw-mins]');
+    var secsEl = el.querySelector('[data-plw-secs]');
+    var timerId;
+
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) {
+        el.innerHTML = '<div class="plw-countdown__live">We’re live right now &mdash; join us!</div>';
+        if (timerId) clearInterval(timerId);
+        return;
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins = Math.floor((diff % 3600000) / 60000);
+      var secs = Math.floor((diff % 60000) / 1000);
+      if (daysEl) daysEl.textContent = pad(days);
+      if (hoursEl) hoursEl.textContent = pad(hours);
+      if (minsEl) minsEl.textContent = pad(mins);
+      if (secsEl) secsEl.textContent = pad(secs);
+    }
+
+    tick();
+    timerId = setInterval(tick, 1000);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* FAQ accordion                                                      */
+  /* ------------------------------------------------------------------ */
+  function setupFaq() {
+    var items = document.querySelectorAll('.plw-faq__item');
+    items.forEach(function (item) {
+      var q = item.querySelector('.plw-faq__q');
+      var a = item.querySelector('.plw-faq__a');
+      q.addEventListener('click', function () {
+        var isOpen = item.classList.contains('plw-open');
+        items.forEach(function (other) {
+          other.classList.remove('plw-open');
+          other.querySelector('.plw-faq__a').style.maxHeight = null;
+          other.querySelector('.plw-faq__q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('plw-open');
+          a.style.maxHeight = a.scrollHeight + 'px';
+          q.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Scroll reveal                                                      */
+  /* ------------------------------------------------------------------ */
+  function setupReveal() {
+    var els = document.querySelectorAll('.plw-reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('plw-visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('plw-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Sticky mobile CTA — appears once the visitor scrolls past the hero */
+  /* ------------------------------------------------------------------ */
+  function setupStickyCta() {
+    var bar = document.getElementById('plwStickyCta');
+    var hero = document.querySelector('.plw-hero');
+    var registerCard = document.getElementById('plwRegisterCard');
+    if (!bar || !hero) return;
+    var heroHeight = hero.offsetHeight;
+    var ticking = false;
+
+    function isRegisterVisible() {
+      if (!registerCard) return false;
+      var rect = registerCard.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var pastHero = window.scrollY > heroHeight * 0.6;
+        bar.classList.toggle('plw-show', pastHero && !isRegisterVisible());
+        ticking = false;
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Smooth scroll for in-page anchors                                  */
+  /* ------------------------------------------------------------------ */
+  function setupSmoothScroll() {
+    document.querySelectorAll('.plw-root a[href^="#plw-"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.pageYOffset - 16;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function init() {
+    setupCountdown();
+    setupFaq();
+    setupReveal();
+    setupStickyCta();
+    setupSmoothScroll();
+    var yearEl = document.getElementById('plwYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

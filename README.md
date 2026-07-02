@@ -7,8 +7,22 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html                                        ← webinar funnel hub (HTML + CSS + JS, one file)
+how-to-read-your-hotel-pl-in-30-minutes-page.html ← "How to Read Your Hotel P&L in 30 Minutes"
+                                                     registration landing page (HTML + CSS + JS, one file)
 ```
+
+`how-to-read-your-hotel-pl-in-30-minutes-page.html` is the standalone registration
+page that `index.html`'s promo bar and webinar card link out to for the July 22
+live session. It's built the same way as `index.html` — a self-contained
+fragment for one GoHighLevel Custom HTML element — but scoped under a
+`.plw-` prefix (`--plw-*` custom properties) instead of `.hfc-`, so both
+snippets can safely live on the same GHL site without any CSS collisions. It
+embeds the GHL registration iframe form directly (see the
+`<!-- ==== EMBEDDED REGISTRATION FORM (GoHighLevel) ==== -->` comment) rather
+than linking offsite, and includes a live countdown timer to the webinar's
+start time. See the comment block at the top of that file for its own image
+map, editing notes, and section guide.
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
 wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),

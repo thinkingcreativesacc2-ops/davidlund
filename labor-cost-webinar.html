@@ -433,11 +433,20 @@
   .lcw-card__thumb {
     padding: 16px 16px 0;
   }
-  .lcw-card__thumb img {
+  .lcw-card__thumb-frame {
     border-radius: var(--lcw-radius);
-    width: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    background: var(--lcw-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .lcw-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
   .lcw-card__body { padding: 22px 26px 28px; }
   .lcw-card__body h2 {
@@ -914,13 +923,18 @@
       <!-- Right column: premium registration card -->
       <div class="lcw-card" id="lcw-register">
 
-        <!-- 1. Webinar thumbnail, padded so it feels premium rather than edge-to-edge -->
+        <!-- 1. Webinar thumbnail, padded so it feels premium rather than edge-to-edge.
+             object-fit: contain keeps the full image visible, unstretched and
+             uncropped, letterboxed on a soft cream background if its native
+             ratio isn't exactly 16:9. -->
         <div class="lcw-card__thumb">
-          <img
-            src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png"
-            alt="The Labor Cost Problem Nobody Talks About — free live webinar with David Lund, The Hotel Financial Coach"
-            loading="eager"
-            width="640" height="360">
+          <div class="lcw-card__thumb-frame">
+            <img
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png"
+              alt="The Labor Cost Problem Nobody Talks About — free live webinar with David Lund, The Hotel Financial Coach"
+              loading="eager"
+              width="640" height="360">
+          </div>
         </div>
 
         <div class="lcw-card__body">

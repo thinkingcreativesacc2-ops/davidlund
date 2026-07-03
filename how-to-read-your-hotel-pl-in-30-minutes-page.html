@@ -451,10 +451,31 @@
     box-shadow: 0 40px 90px -20px rgba(0,0,0,0.55);
     padding: 28px;
   }
+  .plw-register__thumb {
+    position: relative;
+    margin: -28px -28px 18px;
+    border-radius: var(--plw-radius) var(--plw-radius) 0 0;
+    overflow: hidden;
+    aspect-ratio: 21/8;
+  }
+  .plw-register__thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .plw-register__thumb-tag {
+    position: absolute;
+    left: 14px; bottom: 12px;
+    background: var(--plw-gold);
+    color: var(--plw-burgundy-deep);
+    font-family: var(--plw-font-head);
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
   .plw-register__card-head { text-align: center; margin-bottom: 18px; }
   .plw-register__card-head strong { display: block; font-family: var(--plw-font-head); font-size: 17px; color: var(--plw-ink); margin-bottom: 4px; }
   .plw-register__card-head span { font-size: 13px; color: var(--plw-gray); }
-  .plw-register__frame { position: relative; width: 100%; height: 460px; border-radius: var(--plw-radius-sm); overflow: visible; }
+  .plw-register__frame { position: relative; width: 100%; height: 444px; border-radius: var(--plw-radius-sm); overflow: visible; }
   .plw-register__frame iframe { display: block; width: 100%; height: 100%; }
   .plw-register__trust { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--plw-border); }
   .plw-register__trust li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--plw-gray); }
@@ -633,6 +654,11 @@
                since GHL forms should not be duplicated with the same iframe
                id on one page. -->
           <div class="plw-register__card" id="plw-hero-register" tabindex="-1">
+            <div class="plw-register__thumb">
+              <!-- IMAGE: featured webinar thumbnail -->
+              <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png" alt="Webinar graphic: How to Read Your Hotel P&amp;L in 30 Minutes, with David Lund, The Hotel Financial Coach">
+              <span class="plw-register__thumb-tag">Free Live Webinar</span>
+            </div>
             <div class="plw-register__card-head">
               <strong>Register FREE Today</strong>
               <span>Wednesday, July 22, 2026 &middot; 10:00&ndash;11:00 AM EST</span>

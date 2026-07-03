@@ -1,13 +1,16 @@
 # The Hotel Financial Coach — Webinar Funnel Landing Page
 
-A single, self-contained landing page (`index.html`) built to be pasted into one
-GoHighLevel **Custom HTML** element. It links out to the replay and to each live
-webinar's own registration page — this page itself has no opt-in form.
+Two single, self-contained landing pages built to be pasted into GoHighLevel
+**Custom HTML** elements.
 
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html                                       ← webinar hub/funnel page (no opt-in form; links out to
+                                                    the replay and to each live webinar's own registration page)
+how-to-build-a-hotel-budget-like-a-leader.html   ← dedicated registration page for the "How to Build a Hotel
+                                                    Budget Like a Leader" webinar (Wed, Aug 19, 2026, 10–11 AM
+                                                    EST), with the live GHL registration form embedded on-page
 ```
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
@@ -68,3 +71,39 @@ links and the replay link are also grouped at the top of the `<script>` block in
 single `WEBINARS` config object — update dates, titles, or URLs there and the page
 re-renders the cards automatically, so you never have to hunt through markup to
 change a date.
+
+---
+
+## `how-to-build-a-hotel-budget-like-a-leader.html`
+
+The dedicated registration page for the "How to Build a Hotel Budget Like a
+Leader" webinar (Wed, Aug 19, 2026, 10–11 AM EST). Unlike `index.html`, this
+page carries the live GoHighLevel registration form embedded directly in its
+"Register FREE Today" section — visitors register on-page, no click-through
+to another URL.
+
+It follows the same fragment pattern and `.hfc-`/`--hfc-*` scoping as
+`index.html` (safe to paste directly into a GHL Custom HTML element), and
+reuses the same brand tokens (burgundy `#8B0000`, gold `#C89B2A`, white),
+fonts (Montserrat headlines / Inter body — see the font note in the file's
+header comment), and component patterns (buttons, reveal-on-scroll, FAQ
+accordion, sticky CTA) as the hub page, so the two stay visually consistent.
+
+**Sections:** top bar → hero (with live countdown + framed webinar thumbnail)
+→ quick-facts strip → Why Budgeting Matters → What You'll Learn → Meet David
+Lund → Benefits of Attending → Registration (embedded form) → FAQ → final CTA
+→ footer. A sticky CTA bar appears once visitors scroll past the hero and
+hides again once the registration form scrolls into view.
+
+**Images used:** the same Hotel Financial Coach logo, the "How to Build a
+Hotel Budget Like a Leader" webinar thumbnail, and David Lund's professional
+headshot — all already hosted on GHL Media Storage, same URLs as in
+`index.html`.
+
+**Countdown timer:** targets Aug 19, 2026, 10:00 AM Eastern, hardcoded near
+the top of the `<script>` block (`setupCountdown`) as a UTC epoch — update
+that one `Date.UTC(...)` call if the date/time ever changes.
+
+**Registration form:** the GHL iframe embed snippet is included byte-for-byte
+inside `<!-- ==== SECTION: REGISTRATION ==== -->`, wrapped in a padded white
+card so it's visually integrated rather than looking like a bolted-on widget.

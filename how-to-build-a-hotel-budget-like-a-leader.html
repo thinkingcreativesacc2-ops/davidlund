@@ -219,33 +219,34 @@
   .hfc-hero__micro span { display: inline-flex; align-items: center; gap: 7px; }
   .hfc-hero__micro svg { width: 15px; height: 15px; fill: var(--hfc-gold); flex-shrink: 0; }
 
-  /* Hero media card — thumbnail sits inside a padded white card so it never
-     touches the card edges (per brief: "clean, intentional, premium" spacing) */
+  /* Hero media card — the live registration form sits inside a padded white
+     card, above the fold, so visitors never have to scroll to register. */
   .hfc-hero__media { position: relative; }
   .hfc-hero__card {
     background: var(--hfc-white);
     border-radius: var(--hfc-radius);
-    padding: 18px;
+    padding: 26px;
     box-shadow: 0 40px 80px -30px rgba(0,0,0,0.55);
   }
-  .hfc-hero__thumb { border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; background: var(--hfc-cream); }
-  .hfc-hero__thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .hfc-hero__badge {
-    position: absolute; left: -16px; top: -16px;
+  .hfc-hero__card-head { text-align: center; margin-bottom: 18px; }
+  .hfc-hero__card-tag {
+    display: inline-block;
     background: var(--hfc-gold);
     color: var(--hfc-burgundy-deep);
     font-family: var(--hfc-font-head);
     font-weight: 800;
-    font-size: 12px;
+    font-size: 11.5px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 9px 16px;
+    padding: 8px 16px;
     border-radius: 100px;
-    box-shadow: 0 10px 24px -8px rgba(200,155,42,0.6);
+    margin-bottom: 14px;
   }
+  .hfc-hero__card-head h3 { font-size: 22px; margin-bottom: 6px; }
+  .hfc-hero__card-head p { font-size: 14px; color: var(--hfc-gray); }
 
-  /* Countdown, embedded in the hero card beneath the thumbnail */
-  .hfc-countdown { display: flex; justify-content: center; gap: 10px; margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--hfc-border); }
+  /* Countdown — sits between the card header and the form as a soft divider */
+  .hfc-countdown { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--hfc-border); }
   .hfc-countdown__label-row { text-align: center; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hfc-gray-light); font-weight: 700; margin-bottom: 10px; }
   .hfc-countdown__item { text-align: center; min-width: 54px; }
   .hfc-countdown__num { font-family: var(--hfc-font-head); font-size: clamp(20px, 3vw, 26px); font-weight: 800; color: var(--hfc-burgundy); font-variant-numeric: tabular-nums; }
@@ -363,6 +364,10 @@
   .hfc-register__card h3 { font-size: 21px; text-align: center; margin-bottom: 6px; }
   .hfc-register__card > p.hfc-register__tag { text-align: center; color: var(--hfc-gray); font-size: 13.5px; margin-bottom: 22px; }
   .hfc-register__frame { width: 100%; min-height: 434px; border-radius: 8px; overflow: hidden; }
+  /* Padded frame around the webinar thumbnail in the recap card — keeps the
+     image from touching the card edges (clean, intentional, premium spacing) */
+  .hfc-recap__thumb { background: var(--hfc-cream); border-radius: var(--hfc-radius-sm); padding: 10px; margin-bottom: 22px; }
+  .hfc-recap__thumb img { width: 100%; border-radius: 8px; aspect-ratio: 16/9; object-fit: cover; }
   .hfc-register__privacy { display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 18px; font-size: 12.5px; color: var(--hfc-gray-light); }
   .hfc-register__privacy svg { width: 14px; height: 14px; fill: var(--hfc-gray-light); flex-shrink: 0; }
 
@@ -451,7 +456,7 @@
     .hfc-section-head { margin-bottom: 40px; }
     .hfc-hero { padding: 48px 0 72px; }
     .hfc-hero__ctas .hfc-btn, .hfc-final__ctas .hfc-btn { width: 100%; }
-    .hfc-hero__card { padding: 12px; }
+    .hfc-hero__card { padding: 16px; }
     .hfc-countdown { gap: 6px; }
     .hfc-countdown__item { min-width: 46px; }
     .hfc-facts__row { grid-template-columns: repeat(2, 1fr); }
@@ -504,20 +509,47 @@
           </div>
         </div>
 
-        <div class="hfc-hero__media">
-          <span class="hfc-hero__badge">Free &middot; Live &middot; Aug 19</span>
+        <div class="hfc-hero__media" id="hfc-register">
           <div class="hfc-hero__card">
-            <!-- IMAGE: Webinar thumbnail, padded so it never touches the card edges. -->
-            <div class="hfc-hero__thumb">
-              <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png" alt="Webinar preview: How to Build a Hotel Budget Like a Leader, with David Lund, The Hotel Financial Coach">
+            <div class="hfc-hero__card-head">
+              <span class="hfc-hero__card-tag">Free &middot; Live &middot; Aug 19</span>
+              <h3>Save Your FREE Spot</h3>
+              <p>Enter your details below &mdash; it only takes a moment.</p>
             </div>
-            <p class="hfc-countdown__label-row" style="margin-top:16px;">Live Session Starts In</p>
+
+            <p class="hfc-countdown__label-row">Live Session Starts In</p>
             <div class="hfc-countdown" id="hfcCountdown" aria-live="polite">
               <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="days">00</div><div class="hfc-countdown__unit">Days</div></div>
               <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="hours">00</div><div class="hfc-countdown__unit">Hrs</div></div>
               <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="minutes">00</div><div class="hfc-countdown__unit">Min</div></div>
               <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="seconds">00</div><div class="hfc-countdown__unit">Sec</div></div>
             </div>
+
+            <!-- GHL registration form embed — included exactly as provided. -->
+            <div class="hfc-register__frame">
+              <iframe
+                  src="https://link.thinkingcreatives.com/widget/form/0JzQO03Fby6VwLYj6x48"
+                  style="width:100%;height:100%;border:none;border-radius:8px"
+                  id="inline-0JzQO03Fby6VwLYj6x48"
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name="How to Build a Hotel Budget Like a Leader"
+                  data-height="434"
+                  data-layout-iframe-id="inline-0JzQO03Fby6VwLYj6x48"
+                  data-form-id="0JzQO03Fby6VwLYj6x48"
+                  title="How to Build a Hotel Budget Like a Leader">
+              </iframe>
+            </div>
+
+            <p class="hfc-register__privacy">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l7 3v5c0 5-3.4 8.7-7 10-3.6-1.3-7-5-7-10V4l7-3zm0 2.2L5 5v4c0 3.7 2.3 6.6 5 7.8 2.7-1.2 5-4.1 5-7.8V5l-5-1.8z"/></svg>
+              We respect your privacy. Your information is never sold or shared.
+            </p>
           </div>
         </div>
       </div>
@@ -708,8 +740,12 @@
       </div>
     </section>
 
-    <!-- ==== SECTION: REGISTRATION ==== -->
-    <section class="hfc-section hfc-register" id="hfc-register">
+    <!-- ==== SECTION: REGISTRATION RECAP ====
+         The live form itself lives in the hero (id="hfc-register") so it's visible
+         above the fold. This section re-engages visitors who scrolled past it,
+         summarizing the offer and sending them back up to the same form rather
+         than duplicating the GHL iframe (form iframe IDs must stay unique). -->
+    <section class="hfc-section hfc-register" id="hfc-register-recap">
       <div class="hfc-container hfc-register__grid">
         <div class="hfc-register__info hfc-reveal">
           <p class="hfc-eyebrow">Reserve Your Seat</p>
@@ -723,31 +759,17 @@
           </ul>
         </div>
 
-        <div class="hfc-register__card hfc-reveal">
-          <h3>Save Your FREE Spot</h3>
-          <p class="hfc-register__tag">Enter your details below &mdash; it only takes a moment.</p>
-
-          <!-- GHL registration form embed — included exactly as provided. -->
-          <div class="hfc-register__frame">
-            <iframe
-                src="https://link.thinkingcreatives.com/widget/form/0JzQO03Fby6VwLYj6x48"
-                style="width:100%;height:100%;border:none;border-radius:8px"
-                id="inline-0JzQO03Fby6VwLYj6x48"
-                data-layout="{'id':'INLINE'}"
-                data-trigger-type="alwaysShow"
-                data-trigger-value=""
-                data-activation-type="alwaysActivated"
-                data-activation-value=""
-                data-deactivation-type="neverDeactivate"
-                data-deactivation-value=""
-                data-form-name="How to Build a Hotel Budget Like a Leader"
-                data-height="434"
-                data-layout-iframe-id="inline-0JzQO03Fby6VwLYj6x48"
-                data-form-id="0JzQO03Fby6VwLYj6x48"
-                title="How to Build a Hotel Budget Like a Leader">
-            </iframe>
+        <div class="hfc-register__card hfc-register__card--recap hfc-reveal">
+          <!-- IMAGE: Webinar thumbnail, padded so it never touches the card edges. -->
+          <div class="hfc-recap__thumb">
+            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png" alt="Webinar preview: How to Build a Hotel Budget Like a Leader, with David Lund, The Hotel Financial Coach">
           </div>
-
+          <h3>Ready to Reserve Your Seat?</h3>
+          <p class="hfc-register__tag">The registration form is up top &mdash; one click and you're back there.</p>
+          <a href="#hfc-register" class="hfc-btn hfc-btn--primary hfc-btn--block hfc-btn--lg">
+            Reserve Your FREE Seat
+            <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
+          </a>
           <p class="hfc-register__privacy">
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l7 3v5c0 5-3.4 8.7-7 10-3.6-1.3-7-5-7-10V4l7-3zm0 2.2L5 5v4c0 3.7 2.3 6.6 5 7.8 2.7-1.2 5-4.1 5-7.8V5l-5-1.8z"/></svg>
             We respect your privacy. Your information is never sold or shared.

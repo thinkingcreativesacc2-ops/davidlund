@@ -137,25 +137,31 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
     white-space: nowrap;
   }
-  .hfc-btn--primary {
+  /* Selectors below are scoped with ".hfc-root" (not just ".hfc-btn--*") so
+     their "color" declarations reliably outrank the ".hfc-root a { color:
+     inherit }" reset above - a lone class selector loses to an element+class
+     selector by CSS specificity rules regardless of source order, which
+     previously made every <a class="hfc-btn ..."> silently ignore its
+     intended text color and inherit the surrounding section's color instead. */
+  .hfc-root .hfc-btn--primary {
     background: var(--hfc-burgundy);
     color: var(--hfc-white);
     box-shadow: 0 12px 28px -10px rgba(139, 0, 0, 0.55);
   }
   .hfc-btn--primary:hover { background: var(--hfc-burgundy-dark); transform: translateY(-2px); box-shadow: 0 16px 34px -10px rgba(139, 0, 0, 0.65); }
-  .hfc-btn--ghost {
+  .hfc-root .hfc-btn--ghost {
     background: transparent;
     color: var(--hfc-ink);
     border: 1.5px solid var(--hfc-ink);
   }
   .hfc-btn--ghost:hover { background: var(--hfc-ink); color: var(--hfc-white); transform: translateY(-2px); }
-  .hfc-btn--on-dark {
+  .hfc-root .hfc-btn--on-dark {
     background: transparent;
     color: var(--hfc-white);
     border: 1.5px solid rgba(255,255,255,0.55);
   }
   .hfc-btn--on-dark:hover { background: rgba(255,255,255,0.12); border-color: var(--hfc-white); transform: translateY(-2px); }
-  .hfc-btn--gold {
+  .hfc-root .hfc-btn--gold {
     background: var(--hfc-gold);
     color: var(--hfc-burgundy-deep);
     box-shadow: 0 12px 28px -10px rgba(200, 155, 42, 0.55);
@@ -733,7 +739,7 @@
         <span class="hfc-promo__tag">Free Live Webinar</span>
         <span class="hfc-promo__datetime">Wed, July 22 &middot; 10&ndash;11 AM EST &mdash; </span><strong>How to Read Your Hotel P&amp;L in 30 Minutes</strong>
       </p>
-      <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta">
+      <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta">
         Save My Seat
         <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
       </a>
@@ -751,7 +757,7 @@
           <p class="hfc-hero__sub">David Lund, The Hotel Financial Coach, teaches hotel leaders how to master hotel finance &mdash; without an accounting degree, jargon, or fear of the P&amp;L.</p>
           <p class="hfc-hero__body">In each free session you'll learn the same practical frameworks David has taught to thousands of hospitality leaders: how to read a financial statement in minutes, build a budget ownership trusts, control labor cost, and walk into every ownership meeting prepared.</p>
           <div class="hfc-hero__ctas">
-            <a href="#hfc-webinars" class="hfc-btn hfc-btn--gold">
+            <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
               Reserve Your Seat
               <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
             </a>
@@ -970,7 +976,7 @@
         <h2>Your Next Promotion Starts With Understanding the Numbers.</h2>
         <p>Reserve your seat for an upcoming live session, or start right now with the free replay. Live Q&amp;A spots are limited to keep every session personal.</p>
         <div class="hfc-final__ctas">
-          <a href="#hfc-webinars" class="hfc-btn hfc-btn--gold">
+          <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
             Reserve Your Seat
             <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
           </a>
@@ -1063,7 +1069,7 @@
   <!-- ==== STICKY MOBILE CTA ==== -->
   <div class="hfc-sticky-cta" id="hfcStickyCta">
     <span class="hfc-sticky-cta__text">Ready to lead with confidence?</span>
-    <a href="#hfc-webinars" class="hfc-btn hfc-btn--primary">Reserve Your Seat</a>
+    <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary">Reserve Your Seat</a>
   </div>
 
 </div>

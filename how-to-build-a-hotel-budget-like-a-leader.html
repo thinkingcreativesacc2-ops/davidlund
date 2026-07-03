@@ -172,6 +172,34 @@
   .hfc-btn:hover svg.hfc-arrow { transform: translateX(4px); }
 
   /* ==========================================================================
+     ANNOUNCEMENT / COUNTDOWN BANNER (slim strip pinned above everything else)
+     ========================================================================== */
+  .hfc-announce { background: var(--hfc-burgundy-deep); }
+  .hfc-announce__inner {
+    max-width: var(--hfc-container);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding: 10px 24px;
+  }
+  .hfc-announce__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--hfc-font-head);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--hfc-gold-light);
+    white-space: nowrap;
+  }
+  .hfc-announce__label svg { width: 14px; height: 14px; fill: var(--hfc-gold-light); flex-shrink: 0; }
+
+  /* ==========================================================================
      TOP BAR (logo only — a single-webinar page keeps zero competing nav links)
      ========================================================================== */
   .hfc-topbar { background: var(--hfc-white); border-bottom: 1px solid var(--hfc-border); padding: 18px 24px; }
@@ -245,12 +273,17 @@
   .hfc-hero__card-head h3 { font-size: 22px; margin-bottom: 6px; }
   .hfc-hero__card-head p { font-size: 14px; color: var(--hfc-gray); }
 
-  /* Countdown — sits between the card header and the form as a soft divider */
-  .hfc-countdown { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--hfc-border); }
-  .hfc-countdown__label-row { text-align: center; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hfc-gray-light); font-weight: 700; margin-bottom: 10px; }
-  .hfc-countdown__item { text-align: center; min-width: 54px; }
-  .hfc-countdown__num { font-family: var(--hfc-font-head); font-size: clamp(20px, 3vw, 26px); font-weight: 800; color: var(--hfc-burgundy); font-variant-numeric: tabular-nums; }
-  .hfc-countdown__unit { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hfc-gray); font-weight: 600; }
+  /* Padded frame around the webinar thumbnail — used at the top of the hero
+     form card, and again in the registration recap card further down. */
+  .hfc-thumb-frame { background: var(--hfc-cream); border-radius: var(--hfc-radius-sm); padding: 10px; margin-bottom: 20px; }
+  .hfc-thumb-frame img { width: 100%; border-radius: 8px; aspect-ratio: 16/9; object-fit: cover; }
+
+  /* Compact inline countdown — lives in the top announcement banner */
+  .hfc-countdown { display: flex; align-items: baseline; gap: 7px; }
+  .hfc-countdown__item { display: inline-flex; align-items: baseline; gap: 3px; }
+  .hfc-countdown__item:not(:last-child)::after { content: ':'; margin-left: 7px; color: rgba(255,255,255,0.35); font-weight: 700; }
+  .hfc-countdown__num { font-family: var(--hfc-font-head); font-size: 14.5px; font-weight: 800; color: var(--hfc-white); font-variant-numeric: tabular-nums; }
+  .hfc-countdown__unit { font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 600; }
 
   /* ==========================================================================
      QUICK FACTS STRIP
@@ -364,10 +397,6 @@
   .hfc-register__card h3 { font-size: 21px; text-align: center; margin-bottom: 6px; }
   .hfc-register__card > p.hfc-register__tag { text-align: center; color: var(--hfc-gray); font-size: 13.5px; margin-bottom: 22px; }
   .hfc-register__frame { width: 100%; min-height: 434px; border-radius: 8px; overflow: hidden; }
-  /* Padded frame around the webinar thumbnail in the recap card — keeps the
-     image from touching the card edges (clean, intentional, premium spacing) */
-  .hfc-recap__thumb { background: var(--hfc-cream); border-radius: var(--hfc-radius-sm); padding: 10px; margin-bottom: 22px; }
-  .hfc-recap__thumb img { width: 100%; border-radius: 8px; aspect-ratio: 16/9; object-fit: cover; }
   .hfc-register__privacy { display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 18px; font-size: 12.5px; color: var(--hfc-gray-light); }
   .hfc-register__privacy svg { width: 14px; height: 14px; fill: var(--hfc-gray-light); flex-shrink: 0; }
 
@@ -457,8 +486,9 @@
     .hfc-hero { padding: 48px 0 72px; }
     .hfc-hero__ctas .hfc-btn, .hfc-final__ctas .hfc-btn { width: 100%; }
     .hfc-hero__card { padding: 16px; }
-    .hfc-countdown { gap: 6px; }
-    .hfc-countdown__item { min-width: 46px; }
+    .hfc-announce__inner { padding: 8px 18px; justify-content: center; text-align: center; }
+    .hfc-countdown { gap: 5px; }
+    .hfc-countdown__item:not(:last-child)::after { margin-left: 5px; }
     .hfc-facts__row { grid-template-columns: repeat(2, 1fr); }
     .hfc-fact { justify-content: flex-start; }
     .hfc-cards, .hfc-cards--4 { grid-template-columns: 1fr; }
@@ -471,6 +501,22 @@
 
 <div class="hfc-root">
   <a class="hfc-skip" href="#hfc-register">Skip to registration form</a>
+
+  <!-- ==== SECTION: ANNOUNCEMENT / COUNTDOWN BANNER ==== -->
+  <div class="hfc-announce">
+    <div class="hfc-container hfc-announce__inner">
+      <span class="hfc-announce__label">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg>
+        FREE Live Webinar Starts In
+      </span>
+      <div class="hfc-countdown" id="hfcCountdown" aria-live="polite">
+        <div class="hfc-countdown__item"><span class="hfc-countdown__num" data-cd="days">00</span><span class="hfc-countdown__unit">Days</span></div>
+        <div class="hfc-countdown__item"><span class="hfc-countdown__num" data-cd="hours">00</span><span class="hfc-countdown__unit">Hrs</span></div>
+        <div class="hfc-countdown__item"><span class="hfc-countdown__num" data-cd="minutes">00</span><span class="hfc-countdown__unit">Min</span></div>
+        <div class="hfc-countdown__item"><span class="hfc-countdown__num" data-cd="seconds">00</span><span class="hfc-countdown__unit">Sec</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==== SECTION: TOP BAR ==== -->
   <div class="hfc-topbar">
@@ -517,12 +563,9 @@
               <p>Enter your details below &mdash; it only takes a moment.</p>
             </div>
 
-            <p class="hfc-countdown__label-row">Live Session Starts In</p>
-            <div class="hfc-countdown" id="hfcCountdown" aria-live="polite">
-              <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="days">00</div><div class="hfc-countdown__unit">Days</div></div>
-              <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="hours">00</div><div class="hfc-countdown__unit">Hrs</div></div>
-              <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="minutes">00</div><div class="hfc-countdown__unit">Min</div></div>
-              <div class="hfc-countdown__item"><div class="hfc-countdown__num" data-cd="seconds">00</div><div class="hfc-countdown__unit">Sec</div></div>
+            <!-- IMAGE: Webinar thumbnail, padded so it never touches the card edges. -->
+            <div class="hfc-thumb-frame">
+              <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png" alt="Webinar preview: How to Build a Hotel Budget Like a Leader, with David Lund, The Hotel Financial Coach">
             </div>
 
             <!-- GHL registration form embed — included exactly as provided. -->
@@ -761,7 +804,7 @@
 
         <div class="hfc-register__card hfc-register__card--recap hfc-reveal">
           <!-- IMAGE: Webinar thumbnail, padded so it never touches the card edges. -->
-          <div class="hfc-recap__thumb">
+          <div class="hfc-thumb-frame">
             <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png" alt="Webinar preview: How to Build a Hotel Budget Like a Leader, with David Lund, The Hotel Financial Coach">
           </div>
           <h3>Ready to Reserve Your Seat?</h3>

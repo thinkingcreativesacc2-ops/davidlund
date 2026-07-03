@@ -1,13 +1,25 @@
 # The Hotel Financial Coach — Webinar Funnel Landing Page
 
-A single, self-contained landing page (`index.html`) built to be pasted into one
-GoHighLevel **Custom HTML** element. It links out to the replay and to each live
-webinar's own registration page — this page itself has no opt-in form.
+This repo contains two self-contained landing pages, each built to be pasted
+into its own GoHighLevel **Custom HTML** element:
+
+- `index.html` — the multi-webinar funnel hub page. It links out to the replay
+  and to each live webinar's own registration page and has no opt-in form of
+  its own.
+- `labor-cost-webinar.html` — a dedicated registration page for the single
+  live webinar "The Labor Cost Problem Nobody Talks About" (Wed, Sept 16,
+  2026, 10:00–11:00 AM EST), with the GoHighLevel registration form embedded
+  directly in the hero. Sections: hero + registration card, Why Labor Costs
+  Matter, Who This Is For, Common Labor Cost Mistakes, What You'll Learn,
+  Meet David Lund, Why Attend, FAQ, and a Final CTA. Uses its own `lcw-`
+  CSS/class prefix so it never collides with `index.html`'s `hfc-` prefix if
+  both ever end up on the same GHL page.
 
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html                ← multi-webinar hub page (HTML + CSS + JS, one file)
+labor-cost-webinar.html   ← single-webinar registration page w/ embedded form
 ```
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already

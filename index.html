@@ -249,7 +249,12 @@
     .dlw-hero__grid {
       grid-template-columns: 1.05fr 0.95fr;
       grid-template-areas: "intro reg" "details reg";
-      gap: 56px;
+      /* Column gap separates the copy from the card; row gap stays minimal
+         since .dlw-hero__datetime already carries its own margin-bottom —
+         a full row gap on top of that margin left a large empty band
+         between the date/time chips and the "Join David Lund..." copy. */
+      column-gap: 56px;
+      row-gap: 0;
       align-items: start;
     }
   }

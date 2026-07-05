@@ -54,12 +54,13 @@ form initializes.
 ## Typography
 
 "Gotham" is a licensed commercial typeface and isn't available on Google
-Fonts. This page uses **Jost** for headlines (a free geometric sans with
-Gotham-like proportions) and **Inter** for body copy. If you later license
-Gotham (e.g. an Adobe Fonts/Typekit kit), add the kit's `<link>` above the
-Google Fonts `<link>` in `index.html` and swap the family names in the
-`--dlw-font-head` / `--dlw-font-body` custom properties — nothing else needs
-to change.
+Fonts. This page uses **Montserrat** for headlines and **Inter** for body
+copy — the same substitute pairing used on this brand's other webinar funnel
+pages, chosen to keep visual branding consistent across the whole series. If
+you later license Gotham (e.g. an Adobe Fonts/Typekit kit), add the kit's
+`<link>` above the Google Fonts `<link>` in `index.html` and swap the family
+names in the `--dlw-font-head` / `--dlw-font-body` custom properties —
+nothing else needs to change.
 
 ## Page structure
 

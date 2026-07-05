@@ -325,13 +325,20 @@
       background: var(--hfty-white);
     }
     .hfty-steps__grid {
+      /* Flexbox instead of grid: with 5 cards, grid's auto-fit would pack
+         4-then-1 (an uneven, left-heavy last row). Flex-wrap + a centered
+         justify-content lets rows settle as 3-then-2, with the shorter row
+         centered instead of stranded on the left. */
       margin-top: 52px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 22px;
     }
     .hfty-step {
       position: relative;
+      flex: 1 1 300px;
+      max-width: 340px;
       background: var(--hfty-cream);
       border: 1px solid var(--hfty-border);
       border-radius: var(--hfty-radius);

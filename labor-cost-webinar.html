@@ -644,6 +644,12 @@
   .lcw-about__media img {
     border-radius: var(--lcw-radius-lg);
     width: 100%;
+    height: auto;
+    /* Overrides the browser's default aspect-ratio hint from the width/height
+       HTML attributes (used to prevent layout shift) so the photo always
+       renders at its true natural proportions instead of being stretched to
+       fit a mismatched box. */
+    aspect-ratio: auto;
     box-shadow: var(--lcw-shadow);
   }
   .lcw-about__badge {

@@ -85,9 +85,8 @@ Notable choices, all confirmed with the client:
 - **No countdown timer / hardcoded date** — copy points people to their inbox
   for the exact date & time, so one page can be reused for any webinar without
   edits.
-- **System-font stack only** (no Google Fonts request) — "Gotham" isn't a free
-  web font, so the closest premium system equivalents are used instead, kept
-  100% self-contained with zero external requests.
+- **Montserrat (headlines) + Inter (body)** via Google Fonts — same typography
+  approach as `index.html`, since "Gotham" isn't a free web font.
 - **Both supplied David Lund photos are used** — the on-stage/speaking photo in
   the hero (energy/excitement), the professional headshot in "Meet David Lund"
   (credibility/trust).

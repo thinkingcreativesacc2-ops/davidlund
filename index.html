@@ -369,23 +369,24 @@
   }
   .dlw-regcard__media {
     background: var(--dlw-cream);
-    padding: 18px 18px 0;
+    padding: 14px 14px 0;
   }
   .dlw-regcard__media-frame {
     width: 100%;
-    height: 230px;
     border-radius: var(--dlw-radius-sm);
     overflow: hidden;
     background: var(--dlw-white);
     border: 1px solid var(--dlw-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    /* No fixed height/inner padding here — a fixed-height box forced
+       letterboxing whenever the thumbnail's real aspect ratio didn't match
+       it. Letting height default to auto means the frame always hugs the
+       image's true proportions, so it reads as a tight, intentional crop
+       (small outer padding above) rather than a photo mat. */
   }
   .dlw-regcard__media-frame img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
     object-fit: contain;
   }
   .dlw-regcard__body { padding: 26px 28px 30px; }

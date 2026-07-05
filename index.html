@@ -1,224 +1,227 @@
 <!--
   ============================================================================
-  THE HOTEL FINANCIAL COACH &mdash; WEBINAR FUNNEL LANDING PAGE
+  THE HOTEL FINANCIAL COACH — "THE 5 NUMBERS EVERY GM SHOULD KNOW"
+  Free Live Webinar Registration Landing Page
   ============================================================================
   Built as a single, self-contained FRAGMENT (not a full HTML document) so it
   can be pasted directly into one GoHighLevel "Custom HTML" element. GHL
-  injects this snippet into an existing page, so we intentionally omit
-  <!DOCTYPE>/<html>/<head>/<body> wrappers and instead scope every style under
-  the ".hfc-" prefix / "--hfc-" CSS custom properties to avoid colliding with
-  anything else already on the page.
+  injects this snippet into an existing page (which already has its own
+  <html>/<head>/<body>), so we intentionally omit those wrappers and instead
+  scope every style under the ".dlw-" prefix / "--dlw-" CSS custom properties
+  to avoid colliding with anything else already on the page.
 
   FONT NOTE: "Gotham" is a licensed commercial typeface and isn't available on
-  Google Fonts, so it can't be embedded here. "Montserrat" is used for
-  headlines (closest free geometric-sans match to Gotham's proportions) and
-  "Inter" for body copy (excellent readability at small sizes). If your
-  organization owns a Gotham web-font license, drop the @font-face block in
-  and swap the family names in :root &mdash; nothing else needs to change.
+  Google Fonts, so it can't be embedded here without a paid Adobe Fonts kit.
+  "Jost" (headlines) and "Inter" (body) are used instead — Jost is a free
+  geometric sans with the same rounded-circle "O" and confident proportions
+  that make Gotham distinctive, and Inter is one of the most readable body
+  faces at small sizes. If your organization later licenses Gotham (e.g. via
+  Adobe Fonts / Typekit), just add the kit's <link> tag above the Google
+  Fonts import and swap the family names in the :root block below — nothing
+  else needs to change.
 
-  IMAGES: all photos/logo are already wired to hosted GHL Media Storage URLs
-  (assets.cdn.filesafe.space/&hellip;). To swap any of them later, search this
-  file for the relevant section comment (e.g. "David Lund speaking", "replay
-  thumbnail") and replace the URL in that <img src="..."> &mdash; no local
-  files are used, so nothing needs re-uploading to the repo.
+  IMAGES: the webinar thumbnail and David Lund's photo are hosted on GHL
+  Media Storage. Search this file for "IMAGE:" comments to find and swap them.
 
-  See README.md for the full image map and section guide.
+  FORM: the GoHighLevel registration form embed (iframe + form_embed.js) is
+  used exactly as provided, once, inside the hero registration card. It is
+  intentionally not duplicated elsewhere on the page (duplicate iframe IDs
+  are invalid HTML) — every other call-to-action on the page smooth-scrolls
+  visitors back up to this one form instead.
+
+  See README.md for a full section/image map.
   ============================================================================
 -->
 
 <!-- Preconnect + font import (safe inside a GHL Custom HTML element) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
   /* ==========================================================================
      DESIGN TOKENS
      ========================================================================== */
-  .hfc-root {
-    --hfc-burgundy: #8B0000;
-    --hfc-burgundy-dark: #5c0000;
-    --hfc-burgundy-deep: #3a0a0a;
-    --hfc-gold: #C89B2A;
-    --hfc-gold-light: #E5C978;
-    --hfc-white: #FFFFFF;
-    --hfc-cream: #FBF9F5;
-    --hfc-ink: #201615;
-    --hfc-gray: #6B615D;
-    --hfc-gray-light: #948B86;
-    --hfc-border: #E9E2D8;
-    --hfc-shadow: 0 20px 50px -20px rgba(32, 22, 21, 0.25);
-    --hfc-shadow-sm: 0 8px 24px -12px rgba(32, 22, 21, 0.18);
-    --hfc-font-head: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-    --hfc-font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
-    --hfc-radius: 16px;
-    --hfc-radius-sm: 10px;
-    --hfc-container: 1200px;
+  .dlw-root {
+    --dlw-burgundy: #8B0000;
+    --dlw-burgundy-dark: #650000;
+    --dlw-burgundy-deep: #3a0a0a;
+    --dlw-gold: #C89B2A;
+    --dlw-gold-light: #E5C978;
+    --dlw-white: #FFFFFF;
+    --dlw-cream: #FBF9F4;
+    --dlw-ink: #201615;
+    --dlw-gray: #675E5A;
+    --dlw-gray-light: #948B86;
+    --dlw-border: #EAE3D8;
+    --dlw-shadow: 0 24px 60px -24px rgba(32, 22, 21, 0.28);
+    --dlw-shadow-sm: 0 10px 26px -14px rgba(32, 22, 21, 0.2);
+    --dlw-font-head: 'Jost', 'Segoe UI', Arial, sans-serif;
+    --dlw-font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+    --dlw-radius: 18px;
+    --dlw-radius-sm: 12px;
+    --dlw-container: 1200px;
 
-    font-family: var(--hfc-font-body);
-    color: var(--hfc-ink);
-    background: var(--hfc-white);
+    font-family: var(--dlw-font-body);
+    color: var(--dlw-ink);
+    background: var(--dlw-white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
     overflow-x: hidden;
   }
 
-  .hfc-root, .hfc-root *, .hfc-root *::before, .hfc-root *::after {
+  .dlw-root, .dlw-root *, .dlw-root *::before, .dlw-root *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
-  .hfc-root img { max-width: 100%; display: block; }
-  .hfc-root a { color: inherit; text-decoration: none; }
-  .hfc-root ul { list-style: none; }
-  .hfc-root button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-  .hfc-root svg { display: block; }
+  .dlw-root img { max-width: 100%; display: block; }
+  .dlw-root a { color: inherit; text-decoration: none; }
+  .dlw-root ul { list-style: none; }
+  .dlw-root button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  .dlw-root svg { display: block; }
+  .dlw-root :focus-visible { outline: 2.5px solid var(--dlw-gold); outline-offset: 3px; }
 
-  .hfc-root h1, .hfc-root h2, .hfc-root h3, .hfc-root h4 {
-    font-family: var(--hfc-font-head);
+  .dlw-root h1, .dlw-root h2, .dlw-root h3, .dlw-root h4 {
+    font-family: var(--dlw-font-head);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.01em;
-    color: var(--hfc-ink);
+    color: var(--dlw-ink);
   }
 
-  .hfc-container {
-    max-width: var(--hfc-container);
+  .dlw-container {
+    max-width: var(--dlw-container);
     margin: 0 auto;
     padding: 0 24px;
   }
 
-  .hfc-eyebrow {
+  .dlw-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--hfc-font-head);
+    font-family: var(--dlw-font-head);
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--hfc-burgundy);
+    color: var(--dlw-burgundy);
     margin-bottom: 16px;
   }
-  .hfc-eyebrow::before {
+  .dlw-eyebrow::before {
     content: '';
     width: 28px;
     height: 2px;
-    background: var(--hfc-gold);
+    background: var(--dlw-gold);
     display: inline-block;
+    flex-shrink: 0;
   }
-  .hfc-eyebrow.hfc-on-dark { color: var(--hfc-gold-light); }
+  .dlw-eyebrow.dlw-on-dark { color: var(--dlw-gold-light); }
+  .dlw-eyebrow.dlw-center { justify-content: center; }
 
-  .hfc-section { padding: 100px 0; }
-  .hfc-section--tight { padding: 72px 0; }
-  .hfc-section--cream { background: var(--hfc-cream); }
-  .hfc-section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
-  .hfc-section-head p { color: var(--hfc-gray); font-size: 17px; margin-top: 16px; }
-  .hfc-section-head h2 { font-size: clamp(28px, 3.6vw, 42px); }
+  .dlw-section { padding: 100px 0; }
+  .dlw-section--cream { background: var(--dlw-cream); }
+  .dlw-section-head { max-width: 700px; margin: 0 auto 52px; text-align: center; }
+  .dlw-section-head p { color: var(--dlw-gray); font-size: 17px; margin-top: 16px; }
+  .dlw-section-head h2 { font-size: clamp(28px, 3.6vw, 42px); }
 
   /* Scroll-reveal */
-  .hfc-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .hfc-reveal.hfc-visible { opacity: 1; transform: translateY(0); }
+  .dlw-reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .dlw-reveal.dlw-visible { opacity: 1; transform: translateY(0); }
 
   /* Buttons */
-  .hfc-btn {
+  .dlw-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-family: var(--hfc-font-head);
+    font-family: var(--dlw-font-head);
     font-weight: 700;
-    font-size: 15.5px;
+    font-size: 16px;
     letter-spacing: 0.01em;
-    padding: 17px 32px;
+    padding: 18px 34px;
     border-radius: 100px;
     transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
     white-space: nowrap;
   }
-  /* Selectors below are scoped with ".hfc-root" (not just ".hfc-btn--*") so
-     their "color" declarations reliably outrank the ".hfc-root a { color:
-     inherit }" reset above - a lone class selector loses to an element+class
-     selector by CSS specificity rules regardless of source order, which
-     previously made every <a class="hfc-btn ..."> silently ignore its
-     intended text color and inherit the surrounding section's color instead. */
-  .hfc-root .hfc-btn--primary {
-    background: var(--hfc-burgundy);
-    color: var(--hfc-white);
-    box-shadow: 0 12px 28px -10px rgba(139, 0, 0, 0.55);
+  /* Rules scoped with ".dlw-root" (element + class) so they reliably outrank
+     the ".dlw-root a { color: inherit }" reset above, regardless of source
+     order — a lone ".dlw-btn--primary" selector would otherwise lose the
+     specificity battle and silently inherit the surrounding text color. */
+  .dlw-root .dlw-btn--primary {
+    background: var(--dlw-burgundy);
+    color: var(--dlw-white);
+    box-shadow: 0 14px 30px -10px rgba(139, 0, 0, 0.5);
   }
-  .hfc-btn--primary:hover { background: var(--hfc-burgundy-dark); transform: translateY(-2px); box-shadow: 0 16px 34px -10px rgba(139, 0, 0, 0.65); }
-  .hfc-root .hfc-btn--ghost {
-    background: transparent;
-    color: var(--hfc-ink);
-    border: 1.5px solid var(--hfc-ink);
+  .dlw-btn--primary:hover { background: var(--dlw-burgundy-dark); transform: translateY(-2px); box-shadow: 0 18px 36px -10px rgba(139, 0, 0, 0.6); }
+  .dlw-root .dlw-btn--gold {
+    background: var(--dlw-gold);
+    color: var(--dlw-burgundy-deep);
+    box-shadow: 0 14px 30px -10px rgba(200, 155, 42, 0.5);
   }
-  .hfc-btn--ghost:hover { background: var(--hfc-ink); color: var(--hfc-white); transform: translateY(-2px); }
-  .hfc-root .hfc-btn--on-dark {
+  .dlw-btn--gold:hover { background: var(--dlw-gold-light); transform: translateY(-2px); }
+  .dlw-root .dlw-btn--ghost {
     background: transparent;
-    color: var(--hfc-white);
+    color: var(--dlw-white);
     border: 1.5px solid rgba(255,255,255,0.55);
   }
-  .hfc-btn--on-dark:hover { background: rgba(255,255,255,0.12); border-color: var(--hfc-white); transform: translateY(-2px); }
-  .hfc-root .hfc-btn--gold {
-    background: var(--hfc-gold);
-    color: var(--hfc-burgundy-deep);
-    box-shadow: 0 12px 28px -10px rgba(200, 155, 42, 0.55);
-  }
-  .hfc-btn--gold:hover { background: var(--hfc-gold-light); transform: translateY(-2px); }
-  .hfc-btn--block { width: 100%; }
-  .hfc-btn svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.25s ease; }
-  .hfc-btn:hover svg.hfc-arrow { transform: translateX(4px); }
+  .dlw-btn--ghost:hover { background: rgba(255,255,255,0.12); border-color: var(--dlw-white); transform: translateY(-2px); }
+  .dlw-btn--block { width: 100%; }
+  .dlw-btn svg { width: 17px; height: 17px; flex-shrink: 0; transition: transform 0.25s ease; }
+  .dlw-btn:hover svg.dlw-arrow { transform: translateX(4px); }
 
   /* ==========================================================================
-     TOP PROMO BAR (replaces site nav/header)
+     STICKY TOP BAR (appears after scrolling past the hero)
      ========================================================================== */
-  .hfc-promo { background: var(--hfc-white); border-bottom: 1px solid var(--hfc-border); padding: 12px 24px; }
-  .hfc-promo__inner {
-    max-width: var(--hfc-container);
+  .dlw-stickybar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--dlw-white);
+    border-bottom: 1px solid var(--dlw-border);
+    box-shadow: var(--dlw-shadow-sm);
+    padding: 12px 24px;
+    transform: translateY(-100%);
+    transition: transform 0.35s ease;
+  }
+  .dlw-stickybar.dlw-show { transform: translateY(0); }
+  .dlw-stickybar__inner {
+    max-width: var(--dlw-container);
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 18px;
     flex-wrap: wrap;
   }
-  .hfc-promo__logo { height: 34px; width: auto; flex-shrink: 0; }
-  .hfc-promo__text {
-    color: var(--hfc-ink);
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-  }
-  .hfc-promo__text strong { color: var(--hfc-burgundy); font-weight: 700; }
-  .hfc-promo__tag {
+  .dlw-stickybar__tag {
     display: inline-flex;
     align-items: center;
-    background: var(--hfc-gold);
-    color: var(--hfc-burgundy-deep);
-    font-family: var(--hfc-font-head);
-    font-weight: 800;
+    background: var(--dlw-burgundy);
+    color: var(--dlw-white);
+    font-family: var(--dlw-font-head);
+    font-weight: 700;
     font-size: 10.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: 100px;
-    margin-right: 10px;
   }
-  .hfc-promo__cta { padding: 10px 20px; font-size: 13.5px; flex-shrink: 0; }
+  .dlw-stickybar__text { font-size: 14px; font-weight: 600; color: var(--dlw-ink); }
+  .dlw-stickybar__text span { color: var(--dlw-gray); font-weight: 500; }
+  .dlw-stickybar__cta { padding: 10px 22px; font-size: 13.5px; flex-shrink: 0; }
 
   /* ==========================================================================
      HERO
      ========================================================================== */
-  .hfc-hero {
+  .dlw-hero {
     position: relative;
-    background: radial-gradient(120% 140% at 15% 0%, var(--hfc-burgundy-dark) 0%, var(--hfc-burgundy-deep) 46%, #1c0505 100%);
-    color: var(--hfc-white);
+    background: radial-gradient(120% 140% at 12% 0%, var(--dlw-burgundy-dark) 0%, var(--dlw-burgundy-deep) 46%, #1c0505 100%);
+    color: var(--dlw-white);
     overflow: hidden;
-    padding: 84px 0 96px;
+    padding: 56px 0 80px;
   }
-  .hfc-hero::before {
+  .dlw-hero::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -227,1200 +230,994 @@
     opacity: 0.5;
     pointer-events: none;
   }
-  .hfc-hero__grid {
+  /* Mobile-first: stack as intro -> registration card -> supporting details,
+     so the card sits right under the headline instead of at the bottom of a
+     long copy block. Desktop reassembles intro+details into one left column
+     beside the card via named grid areas (see min-width:1025px below). */
+  .dlw-hero__grid {
     position: relative;
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 56px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "intro" "reg" "details";
+    gap: 36px;
+  }
+  .dlw-hero__intro { grid-area: intro; }
+  .dlw-hero__details { grid-area: details; }
+  #dlw-register { grid-area: reg; }
+
+  @media (min-width: 1025px) {
+    .dlw-hero__grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-areas: "intro reg" "details reg";
+      gap: 56px;
+      align-items: start;
+    }
+  }
+
+  .dlw-badge {
+    display: inline-flex;
     align-items: center;
+    gap: 8px;
+    background: var(--dlw-gold);
+    color: var(--dlw-burgundy-deep);
+    font-family: var(--dlw-font-head);
+    font-weight: 800;
+    font-size: 12.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border-radius: 100px;
+    margin-bottom: 24px;
   }
-  .hfc-hero h1 {
-    color: var(--hfc-white);
-    font-size: clamp(34px, 4.6vw, 58px);
-    margin-bottom: 22px;
+  .dlw-badge span.dlw-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--dlw-burgundy);
+    display: inline-block;
+    animation: dlw-pulse 1.6s ease-in-out infinite;
   }
-  .hfc-hero h1 em { color: var(--hfc-gold-light); font-style: normal; }
-  .hfc-hero__sub {
+  @keyframes dlw-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .dlw-hero h1 {
+    color: var(--dlw-white);
+    font-size: clamp(32px, 4.4vw, 54px);
+    margin-bottom: 20px;
+  }
+  .dlw-hero h1 em { color: var(--dlw-gold-light); font-style: normal; }
+  .dlw-hero__sub {
     font-size: 19px;
-    color: rgba(255,255,255,0.88);
+    color: rgba(255,255,255,0.9);
     max-width: 560px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     font-weight: 500;
   }
-  .hfc-hero__body {
+  .dlw-hero__body {
     font-size: 16px;
     color: rgba(255,255,255,0.72);
     max-width: 560px;
-    margin-bottom: 34px;
+    margin-bottom: 30px;
   }
-  .hfc-hero__ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
-  .hfc-hero__micro {
+
+  .dlw-hero__datetime {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 22px;
-    font-size: 13.5px;
-    color: rgba(255,255,255,0.62);
-    font-weight: 500;
+    gap: 14px;
+    margin-bottom: 30px;
   }
-  .hfc-hero__micro span { display: inline-flex; align-items: center; gap: 7px; }
-  .hfc-hero__micro svg { width: 15px; height: 15px; fill: var(--hfc-gold); flex-shrink: 0; }
-
-  .hfc-hero__media { position: relative; }
-  .hfc-hero__frame {
-    position: relative;
-    border-radius: var(--hfc-radius);
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.16);
-    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.65);
-    aspect-ratio: 4 / 5;
-  }
-  .hfc-hero__frame img { width: 100%; height: 100%; object-fit: cover; }
-  .hfc-hero__badge {
-    position: absolute;
-    left: -18px;
-    bottom: 34px;
-    background: var(--hfc-white);
-    color: var(--hfc-ink);
-    border-radius: var(--hfc-radius-sm);
-    padding: 16px 20px;
-    box-shadow: var(--hfc-shadow);
+  .dlw-hero__datetime div {
     display: flex;
     align-items: center;
-    gap: 12px;
-    max-width: 260px;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: var(--dlw-radius-sm);
+    padding: 12px 18px;
+    font-size: 14.5px;
+    font-weight: 600;
   }
-  .hfc-hero__badge svg { width: 30px; height: 30px; fill: var(--hfc-burgundy); flex-shrink: 0; }
-  .hfc-hero__badge strong { display: block; font-family: var(--hfc-font-head); font-size: 13.5px; }
-  .hfc-hero__badge span { font-size: 12px; color: var(--hfc-gray); }
+  .dlw-hero__datetime svg { width: 19px; height: 19px; fill: var(--dlw-gold-light); flex-shrink: 0; }
 
-  /* ==========================================================================
-     TRUST / STATS STRIP
-     ========================================================================== */
-  .hfc-stats {
-    background: var(--hfc-ink);
-    padding: 34px 0;
-  }
-  .hfc-stats__row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+  .dlw-hero__benefits { display: flex; flex-direction: column; gap: 13px; margin-bottom: 8px; }
+  .dlw-hero__benefits li { display: flex; align-items: flex-start; gap: 12px; font-size: 15.5px; color: rgba(255,255,255,0.9); font-weight: 500; }
+  .dlw-hero__benefits svg { width: 21px; height: 21px; fill: var(--dlw-gold); flex-shrink: 0; margin-top: 1px; }
+
+  /* Countdown */
+  .dlw-countdown { display: flex; gap: 12px; margin-top: 32px; }
+  .dlw-countdown__unit {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: var(--dlw-radius-sm);
+    padding: 12px 8px;
     text-align: center;
+    min-width: 68px;
   }
-  .hfc-stats__row div { color: rgba(255,255,255,0.82); font-size: 13.5px; font-weight: 600; font-family: var(--hfc-font-head); letter-spacing: 0.01em; }
-  .hfc-stats__row strong { display: block; color: var(--hfc-gold-light); font-size: 26px; font-family: var(--hfc-font-head); margin-bottom: 4px; }
+  .dlw-countdown__num {
+    font-family: var(--dlw-font-head);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dlw-gold-light);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .dlw-countdown__label { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-top: 6px; font-weight: 600; }
 
-  /* ==========================================================================
-     REPLAY SECTION
-     ========================================================================== */
-  .hfc-replay__grid {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 56px;
-    align-items: center;
-  }
-  .hfc-replay__card {
+  /* ==== REGISTRATION CARD ==== */
+  .dlw-regcard {
     position: relative;
-    border-radius: var(--hfc-radius);
+    background: var(--dlw-white);
+    border-radius: 22px;
+    box-shadow: 0 40px 90px -24px rgba(0,0,0,0.55);
     overflow: hidden;
-    cursor: pointer;
-    box-shadow: var(--hfc-shadow);
-    aspect-ratio: 16/9;
-    border: none;
-    width: 100%;
-    display: block;
-    background: var(--hfc-ink);
   }
-  .hfc-replay__card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-  .hfc-replay__card:hover img { transform: scale(1.06); }
-  .hfc-replay__card::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(0deg, rgba(20,6,6,0.75) 0%, rgba(20,6,6,0.05) 55%);
-  }
-  .hfc-replay__play {
+  .dlw-regcard__ribbon {
     position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 78px; height: 78px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.94);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 14px 30px -10px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-    z-index: 2;
-  }
-  .hfc-replay__card:hover .hfc-replay__play { transform: translate(-50%, -50%) scale(1.08); }
-  .hfc-replay__play svg { width: 26px; height: 26px; fill: var(--hfc-burgundy); margin-left: 4px; }
-  .hfc-replay__tag {
-    position: absolute;
-    top: 18px; left: 18px;
-    background: var(--hfc-gold);
-    color: var(--hfc-burgundy-deep);
-    font-family: var(--hfc-font-head);
+    top: 18px; right: -38px;
+    background: var(--dlw-burgundy);
+    color: var(--dlw-white);
+    font-family: var(--dlw-font-head);
     font-weight: 700;
     font-size: 11.5px;
-    letter-spacing: 0.1em;
-    padding: 7px 14px;
-    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 44px;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 2;
   }
-  .hfc-replay__meta { position: absolute; bottom: 18px; left: 20px; right: 20px; color: var(--hfc-white); z-index: 2; }
-  .hfc-replay__meta strong { display: block; font-family: var(--hfc-font-head); font-size: 15px; }
-
-  .hfc-replay__content h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 18px; }
-  .hfc-replay__content > p { color: var(--hfc-gray); font-size: 16.5px; margin-bottom: 24px; }
-  .hfc-replay__list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-  .hfc-replay__list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--hfc-ink); }
-  .hfc-replay__list svg { width: 19px; height: 19px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
-  .hfc-replay__date { font-size: 13px; color: var(--hfc-gray-light); margin-top: 18px; font-weight: 500; }
+  .dlw-regcard__media {
+    background: var(--dlw-cream);
+    padding: 18px 18px 0;
+  }
+  .dlw-regcard__media-frame {
+    width: 100%;
+    height: 230px;
+    border-radius: var(--dlw-radius-sm);
+    overflow: hidden;
+    background: var(--dlw-white);
+    border: 1px solid var(--dlw-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .dlw-regcard__media-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .dlw-regcard__body { padding: 26px 28px 30px; }
+  .dlw-regcard__body h2 {
+    font-size: clamp(22px, 2.4vw, 26px);
+    color: var(--dlw-burgundy);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .dlw-regcard__body > p.dlw-regcard__copy {
+    text-align: center;
+    color: var(--dlw-gray);
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  .dlw-regcard__form-wrap {
+    position: relative;
+    min-height: 434px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .dlw-regcard__form-wrap iframe { width: 100%; height: 100%; min-height: 434px; border: none; border-radius: 8px; position: relative; z-index: 1; }
+  .dlw-regcard__loader {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--dlw-white);
+    z-index: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .dlw-regcard__loader.dlw-hide { opacity: 0; visibility: hidden; }
+  .dlw-spinner {
+    width: 34px; height: 34px;
+    border: 3px solid var(--dlw-border);
+    border-top-color: var(--dlw-burgundy);
+    border-radius: 50%;
+    animation: dlw-spin 0.8s linear infinite;
+  }
+  @keyframes dlw-spin { to { transform: rotate(360deg); } }
+  .dlw-regcard__assurance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    font-size: 12.5px;
+    color: var(--dlw-gray-light);
+    text-align: center;
+  }
+  .dlw-regcard__assurance svg { width: 14px; height: 14px; fill: var(--dlw-gray-light); flex-shrink: 0; }
 
   /* ==========================================================================
-     LIVE WEBINAR CARDS
+     PROBLEM / WHY SECTION
      ========================================================================== */
-  .hfc-webinars__grid {
+  .dlw-problem__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    gap: 24px;
+    margin-bottom: 48px;
   }
-  .hfc-wcard {
-    display: flex;
-    flex-direction: column;
-    background: var(--hfc-white);
-    border: 1px solid var(--hfc-border);
-    border-radius: var(--hfc-radius);
-    overflow: hidden;
-    box-shadow: var(--hfc-shadow-sm);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  .dlw-problem__card {
+    background: var(--dlw-white);
+    border: 1px solid var(--dlw-border);
+    border-radius: var(--dlw-radius);
+    padding: 32px 26px;
+    text-align: center;
   }
-  .hfc-wcard:hover { transform: translateY(-6px); box-shadow: var(--hfc-shadow); border-color: var(--hfc-gold); }
-  .hfc-wcard__media { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--hfc-ink); }
-  .hfc-wcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .hfc-wcard:hover .hfc-wcard__media img { transform: scale(1.05); }
-  .hfc-wcard__badge {
-    position: absolute; top: 14px; left: 14px;
-    background: rgba(32,22,21,0.78);
-    color: var(--hfc-white);
-    font-family: var(--hfc-font-head);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    padding: 6px 12px;
-    border-radius: 100px;
-    display: flex; align-items: center; gap: 6px;
+  .dlw-problem__card svg { width: 34px; height: 34px; fill: var(--dlw-burgundy); margin: 0 auto 18px; }
+  .dlw-problem__card h3 { font-size: 18px; margin-bottom: 10px; }
+  .dlw-problem__card p { font-size: 14.5px; color: var(--dlw-gray); }
+  .dlw-problem__bridge {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    font-family: var(--dlw-font-head);
+    color: var(--dlw-ink);
+    line-height: 1.5;
   }
-  .hfc-wcard__badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #ff5a5a; }
-  .hfc-wcard__body { padding: 24px 24px 26px; display: flex; flex-direction: column; flex: 1; }
-  .hfc-wcard__date {
-    display: flex; align-items: center; gap: 8px;
-    font-family: var(--hfc-font-head);
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--hfc-burgundy);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  .hfc-wcard__date svg { width: 15px; height: 15px; fill: var(--hfc-burgundy); }
-  .hfc-wcard__time { color: var(--hfc-gray); font-weight: 600; }
-  .hfc-wcard__title { font-size: 19px; margin-bottom: 10px; line-height: 1.3; }
-  .hfc-wcard__desc { font-size: 14.5px; color: var(--hfc-gray); margin-bottom: 20px; flex: 1; }
-  .hfc-wcard__cta {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--hfc-font-head);
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--hfc-burgundy);
-  }
-  .hfc-wcard__cta svg { width: 15px; height: 15px; fill: currentColor; transition: transform 0.25s ease; }
-  .hfc-wcard:hover .hfc-wcard__cta svg { transform: translateX(4px); }
+  .dlw-problem__bridge em { color: var(--dlw-burgundy); font-style: normal; }
 
   /* ==========================================================================
-     ABOUT DAVID
+     WHAT YOU'LL LEARN (Agenda)
      ========================================================================== */
-  .hfc-about__grid {
+  .dlw-agenda__list { display: flex; flex-direction: column; gap: 18px; max-width: 860px; margin: 0 auto; }
+  .dlw-agenda__item {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    background: var(--dlw-white);
+    border: 1px solid var(--dlw-border);
+    border-radius: var(--dlw-radius);
+    padding: 26px 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .dlw-agenda__item:hover { transform: translateY(-3px); box-shadow: var(--dlw-shadow-sm); border-color: var(--dlw-gold); }
+  .dlw-agenda__num {
+    flex-shrink: 0;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--dlw-burgundy), var(--dlw-burgundy-dark));
+    color: var(--dlw-gold-light);
+    font-family: var(--dlw-font-head);
+    font-weight: 800;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dlw-agenda__item h3 { font-size: 18px; margin-bottom: 6px; }
+  .dlw-agenda__item p { font-size: 14.5px; color: var(--dlw-gray); }
+
+  /* ==========================================================================
+     MEET DAVID LUND
+     ========================================================================== */
+  .dlw-about__grid {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
+    grid-template-columns: 0.82fr 1.18fr;
     gap: 64px;
     align-items: center;
   }
-  .hfc-about__media { position: relative; }
-  .hfc-about__frame {
-    border-radius: var(--hfc-radius);
+  .dlw-about__media { position: relative; }
+  .dlw-about__frame {
+    border-radius: var(--dlw-radius);
     overflow: hidden;
-    box-shadow: var(--hfc-shadow);
-    aspect-ratio: 4/5;
+    box-shadow: var(--dlw-shadow);
+    background: var(--dlw-cream);
+    padding: 14px;
   }
-  .hfc-about__frame img { width: 100%; height: 100%; object-fit: cover; }
-  .hfc-about__ribbon {
+  .dlw-about__frame img { width: 100%; height: auto; object-fit: contain; border-radius: 10px; }
+  .dlw-about__ribbon {
     position: absolute;
-    bottom: -22px; right: -22px;
-    background: var(--hfc-burgundy);
-    color: var(--hfc-white);
-    padding: 20px 22px;
-    border-radius: var(--hfc-radius-sm);
-    box-shadow: var(--hfc-shadow);
-    max-width: 210px;
+    bottom: -22px; right: -18px;
+    background: var(--dlw-burgundy);
+    color: var(--dlw-white);
+    padding: 18px 20px;
+    border-radius: var(--dlw-radius-sm);
+    box-shadow: var(--dlw-shadow);
+    max-width: 220px;
   }
-  .hfc-about__ribbon strong { display: block; font-family: var(--hfc-font-head); font-size: 14px; margin-bottom: 4px; color: var(--hfc-gold-light); }
-  .hfc-about__ribbon span { font-size: 12.5px; color: rgba(255,255,255,0.85); }
+  .dlw-about__ribbon strong { display: block; font-family: var(--dlw-font-head); font-size: 13.5px; margin-bottom: 4px; color: var(--dlw-gold-light); }
+  .dlw-about__ribbon span { font-size: 12px; color: rgba(255,255,255,0.85); }
 
-  .hfc-about__content h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 20px; }
-  .hfc-about__content p { color: var(--hfc-gray); font-size: 16px; margin-bottom: 16px; }
-  .hfc-about__quote {
+  .dlw-about__content h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 20px; }
+  .dlw-about__content p { color: var(--dlw-gray); font-size: 16px; margin-bottom: 16px; }
+  .dlw-about__quote {
     margin: 26px 0;
     padding: 20px 24px;
-    border-left: 3px solid var(--hfc-gold);
-    background: var(--hfc-cream);
-    font-family: var(--hfc-font-head);
+    border-left: 3px solid var(--dlw-gold);
+    background: var(--dlw-cream);
+    font-family: var(--dlw-font-head);
     font-size: 17px;
     font-weight: 600;
     font-style: italic;
-    color: var(--hfc-ink);
-    border-radius: 0 var(--hfc-radius-sm) var(--hfc-radius-sm) 0;
+    color: var(--dlw-ink);
+    border-radius: 0 var(--dlw-radius-sm) var(--dlw-radius-sm) 0;
   }
-  .hfc-about__creds { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-top: 28px; }
-  .hfc-about__creds li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; font-weight: 500; }
-  .hfc-about__creds svg { width: 18px; height: 18px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
+  .dlw-about__creds { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-top: 26px; }
+  .dlw-about__creds li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; font-weight: 500; }
+  .dlw-about__creds svg { width: 18px; height: 18px; fill: var(--dlw-gold); flex-shrink: 0; margin-top: 2px; }
 
   /* ==========================================================================
-     WHY ATTEND
+     BENEFITS OF ATTENDING
      ========================================================================== */
-  .hfc-benefits__grid {
+  .dlw-benefits__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
   }
-  .hfc-benefit {
-    background: var(--hfc-white);
-    border: 1px solid var(--hfc-border);
-    border-radius: var(--hfc-radius);
+  .dlw-benefit {
+    background: var(--dlw-white);
+    border: 1px solid var(--dlw-border);
+    border-radius: var(--dlw-radius);
     padding: 30px 24px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
-  .hfc-benefit:hover { transform: translateY(-4px); box-shadow: var(--hfc-shadow-sm); border-color: var(--hfc-gold); }
-  .hfc-benefit__icon {
+  .dlw-benefit:hover { transform: translateY(-4px); box-shadow: var(--dlw-shadow-sm); border-color: var(--dlw-gold); }
+  .dlw-benefit__icon {
     width: 48px; height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, var(--hfc-burgundy), var(--hfc-burgundy-dark));
+    background: linear-gradient(135deg, var(--dlw-burgundy), var(--dlw-burgundy-dark));
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 18px;
   }
-  .hfc-benefit__icon svg { width: 24px; height: 24px; fill: var(--hfc-gold-light); }
-  .hfc-benefit h3 { font-size: 16.5px; margin-bottom: 8px; }
-  .hfc-benefit p { font-size: 14px; color: var(--hfc-gray); }
+  .dlw-benefit__icon svg { width: 24px; height: 24px; fill: var(--dlw-gold-light); }
+  .dlw-benefit h3 { font-size: 16.5px; margin-bottom: 8px; }
+  .dlw-benefit p { font-size: 14px; color: var(--dlw-gray); }
 
   /* ==========================================================================
      FAQ
      ========================================================================== */
-  .hfc-faq__list { max-width: 820px; margin: 0 auto; }
-  .hfc-faq__item { border-bottom: 1px solid var(--hfc-border); }
-  .hfc-faq__q {
+  .dlw-faq__list { max-width: 820px; margin: 0 auto; }
+  .dlw-faq__item { border-bottom: 1px solid var(--dlw-border); }
+  .dlw-faq__q {
     width: 100%;
     display: flex; align-items: center; justify-content: space-between;
     gap: 20px;
     padding: 24px 4px;
     text-align: left;
-    font-family: var(--hfc-font-head);
+    font-family: var(--dlw-font-head);
     font-weight: 600;
     font-size: 16.5px;
   }
-  .hfc-faq__q svg { width: 20px; height: 20px; fill: var(--hfc-burgundy); flex-shrink: 0; transition: transform 0.3s ease; }
-  .hfc-faq__item.hfc-open .hfc-faq__q svg { transform: rotate(180deg); }
-  .hfc-faq__a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-  .hfc-faq__a p { padding: 0 4px 24px; color: var(--hfc-gray); font-size: 15px; max-width: 700px; }
+  .dlw-faq__q svg { width: 20px; height: 20px; fill: var(--dlw-burgundy); flex-shrink: 0; transition: transform 0.3s ease; }
+  .dlw-faq__item.dlw-open .dlw-faq__q svg { transform: rotate(180deg); }
+  .dlw-faq__a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .dlw-faq__a p { padding: 0 4px 24px; color: var(--dlw-gray); font-size: 15px; max-width: 700px; }
 
   /* ==========================================================================
      FINAL CTA
      ========================================================================== */
-  .hfc-final {
+  .dlw-final {
     position: relative;
-    background: radial-gradient(120% 160% at 85% 100%, var(--hfc-burgundy-dark) 0%, var(--hfc-burgundy-deep) 50%, #1c0505 100%);
-    color: var(--hfc-white);
+    background: radial-gradient(120% 160% at 85% 100%, var(--dlw-burgundy-dark) 0%, var(--dlw-burgundy-deep) 50%, #1c0505 100%);
+    color: var(--dlw-white);
     text-align: center;
     padding: 96px 0;
     overflow: hidden;
   }
-  .hfc-final::before {
+  .dlw-final::before {
     content: '';
     position: absolute; inset: 0;
     background-image: radial-gradient(rgba(200,155,42,0.14) 1px, transparent 1px);
     background-size: 26px 26px;
   }
-  .hfc-final__inner { position: relative; max-width: 660px; margin: 0 auto; }
-  .hfc-final h2 { color: var(--hfc-white); font-size: clamp(28px, 4vw, 42px); margin-bottom: 18px; }
-  .hfc-final p { color: rgba(255,255,255,0.78); font-size: 17px; margin-bottom: 36px; }
-  .hfc-final__ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+  .dlw-final__inner { position: relative; max-width: 680px; margin: 0 auto; }
+  .dlw-final h2 { color: var(--dlw-white); font-size: clamp(28px, 4vw, 42px); margin-bottom: 18px; }
+  .dlw-final p { color: rgba(255,255,255,0.8); font-size: 17px; margin-bottom: 30px; }
+  .dlw-final__datetime {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 34px;
+  }
+  .dlw-final__datetime span { display: inline-flex; align-items: center; gap: 7px; }
+  .dlw-final__datetime svg { width: 16px; height: 16px; fill: var(--dlw-gold); }
 
   /* ==========================================================================
      FOOTER
      ========================================================================== */
-  .hfc-footer { background: var(--hfc-ink); color: rgba(255,255,255,0.7); padding: 64px 0 28px; }
-  .hfc-footer__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-  .hfc-footer__logo { height: 40px; width: auto; background: var(--hfc-white); padding: 8px 14px; border-radius: 10px; }
-  .hfc-footer__brand p { margin: 16px 0 0; font-size: 14px; max-width: 300px; color: rgba(255,255,255,0.55); }
-  .hfc-footer h4 { color: var(--hfc-white); font-family: var(--hfc-font-head); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px; }
-  .hfc-footer ul { display: flex; flex-direction: column; gap: 12px; }
-  .hfc-footer a { font-size: 14.5px; transition: color 0.2s ease; }
-  .hfc-footer a:hover { color: var(--hfc-gold-light); }
-  .hfc-footer__social { display: flex; gap: 12px; margin-top: 4px; }
-  .hfc-footer__social a {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.18);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .hfc-footer__social svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.8); }
-  .hfc-footer__social a:hover { border-color: var(--hfc-gold); background: rgba(200,155,42,0.12); }
-  .hfc-footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 26px; font-size: 12.5px; color: rgba(255,255,255,0.45); }
+  .dlw-footer { background: var(--dlw-ink); color: rgba(255,255,255,0.55); padding: 40px 0; text-align: center; }
+  .dlw-footer strong { color: rgba(255,255,255,0.85); font-family: var(--dlw-font-head); }
+  .dlw-footer p { font-size: 13px; margin-top: 8px; }
 
   /* ==========================================================================
-     REPLAY MODAL
+     MOBILE STICKY CTA
      ========================================================================== */
-  .hfc-modal {
-    position: fixed; inset: 0; z-index: 200;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-  }
-  .hfc-modal.hfc-open { visibility: visible; opacity: 1; }
-  .hfc-modal__backdrop { position: absolute; inset: 0; background: rgba(15, 8, 8, 0.78); backdrop-filter: blur(4px); }
-  .hfc-modal__panel {
-    position: relative;
-    background: var(--hfc-white);
-    border-radius: var(--hfc-radius);
-    max-width: 760px;
-    width: 100%;
-    max-height: 88vh;
-    overflow-y: auto;
-    box-shadow: 0 40px 90px -20px rgba(0,0,0,0.55);
-    transform: scale(0.85);
-    opacity: 0;
-    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), opacity 0.35s ease;
-  }
-  .hfc-modal.hfc-open .hfc-modal__panel { transform: scale(1); opacity: 1; }
-  .hfc-modal__media { position: relative; aspect-ratio: 16/9; }
-  .hfc-modal__media img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--hfc-radius) var(--hfc-radius) 0 0; }
-  .hfc-modal__close {
-    position: absolute; top: 16px; right: 16px;
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(15,8,8,0.55);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 3;
-  }
-  .hfc-modal__close svg { width: 17px; height: 17px; fill: var(--hfc-white); }
-  .hfc-modal__body { padding: 34px 34px 36px; }
-  .hfc-modal__body h3 { font-size: 24px; margin-bottom: 6px; }
-  .hfc-modal__meta { font-size: 13px; color: var(--hfc-gray); margin-bottom: 18px; font-weight: 500; }
-  .hfc-modal__body > p { color: var(--hfc-gray); font-size: 15px; margin-bottom: 20px; }
-  .hfc-modal__list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
-  .hfc-modal__list li { display: flex; gap: 10px; font-size: 14.5px; align-items: flex-start; }
-  .hfc-modal__list svg { width: 17px; height: 17px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
-  .hfc-modal__promo {
-    background: var(--hfc-cream);
-    border-left: 3px solid var(--hfc-gold);
-    border-radius: 0 var(--hfc-radius-sm) var(--hfc-radius-sm) 0;
-    padding: 20px 22px;
-    margin-bottom: 18px;
-  }
-  .hfc-modal__promo-eyebrow {
-    font-family: var(--hfc-font-head);
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--hfc-burgundy);
-    margin-bottom: 8px;
-  }
-  .hfc-modal__promo-text { font-size: 14.5px; color: var(--hfc-ink); margin-bottom: 16px; }
-  .hfc-modal__promo-text strong { color: var(--hfc-burgundy); }
-  .hfc-modal__skip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px;
-    font-family: var(--hfc-font-head);
-    font-weight: 600;
-    font-size: 13.5px;
-    color: var(--hfc-gray);
-    transition: color 0.2s ease;
-  }
-  .hfc-modal__skip svg { width: 14px; height: 14px; fill: currentColor; transition: transform 0.25s ease; }
-  .hfc-modal__skip:hover { color: var(--hfc-burgundy); }
-  .hfc-modal__skip:hover svg { transform: translateX(3px); }
-
-  /* ==========================================================================
-     STICKY MOBILE CTA
-     ========================================================================== */
-  .hfc-sticky-cta {
+  .dlw-mobile-cta {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
-    background: var(--hfc-white);
-    border-top: 1px solid var(--hfc-border);
+    background: var(--dlw-white);
+    border-top: 1px solid var(--dlw-border);
     box-shadow: 0 -10px 30px -18px rgba(0,0,0,0.3);
-    padding: 12px 20px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px 18px;
+    display: none;
     transform: translateY(120%);
     transition: transform 0.35s ease;
   }
-  .hfc-sticky-cta.hfc-show { transform: translateY(0); }
-  .hfc-sticky-cta__text { display: none; }
-  .hfc-sticky-cta .hfc-btn { flex: 1; padding: 14px 20px; font-size: 14px; }
+  .dlw-mobile-cta.dlw-show { transform: translateY(0); }
+  .dlw-mobile-cta .dlw-btn { width: 100%; padding: 15px 20px; font-size: 15px; }
 
   /* ==========================================================================
      RESPONSIVE
      ========================================================================== */
   @media (max-width: 1024px) {
-    .hfc-hero__grid { grid-template-columns: 1fr; }
-    .hfc-hero__media { max-width: 420px; margin: 0 auto; }
-    .hfc-about__grid { grid-template-columns: 1fr; }
-    .hfc-about__media { max-width: 420px; margin: 0 auto; }
-    .hfc-replay__grid { grid-template-columns: 1fr; }
-    .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
-    .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
-    .hfc-footer__top { grid-template-columns: 1fr 1fr; }
+    .dlw-regcard { max-width: 480px; margin: 0 auto; }
+    .dlw-about__grid { grid-template-columns: 1fr; }
+    .dlw-about__media { max-width: 380px; margin: 0 auto; }
+    .dlw-problem__grid { grid-template-columns: 1fr; }
+    .dlw-benefits__grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 780px) {
-    .hfc-promo__text { font-size: 13px; }
-    .hfc-section { padding: 64px 0; }
-    .hfc-stats__row { grid-template-columns: repeat(2, 1fr); gap: 26px 16px; }
-    .hfc-benefits__grid { grid-template-columns: 1fr 1fr; }
-    .hfc-footer__top { grid-template-columns: 1fr; gap: 36px; }
-    .hfc-hero { padding: 48px 0 116px; }
-    .hfc-hero__badge { left: 0; right: 0; margin: 0 auto; bottom: -20px; }
-    .hfc-sticky-cta { display: flex; }
-    .hfc-about__ribbon { right: 0; }
-  }
-  @media (min-width: 781px) {
-    .hfc-sticky-cta { display: none !important; }
+    .dlw-section { padding: 64px 0; }
+    .dlw-hero { padding: 32px 0 56px; }
+    .dlw-countdown { justify-content: center; }
+    .dlw-hero__datetime { justify-content: center; }
+    .dlw-hero__benefits { max-width: 460px; margin: 0 auto; }
+    .dlw-mobile-cta { display: block; }
+    .dlw-about__ribbon { right: 0; }
+    .dlw-final__inner .dlw-btn { width: 100%; }
   }
 
-  /* True phones only (not tablets like 768px iPad portrait, which should
-     keep the 2-column card grid from the 1024px breakpoint above). */
-  @media (max-width: 600px) {
-    .hfc-webinars__grid { grid-template-columns: 1fr; }
+  @media (max-width: 640px) {
+    .dlw-hero h1, .dlw-hero__sub, .dlw-hero__body { text-align: center; margin-left: auto; margin-right: auto; }
+    .dlw-badge { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
+    .dlw-agenda__item { flex-direction: column; text-align: center; align-items: center; }
+    .dlw-benefits__grid { grid-template-columns: 1fr 1fr; }
   }
 
   @media (max-width: 520px) {
-    .hfc-root .hfc-promo__logo { display: none; }
-    .hfc-promo__inner { gap: 10px; }
-    .hfc-promo__datetime { display: none; }
-    .hfc-benefits__grid { grid-template-columns: 1fr; }
-    .hfc-about__creds { grid-template-columns: 1fr; }
-    .hfc-hero__ctas .hfc-btn, .hfc-final__ctas .hfc-btn { width: 100%; }
+    .dlw-countdown__unit { min-width: 58px; padding: 10px 4px; }
+    .dlw-countdown__num { font-size: 21px; }
+    .dlw-benefits__grid { grid-template-columns: 1fr; }
+    .dlw-about__creds { grid-template-columns: 1fr; }
+    .dlw-regcard__body { padding: 22px 18px 26px; }
+    .dlw-stickybar__text { display: none; }
+    .dlw-regcard__ribbon { font-size: 10.5px; padding: 5px 38px; right: -34px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hfc-root * { animation: none !important; transition: none !important; }
+    .dlw-root * { animation: none !important; transition: none !important; }
   }
 </style>
 
 <!-- ==================================================================== -->
 <!-- ROOT WRAPPER                                                          -->
 <!-- ==================================================================== -->
-<div class="hfc-root" id="hfc-webinar-funnel">
+<div class="dlw-root" id="dlw-webinar-page">
 
-  <a href="#hfc-main" class="hfc-skip" style="position:absolute;left:-9999px;">Skip to content</a>
+  <a href="#dlw-main" class="dlw-skip" style="position:absolute;left:-9999px;">Skip to content</a>
 
-  <!-- ==== SECTION: TOP PROMO BAR ====
-       Replaces the site nav/header. This is a single-page funnel, so a full
-       navigation menu just gives visitors more ways to leave before they
-       register; a persistent, single-focus announcement for the very next
-       live webinar converts harder. Edit the date/title/link here, or in the
-       WEBINARS config in the <script> block below if the July 22 session is
-       no longer the nearest one. -->
-  <div class="hfc-promo">
-    <div class="hfc-promo__inner">
-      <!-- IMAGE: The Hotel Financial Coach logo (hosted on GHL). -->
-      <img class="hfc-promo__logo" src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png" alt="The Hotel Financial Coach">
-      <p class="hfc-promo__text">
-        <span class="hfc-promo__tag">Free Live Webinar</span>
-        <span class="hfc-promo__datetime">Wed, July 22 &middot; 10&ndash;11 AM EST &mdash; </span><strong>How to Read Your Hotel P&amp;L in 30 Minutes</strong>
-      </p>
-      <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta">
-        Save My Seat
-        <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
+  <!-- ==== STICKY TOP BAR (shown via JS once visitor scrolls past the hero) ==== -->
+  <div class="dlw-stickybar" id="dlwStickyBar">
+    <div class="dlw-stickybar__inner">
+      <span class="dlw-stickybar__tag">Free Live Webinar</span>
+      <span class="dlw-stickybar__text">The 5 Numbers Every GM Should Know <span>&middot; Wed, Oct 14 &middot; 10&ndash;11 AM EST</span></span>
+      <a href="#dlw-register" class="dlw-btn dlw-btn--primary dlw-stickybar__cta" data-dlw-scroll>
+        Register Free
       </a>
     </div>
   </div>
 
-  <main id="hfc-main">
+  <main id="dlw-main">
 
-    <!-- ==== SECTION: HERO ==== -->
-    <section class="hfc-hero">
-      <div class="hfc-container hfc-hero__grid">
-        <div>
-          <p class="hfc-eyebrow hfc-on-dark">A Free Executive Webinar Series for Hotel Leaders</p>
-          <h1>Lead With Confidence. Read the Numbers Like an <em>Owner</em>.</h1>
-          <p class="hfc-hero__sub">David Lund, The Hotel Financial Coach, teaches hotel leaders how to master hotel finance &mdash; without an accounting degree, jargon, or fear of the P&amp;L.</p>
-          <p class="hfc-hero__body">In each free session you'll learn the same practical frameworks David has taught to thousands of hospitality leaders: how to read a financial statement in minutes, build a budget ownership trusts, control labor cost, and walk into every ownership meeting prepared.</p>
-          <div class="hfc-hero__ctas">
-            <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
-              Reserve Your Seat
-              <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
-            </a>
-            <button class="hfc-btn hfc-btn--on-dark" data-hfc-open-modal>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              Watch the Replay
-            </button>
-          </div>
-          <div class="hfc-hero__micro">
-            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Free to attend</span>
-            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Live Q&amp;A with David</span>
-            <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>No accounting background required</span>
-          </div>
-        </div>
+    <!-- ======================================================================
+         SECTION 1: HERO — two-column layout on desktop (left = persuasive
+         copy, right = registration card). On tablet/mobile, the three blocks
+         below are reordered via CSS grid-template-areas so the card appears
+         right after the intro (headline + subheadline + date/time) instead
+         of at the bottom of a long copy block — keeping registration within
+         easy reach without excessive scrolling, per the brief.
+         ====================================================================== -->
+    <section class="dlw-hero">
+      <div class="dlw-container dlw-hero__grid">
 
-        <div class="hfc-hero__media">
-          <div class="hfc-hero__frame">
-            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a464b3b6fe10df00f384656.png" alt="David Lund, The Hotel Financial Coach, speaking on stage at a hospitality leadership conference">
-          </div>
-          <div class="hfc-hero__badge">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L22 9.6l-5.5 5.4 1.3 7.5-5.8-3.2-5.8 3.2 1.3-7.5L2 9.6l7.4-1z"/></svg>
-            <div><strong>Author &amp; Speaker</strong><span>The Prosperous Hotelier</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==== SECTION: TRUST / STATS STRIP ==== -->
-    <section class="hfc-stats">
-      <div class="hfc-container hfc-stats__row">
-        <div><strong data-count-target="20" data-count-suffix="+">20+</strong>Years in Hotel Finance &amp; Operations</div>
-        <div><strong data-count-target="1000" data-count-format="comma" data-count-suffix="s">1,000s</strong>Hotel Leaders Trained</div>
-        <div><strong data-count-target="1" data-count-suffix="">1</strong>Author, The Prosperous Hotelier</div>
-        <div><strong data-count-target="50" data-count-suffix="+">50+</strong>Speaking Engagements Nationwide</div>
-      </div>
-    </section>
-
-    <!-- ==== SECTION: REPLAY ==== -->
-    <section class="hfc-section" id="hfc-replay">
-      <div class="hfc-container hfc-replay__grid">
-        <button class="hfc-replay__card hfc-reveal" data-hfc-open-modal aria-haspopup="dialog">
-          <span class="hfc-replay__tag">Replay &middot; Watch Anytime</span>
-          <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bdd0f4875396396334.png" alt="Replay thumbnail: Why Hotel Leaders Get Passed Over for Promotion, with David Lund">
-          <span class="hfc-replay__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- INTRO: badge, headline, subheadline, date/time -->
+        <div class="dlw-hero__intro">
+          <span class="dlw-badge">
+            <span class="dlw-dot" aria-hidden="true"></span>
+            Free Live Webinar
           </span>
-          <span class="hfc-replay__meta"><strong>Why Hotel Leaders Get Passed Over for Promotion</strong></span>
-        </button>
 
-        <div class="hfc-replay__content hfc-reveal">
-          <p class="hfc-eyebrow">Watch On Demand</p>
-          <h2>Why Hotel Leaders Get Passed Over for Promotion</h2>
-          <p>Most hotel leaders aren't overlooked because they lack talent &mdash; they're overlooked because they haven't yet learned to speak the language ownership speaks: the language of numbers. In this session, David breaks down the financial blind spots that quietly stall careers, and exactly what to fix first.</p>
-          <ul class="hfc-replay__list">
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>The financial habits that separate promotable leaders from everyone else</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Why "operationally strong" isn't enough &mdash; and what ownership actually evaluates</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>A simple weekly habit that builds financial credibility fast</li>
+          <h1>The 5 Numbers Every <em>GM</em> Should Know</h1>
+
+          <p class="dlw-hero__sub">Stop drowning in financial reports. Learn the five numbers that actually drive your hotel's performance — and how to use them with confidence.</p>
+
+          <div class="dlw-hero__datetime">
+            <div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm12 8v10H5V10h14zM5 6h14v2H5V6z"/></svg>
+              Wednesday, October 14, 2026
+            </div>
+            <div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg>
+              10:00 &ndash; 11:00 AM EST
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN / MOBILE MIDDLE: REGISTRATION CARD -->
+        <div id="dlw-register">
+          <div class="dlw-regcard dlw-reveal">
+            <span class="dlw-regcard__ribbon">100% Free</span>
+
+            <!-- 1. Webinar thumbnail (padded, uncropped) -->
+            <div class="dlw-regcard__media">
+              <div class="dlw-regcard__media-frame">
+                <!-- IMAGE: Webinar thumbnail -->
+                <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd99a69659affe66e2.png" alt="The 5 Numbers Every GM Should Know — free live webinar with David Lund, The Hotel Financial Coach">
+              </div>
+            </div>
+
+            <div class="dlw-regcard__body">
+              <!-- 2. Register headline -->
+              <h2>Register for FREE</h2>
+              <!-- 3. Short persuasive copy -->
+              <p class="dlw-regcard__copy">Save your seat now — it takes 15 seconds and costs nothing.</p>
+
+              <!-- 4. Embedded registration form (GoHighLevel embed, used as provided) -->
+              <div class="dlw-regcard__form-wrap">
+                <div class="dlw-regcard__loader" id="dlwFormLoader" aria-hidden="true">
+                  <div class="dlw-spinner"></div>
+                </div>
+                <iframe
+                    src="https://link.thinkingcreatives.com/widget/form/B2IJvuG2KMHYaotn9ZXD"
+                    style="width:100%;height:100%;border:none;border-radius:8px"
+                    id="inline-B2IJvuG2KMHYaotn9ZXD"
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="The 5 Numbers Every GM Should Know"
+                    data-height="434"
+                    data-layout-iframe-id="inline-B2IJvuG2KMHYaotn9ZXD"
+                    data-form-id="B2IJvuG2KMHYaotn9ZXD"
+                    title="The 5 Numbers Every GM Should Know"
+                    onload="var l=document.getElementById('dlwFormLoader'); if(l){l.classList.add('dlw-hide');}">
+                </iframe>
+              </div>
+
+              <p class="dlw-regcard__assurance">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                No cost. No obligation. Your information is kept private.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETAILS: supporting copy, key benefits, live countdown -->
+        <div class="dlw-hero__details">
+          <p class="dlw-hero__body">Join David Lund, The Hotel Financial Coach, for a free, live 60-minute training built specifically for hotel General Managers and hospitality leaders. You'll leave knowing exactly which numbers matter, why they matter, and how to put them to work the very next day — no accounting background required.</p>
+
+          <ul class="dlw-hero__benefits">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Understand your P&amp;L without an accounting degree</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Make faster, smarter financial decisions</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Speak with confidence in every ownership meeting</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Walk away with a practical framework you can use immediately</li>
           </ul>
-          <button class="hfc-btn hfc-btn--primary" data-hfc-open-modal>
-            Watch the Replay
-            <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
-          </button>
-          <p class="hfc-replay__date">Originally recorded Wednesday, June 24, 2026</p>
+
+          <!-- Live countdown to Oct 14, 2026, 10:00 AM. Populated by JS below. -->
+          <div class="dlw-countdown" id="dlwCountdown" aria-live="polite">
+            <div class="dlw-countdown__unit"><div class="dlw-countdown__num" id="dlwDays">00</div><div class="dlw-countdown__label">Days</div></div>
+            <div class="dlw-countdown__unit"><div class="dlw-countdown__num" id="dlwHours">00</div><div class="dlw-countdown__label">Hours</div></div>
+            <div class="dlw-countdown__unit"><div class="dlw-countdown__num" id="dlwMinutes">00</div><div class="dlw-countdown__label">Minutes</div></div>
+            <div class="dlw-countdown__unit"><div class="dlw-countdown__num" id="dlwSeconds">00</div><div class="dlw-countdown__label">Seconds</div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: WHY EVERY GM NEEDS TO KNOW THESE FIVE NUMBERS
+         ====================================================================== -->
+    <section class="dlw-section" id="dlw-why">
+      <div class="dlw-container">
+        <div class="dlw-section-head dlw-reveal">
+          <p class="dlw-eyebrow dlw-center">The Problem</p>
+          <h2>Why Every GM Needs to Know These Five Numbers</h2>
+          <p>You didn't become a General Manager to become an accountant. But every day, the numbers are quietly shaping decisions about your hotel, your team, and your career.</p>
+        </div>
+
+        <div class="dlw-problem__grid">
+          <div class="dlw-problem__card dlw-reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            <h3>Too Many Reports, Not Enough Clarity</h3>
+            <p>Financial statements are packed with dozens of line items — but only a handful of them actually tell you how your hotel is really performing.</p>
+          </div>
+          <div class="dlw-problem__card dlw-reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <h3>Fear of the Ownership Meeting</h3>
+            <p>Nothing erodes confidence faster than being asked a financial question in front of ownership — and not having a sharp, clear answer.</p>
+          </div>
+          <div class="dlw-problem__card dlw-reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L1 21h22L12 2zm0 4.5L18.5 19h-13L12 6.5zM11 10h2v5h-2zm0 6h2v2h-2z"/></svg>
+            <h3>Careers That Quietly Stall</h3>
+            <p>Talented operators get passed over for promotion every day — not because they can't run a hotel, but because they can't yet speak the language of the P&amp;L.</p>
+          </div>
+        </div>
+
+        <p class="dlw-problem__bridge dlw-reveal">The good news? You don't need to master every line of the financial statement — you only need to master <em>five numbers</em>. This free webinar shows you exactly which ones, and why.</p>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 3: WHAT YOU'LL LEARN
+         ====================================================================== -->
+    <section class="dlw-section dlw-section--cream" id="dlw-learn">
+      <div class="dlw-container">
+        <div class="dlw-section-head dlw-reveal">
+          <p class="dlw-eyebrow dlw-center">What You'll Learn</p>
+          <h2>Five Numbers. Sixty Minutes. A Lifetime of Financial Confidence.</h2>
+          <p>In this free live session, David breaks the noise of hotel financial reporting down into the five numbers that matter most — and shows you exactly how to use each one.</p>
+        </div>
+
+        <div class="dlw-agenda__list">
+          <div class="dlw-agenda__item dlw-reveal">
+            <div class="dlw-agenda__num">1</div>
+            <div>
+              <h3>The Revenue Number That Reveals the Real Story</h3>
+              <p>Go beyond the top line and learn the revenue metric that shows how your hotel is truly performing against its market — and its potential.</p>
+            </div>
+          </div>
+          <div class="dlw-agenda__item dlw-reveal">
+            <div class="dlw-agenda__num">2</div>
+            <div>
+              <h3>The Cost Number Ownership Watches Closest</h3>
+              <p>Discover the single cost indicator that instantly signals whether your operation is disciplined — or quietly leaking profit.</p>
+            </div>
+          </div>
+          <div class="dlw-agenda__item dlw-reveal">
+            <div class="dlw-agenda__num">3</div>
+            <div>
+              <h3>The Profit Metric That Defines Your Bottom Line</h3>
+              <p>Learn how to read and influence the number that shapes budgets, bonuses, and how ownership evaluates your leadership.</p>
+            </div>
+          </div>
+          <div class="dlw-agenda__item dlw-reveal">
+            <div class="dlw-agenda__num">4</div>
+            <div>
+              <h3>The Cash Indicator Every GM Must Track</h3>
+              <p>Understand the number that keeps your hotel financially healthy between reporting periods — and why it's often ignored until it's a crisis.</p>
+            </div>
+          </div>
+          <div class="dlw-agenda__item dlw-reveal">
+            <div class="dlw-agenda__num">5</div>
+            <div>
+              <h3>The One Number Most GMs Overlook</h3>
+              <p>David reveals the most commonly overlooked number in hotel finance — and how paying attention to it can quietly accelerate your career.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ==== SECTION: LIVE WEBINARS ==== -->
-    <section class="hfc-section hfc-section--cream" id="hfc-webinars">
-      <div class="hfc-container">
-        <div class="hfc-section-head hfc-reveal">
-          <p class="hfc-eyebrow" style="justify-content:center;">Reserve Your Seat</p>
-          <h2>Upcoming Live Training With David Lund</h2>
-          <p>Every session is free, live, and built for hotel leaders &mdash; not accountants. Bring your questions; David takes live Q&amp;A at the end of every session.</p>
-        </div>
-        <div class="hfc-webinars__grid" id="hfcWebinarGrid" aria-live="polite">
-          <!-- Live webinar cards are rendered here by JavaScript from the WEBINARS config
-               at the top of the <script> block below, so dates/titles/links only need
-               to be edited in one place. -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ==== SECTION: MEET DAVID LUND ==== -->
-    <section class="hfc-section" id="hfc-about">
-      <div class="hfc-container hfc-about__grid">
-        <div class="hfc-about__media hfc-reveal">
-          <div class="hfc-about__frame">
-            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a464ce96fe10df00f387f57.png" alt="Professional headshot of David Lund, founder of The Hotel Financial Coach">
+    <!-- ======================================================================
+         SECTION 4: MEET DAVID LUND
+         ====================================================================== -->
+    <section class="dlw-section" id="dlw-about">
+      <div class="dlw-container dlw-about__grid">
+        <div class="dlw-about__media dlw-reveal">
+          <div class="dlw-about__frame">
+            <!-- IMAGE: David Lund -->
+            <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4639307f3b0b00346b92de.png" alt="David Lund, founder of The Hotel Financial Coach">
           </div>
-          <div class="hfc-about__ribbon">
-            <strong>"Under Promise and Over Deliver."</strong>
-            <span>David's leadership philosophy</span>
+          <div class="dlw-about__ribbon">
+            <strong>"Remove the fear. Build the confidence."</strong>
+            <span>David's mission for hotel leaders</span>
           </div>
         </div>
 
-        <div class="hfc-about__content hfc-reveal">
-          <p class="hfc-eyebrow">Meet Your Instructor</p>
+        <div class="dlw-about__content dlw-reveal">
+          <p class="dlw-eyebrow">Meet Your Instructor</p>
           <h2>David Lund, The Hotel Financial Coach</h2>
-          <p>For more than two decades, David Lund has worked at the intersection of hotel operations and hotel finance &mdash; first as a controller and financial leader inside hotel operations, then as an educator, keynote speaker, and author who has made it his mission to remove the fear and confusion from hotel financial statements.</p>
-          <p>David built The Hotel Financial Coach because he watched too many talented operators &mdash; General Managers, Department Heads, and rising leaders &mdash; stall in their careers not because they couldn't run a great hotel, but because they couldn't confidently read, explain, or defend a P&amp;L in front of ownership. His teaching is different from a traditional accounting course: no jargon, no theory for theory's sake &mdash; just the practical financial skills hotel leaders actually use, taught the way hotel leaders actually think.</p>
-          <div class="hfc-about__quote">"Every hotel leader deserves to walk into the P&amp;L meeting with confidence &mdash; not dread."</div>
-          <p>David is the author of <em>The Prosperous Hotelier</em> and a sought-after keynote speaker at hospitality conferences, ownership meetings, and leadership summits across North America.</p>
+          <p>David Lund is a respected hotel financial leadership expert, keynote speaker, author, and educator. With decades of experience in hotel operations and hospitality finance, he has helped thousands of hotel professionals understand hotel finance in a practical, approachable, and engaging way.</p>
+          <p>David's mission is simple: remove the fear surrounding hotel financials so leaders can confidently improve profitability, understand the metrics that matter, make smarter financial decisions, and advance their careers. He doesn't teach accounting theory — he teaches the financial skills hotel leaders actually use, the way hotel leaders actually think.</p>
+          <div class="dlw-about__quote">"Every hotel leader deserves to understand the numbers that define their success — not fear them."</div>
 
-          <ul class="hfc-about__creds">
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Author, The Prosperous Hotelier</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Founder, The Hotel Financial Coach</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>20+ years in hotel operations &amp; financial leadership</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Keynote speaker at hospitality conferences nationwide</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Educator to thousands of GMs, AGMs &amp; department heads</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Practical, jargon-free hotel finance training</li>
+          <ul class="dlw-about__creds">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Founder, The Hotel Financial Coach</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Decades of hotel operations &amp; finance leadership</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Keynote speaker, author &amp; educator</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0l2.6 6.6L20 7.6l-5 4.9L16.2 20 10 16.3 3.8 20 5 12.5 0 7.6l7.4-1z"/></svg>Trained thousands of hotel professionals</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ==== SECTION: WHY ATTEND ==== -->
-    <section class="hfc-section hfc-section--cream" id="hfc-why">
-      <div class="hfc-container">
-        <div class="hfc-section-head hfc-reveal">
-          <p class="hfc-eyebrow" style="justify-content:center;">The Payoff</p>
-          <h2>Why Hotel Leaders Attend These Sessions</h2>
-          <p>This isn't theory &mdash; it's the exact financial toolkit David's students use to lead stronger departments, earn ownership's trust, and move their careers forward.</p>
+    <!-- ======================================================================
+         SECTION 5: BENEFITS OF ATTENDING
+         ====================================================================== -->
+    <section class="dlw-section dlw-section--cream" id="dlw-benefits">
+      <div class="dlw-container">
+        <div class="dlw-section-head dlw-reveal">
+          <p class="dlw-eyebrow dlw-center">The Payoff</p>
+          <h2>What You'll Walk Away With</h2>
+          <p>One hour of your time. A framework you'll use for the rest of your career.</p>
         </div>
 
-        <div class="hfc-benefits__grid">
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 20V10h4v10H4zm6 0V4h4v16h-4zm6 0v-7h4v7h-4z"/></svg></div>
-            <h3>Read Financials With Confidence</h3>
-            <p>Turn a dense P&amp;L into a clear story about how your hotel is really performing.</p>
+        <div class="dlw-benefits__grid">
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 20V10h4v10H4zm6 0V4h4v16h-4zm6 0v-7h4v7h-4z"/></svg></div>
+            <h3>Financial Confidence</h3>
+            <p>Read and discuss your P&amp;L without hesitation, jargon, or guesswork.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg></div>
-            <h3>Build Budgets Ownership Trusts</h3>
-            <p>Use the same budgeting framework top GMs rely on to plan with precision.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8 1.4 1.4-9.4 9.4-4-4-4.6 4.6z"/></svg></div>
+            <h3>Improved Profitability</h3>
+            <p>Spot the levers that move your bottom line — and act on them sooner.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
-            <h3>Control Labor Cost</h3>
-            <p>Find the hidden drivers behind runaway labor costs &mdash; without micromanaging your team.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></div>
+            <h3>Smarter Decisions</h3>
+            <p>Cut through report overload and focus only on the numbers that matter.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17l6-6 4 4 8-8 1.4 1.4-9.4 9.4-4-4-4.6 4.6z"/></svg></div>
-            <h3>Improve Profitability</h3>
-            <p>Spot the levers that move your bottom line every single reporting period.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
+            <h3>Career Growth</h3>
+            <p>Build the financial credibility that helps department heads become GMs, and GMs become trusted leaders.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></div>
-            <h3>Speak Ownership's Language</h3>
-            <p>Walk into every ownership and asset-management meeting fully prepared.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12c0-5.5-4.5-10-10-10z"/></svg></div>
+            <h3>Direct Access to David</h3>
+            <p>Ask your own financial questions live — no scripts, no filters.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-            <h3>Lead Your Department Heads</h3>
-            <p>Coach your team with the same financial clarity that makes ownership trust you.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg></div>
+            <h3>Practical, Not Theoretical</h3>
+            <p>Every insight is designed to be applied the moment you're back on property.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
-            <h3>Make Faster, Better Decisions</h3>
-            <p>Cut through the noise and act on the numbers that actually matter.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+            <h3>Zero Cost, Zero Risk</h3>
+            <p>A free educational session with no pitch-heavy sales agenda.</p>
           </div>
-          <div class="hfc-benefit hfc-reveal">
-            <div class="hfc-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
-            <h3>Advance Your Career</h3>
-            <p>Build the financial credibility that gets department heads promoted to GM.</p>
+          <div class="dlw-benefit dlw-reveal">
+            <div class="dlw-benefit__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-13h-2v6l5 3 1-1.6-4-2.4z"/></svg></div>
+            <h3>Just 60 Minutes</h3>
+            <p>One focused hour — designed to respect the busiest calendars in hospitality.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==== SECTION: FAQ ==== -->
-    <section class="hfc-section hfc-section--cream" id="hfc-faq">
-      <div class="hfc-container">
-        <div class="hfc-section-head hfc-reveal">
-          <p class="hfc-eyebrow" style="justify-content:center;">Questions</p>
+    <!-- ======================================================================
+         SECTION 6: FAQ
+         ====================================================================== -->
+    <section class="dlw-section" id="dlw-faq">
+      <div class="dlw-container">
+        <div class="dlw-section-head dlw-reveal">
+          <p class="dlw-eyebrow dlw-center">Questions</p>
           <h2>Frequently Asked Questions</h2>
         </div>
-        <div class="hfc-faq__list hfc-reveal" id="hfcFaqList">
-          <!-- FAQ items are toggled by JS below; content is fully static HTML so it
-               remains readable and indexable even if JavaScript fails to load. -->
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>Is this webinar really free?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Yes &mdash; every live session and the on-demand replay are completely free to attend. There's no catch and no credit card required.</p></div>
+
+        <div class="dlw-faq__list dlw-reveal">
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              Is this webinar really free?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>Yes. "The 5 Numbers Every GM Should Know" is a completely free, live educational webinar hosted by David Lund. There is no cost and no obligation to attend.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>Do I need an accounting or finance background?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>No. David built this training specifically for hotel operators &mdash; General Managers, Department Heads, and rising leaders &mdash; not for accountants. Everything is taught in plain language with real hotel examples.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              Who is this webinar for?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>This session is built for hotel General Managers, Assistant General Managers, Department Heads, hotel owners, hospitality executives, and emerging hotel leaders who want to lead with greater financial confidence.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>What if I can't attend live?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Register anyway. You'll be sent access to the recording, and you can also watch our current on-demand session, "Why Hotel Leaders Get Passed Over for Promotion," anytime.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              Do I need an accounting or finance background?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>No. This webinar is designed specifically for operations-minded hotel leaders — not accountants. David explains every concept in plain, practical language.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>Will there be live Q&amp;A?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Yes. Every live session ends with open Q&amp;A, so you can bring your own hotel's numbers and questions directly to David.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              What if I can't attend live?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>Register anyway. Once you sign up, we'll send you the session details by email — including a replay link if you're unable to join us live on October 14th.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>Who should attend?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>General Managers, Assistant General Managers, Department Heads, hotel owners, hospitality executives, and any emerging leader who wants to lead with financial confidence.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              Will there be a live Q&amp;A?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>Yes. David takes live questions throughout the session, so you can get direct answers to the financial challenges you're facing at your property.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>How long is each session?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Each live webinar runs 60 minutes, from 10:00&ndash;11:00 AM EST, including live Q&amp;A.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              How long is the webinar?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>The live session runs 60 minutes, from 10:00 AM to 11:00 AM EST on Wednesday, October 14, 2026.</p></div>
           </div>
-          <div class="hfc-faq__item">
-            <button class="hfc-faq__q" aria-expanded="false"><span>Can I bring my team?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Absolutely. Many hotel leaders register their entire leadership team so everyone builds financial fluency together.</p></div>
+          <div class="dlw-faq__item">
+            <button class="dlw-faq__q" aria-expanded="false">
+              How do I join once I register?
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <div class="dlw-faq__a"><p>After you register, you'll receive a confirmation email with your personal link to join the live session, plus a reminder as the date approaches.</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==== SECTION: FINAL CTA ==== -->
-    <section class="hfc-final">
-      <div class="hfc-container hfc-final__inner hfc-reveal">
-        <h2>Your Next Promotion Starts With Understanding the Numbers.</h2>
-        <p>Reserve your seat for an upcoming live session, or start right now with the free replay. Live Q&amp;A spots are limited to keep every session personal.</p>
-        <div class="hfc-final__ctas">
-          <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
-            Reserve Your Seat
-            <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
+    <!-- ======================================================================
+         SECTION 7: FINAL CALL-TO-ACTION
+         ====================================================================== -->
+    <section class="dlw-final">
+      <div class="dlw-container dlw-final__inner">
+        <p class="dlw-eyebrow dlw-on-dark dlw-center">Last Call</p>
+        <h2>Your Next Conversation With Ownership Starts Here</h2>
+        <p>You don't need to become an accountant. You need five numbers, sixty minutes, and the confidence to lead. Save your free spot now.</p>
+        <div class="dlw-final__datetime">
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7z"/></svg>Wednesday, October 14, 2026</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v6l5 3 1-1.6-4-2.4z"/></svg>10:00 &ndash; 11:00 AM EST</span>
+        </div>
+        <div>
+          <a href="#dlw-register" class="dlw-btn dlw-btn--gold" data-dlw-scroll>
+            Reserve Your Free Seat
+            <svg class="dlw-arrow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
           </a>
-          <button class="hfc-btn hfc-btn--on-dark" data-hfc-open-modal>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            Watch the Replay
-          </button>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- ==== SECTION: FOOTER ==== -->
-  <footer class="hfc-footer">
-    <div class="hfc-container">
-      <div class="hfc-footer__top">
-        <div class="hfc-footer__brand">
-          <!-- IMAGE: The Hotel Financial Coach logo (hosted on GHL). -->
-          <img class="hfc-footer__logo" src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png" alt="The Hotel Financial Coach">
-          <p>Practical, jargon-free hotel financial leadership training for General Managers, Department Heads, owners, and rising hospitality leaders.</p>
-          <div class="hfc-footer__social">
-            <!-- [REPLACE] Point these at real profile URLs -->
-            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4z"/></svg></a>
-            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.6-.46-5.3a3 3 0 00-2.1-2.1C18.7 4 12 4 12 4s-6.7 0-8.44.6a3 3 0 00-2.1 2.1C1 8.4 1 12 1 12s0 3.6.46 5.3a3 3 0 002.1 2.1C5.3 20 12 20 12 20s6.7 0 8.44-.6a3 3 0 002.1-2.1C23 15.6 23 12 23 12zM10 15.5v-7l6 3.5z"/></svg></a>
-            <a href="#" aria-label="Skool community"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></a>
-          </div>
-        </div>
-        <div>
-          <h4>Webinars</h4>
-          <ul>
-            <li><a href="#hfc-replay">Watch the Replay</a></li>
-            <li><a href="#hfc-webinars">Live Sessions</a></li>
-            <li><a href="#hfc-about">About David</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>More</h4>
-          <ul>
-            <li><a href="#hfc-why">Why Attend</a></li>
-            <li><a href="#hfc-faq">FAQ</a></li>
-            <li><a href="https://www.skool.com/the-hotel-financial-coach-6836/about" target="_blank" rel="noopener">Community</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="hfc-footer__bottom">
-        <span>&copy; <span id="hfcYear"></span> The Hotel Financial Coach. All rights reserved.</span>
-        <span>Hotel finance training built for leaders, not accountants.</span>
-      </div>
-    </div>
+  <!-- ==== FOOTER ==== -->
+  <footer class="dlw-footer">
+    <strong>The Hotel Financial Coach</strong>
+    <p>&copy; <span id="dlwYear"></span> The Hotel Financial Coach. All rights reserved.</p>
   </footer>
 
-  <!-- ==== REPLAY MODAL (lightbox) ==== -->
-  <div class="hfc-modal" id="hfcModal" role="dialog" aria-modal="true" aria-labelledby="hfcModalTitle">
-    <div class="hfc-modal__backdrop" data-hfc-close-modal></div>
-    <div class="hfc-modal__panel">
-      <div class="hfc-modal__media">
-        <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bdd0f4875396396334.png" alt="Why Hotel Leaders Get Passed Over for Promotion &mdash; replay preview">
-        <button class="hfc-modal__close" data-hfc-close-modal aria-label="Close">
-          <svg viewBox="0 0 24 24"><path d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
-        </button>
-      </div>
-      <div class="hfc-modal__body">
-        <h3 id="hfcModalTitle">Why Hotel Leaders Get Passed Over for Promotion</h3>
-        <p class="hfc-modal__meta">Replay &middot; Originally recorded Wednesday, June 24, 2026</p>
-        <p>Most hotel leaders aren't overlooked because they lack talent &mdash; they're overlooked because they haven't yet learned to speak the language ownership speaks. Watch this session to learn exactly what to fix first.</p>
-        <ul class="hfc-modal__list">
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>The financial habits that separate promotable leaders from everyone else</li>
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Why "operationally strong" isn't enough &mdash; and what ownership actually evaluates</li>
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>A simple weekly habit that builds financial credibility fast</li>
-        </ul>
-
-        <!-- Soft gate: push the nearest live webinar before handing over the replay link. -->
-        <div class="hfc-modal__promo">
-          <p class="hfc-modal__promo-eyebrow">Want More Than a Recording?</p>
-          <p class="hfc-modal__promo-text">Join David live for open Q&amp;A on <strong>Wednesday, July 22 at 10&ndash;11 AM EST</strong> &mdash; "How to Read Your Hotel P&amp;L in 30 Minutes."</p>
-          <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-btn--block">
-            Reserve My Seat
-            <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
-          </a>
-        </div>
-
-        <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" target="_blank" rel="noopener" class="hfc-modal__skip">
-          Proceed to Replay
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==== STICKY MOBILE CTA ==== -->
-  <div class="hfc-sticky-cta" id="hfcStickyCta">
-    <span class="hfc-sticky-cta__text">Ready to lead with confidence?</span>
-    <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary">Reserve Your Seat</a>
+  <!-- ==== MOBILE STICKY CTA (phones/tablets only, shown via JS after hero) ==== -->
+  <div class="dlw-mobile-cta" id="dlwMobileCta">
+    <a href="#dlw-register" class="dlw-btn dlw-btn--primary" data-dlw-scroll>Register Free Now</a>
   </div>
 
 </div>
 
-<!-- JSON-LD structured data: helps live webinars surface as rich results in search -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "name": "David Lund",
-      "jobTitle": "Hotel Financial Coach",
-      "url": "https://hotelfinancialcoach.com",
-      "sameAs": ["https://www.skool.com/the-hotel-financial-coach-6836/about"]
-    },
-    {
-      "@type": "Event",
-      "name": "How to Read Your Hotel P&L in 30 Minutes",
-      "startDate": "2026-07-22T10:00:00-04:00",
-      "endDate": "2026-07-22T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "How to Build a Hotel Budget Like a Leader",
-      "startDate": "2026-08-19T10:00:00-04:00",
-      "endDate": "2026-08-19T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "The Labor Cost Problem Nobody Talks About",
-      "startDate": "2026-09-16T10:00:00-04:00",
-      "endDate": "2026-09-16T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "The 5 Numbers Every GM Should Know",
-      "startDate": "2026-10-14T10:00:00-04:00",
-      "endDate": "2026-10-14T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "From Department Head to GM: The Financial Shift",
-      "startDate": "2026-11-18T10:00:00-05:00",
-      "endDate": "2026-11-18T11:00:00-05:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/from-department-head-to-gm-the-financial-shift" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/from-department-head-to-gm-the-financial-shift" }
-    }
-  ]
-}
-</script>
+<!-- GoHighLevel form auto-resize script (loaded once, used exactly as provided) -->
+<script src="https://link.thinkingcreatives.com/js/form_embed.js"></script>
 
 <script>
-(function () {
-  'use strict';
+  /* ==========================================================================
+     THE 5 NUMBERS EVERY GM SHOULD KNOW — PAGE SCRIPT
+     All logic is scoped to elements inside #dlw-webinar-page; nothing here
+     touches global page state beyond a single scroll listener.
+     ========================================================================== */
+  (function () {
+    'use strict';
 
-  /* ========================================================================
-     WEBINARS CONFIG &mdash; the single source of truth for the live webinar cards.
-     Edit dates, titles, descriptions, images, or links here only; the grid
-     below is rendered from this array so markup never needs manual updates.
-     ======================================================================== */
-  var WEBINARS = [
-    {
-      day: '22', month: 'JUL', date: 'Wednesday, July 22, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'How to Read Your Hotel P&L in 30 Minutes',
-      desc: 'Turn a confusing financial statement into a clear story about how your hotel is really performing &mdash; in half the time it takes you today.',
-      url: 'https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png',
-      alt: 'Webinar thumbnail: How to Read Your Hotel P&L in 30 Minutes'
-    },
-    {
-      day: '19', month: 'AUG', date: 'Wednesday, August 19, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'How to Build a Hotel Budget Like a Leader',
-      desc: 'Stop guessing at numbers. Learn the framework top GMs use to build budgets ownership actually trusts.',
-      url: 'https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png',
-      alt: 'Webinar thumbnail: How to Build a Hotel Budget Like a Leader'
-    },
-    {
-      day: '16', month: 'SEP', date: 'Wednesday, September 16, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'The Labor Cost Problem Nobody Talks About',
-      desc: 'Discover the hidden drivers behind runaway labor costs &mdash; and the practical levers you control every schedule period.',
-      url: 'https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png',
-      alt: 'Webinar thumbnail: The Labor Cost Problem Nobody Talks About'
-    },
-    {
-      day: '14', month: 'OCT', date: 'Wednesday, October 14, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'The 5 Numbers Every GM Should Know',
-      desc: "Cut through the noise of your P&L and focus on the five metrics that actually move profitability and your career.",
-      url: 'https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd99a69659affe66e2.png',
-      alt: 'Webinar thumbnail: The 5 Numbers Every GM Should Know'
-    },
-    {
-      day: '18', month: 'NOV', date: 'Wednesday, November 18, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'From Department Head to GM: The Financial Shift',
-      desc: 'The financial mindset shift that separates department heads from GM-ready leaders &mdash; and how to make it before your next interview.',
-      url: 'https://webinar.hotelfinancialcoach.com/from-department-head-to-gm-the-financial-shift',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd7f3b0b00346b4045.png',
-      alt: 'Webinar thumbnail: From Department Head to GM: The Financial Shift'
-    }
-  ];
+    var root = document.getElementById('dlw-webinar-page');
+    if (!root) return;
 
-  var CAL_ICON = '<svg viewBox="0 0 20 20"><path d="M6 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H8V2H6zM4 8h12v8H4V8z"/></svg>';
-  var ARROW_ICON = '<svg viewBox="0 0 24 24"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>';
+    /* ---- Footer year ---- */
+    var yearEl = document.getElementById('dlwYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  function renderWebinars() {
-    var grid = document.getElementById('hfcWebinarGrid');
-    if (!grid) return;
-    var html = WEBINARS.map(function (w) {
-      return (
-        '<a class="hfc-wcard hfc-reveal" href="' + w.url + '" target="_blank" rel="noopener" aria-label="Reserve your seat: ' + w.title + '">' +
-          '<div class="hfc-wcard__media">' +
-            '<span class="hfc-wcard__badge">Live Webinar</span>' +
-            '<!-- IMAGE: ' + w.title + ' thumbnail. Recommended: 1280x720. -->' +
-            '<img src="' + w.img + '" alt="' + w.alt + '" loading="lazy">' +
-          '</div>' +
-          '<div class="hfc-wcard__body">' +
-            '<div class="hfc-wcard__date">' + CAL_ICON + '<span>' + w.date + '</span></div>' +
-            '<div class="hfc-wcard__time" style="margin-bottom:14px;font-size:13px;">' + w.time + '</div>' +
-            '<h3 class="hfc-wcard__title">' + w.title + '</h3>' +
-            '<p class="hfc-wcard__desc">' + w.desc + '</p>' +
-            '<span class="hfc-wcard__cta">Reserve My Seat ' + ARROW_ICON + '</span>' +
-          '</div>' +
-        '</a>'
-      );
-    }).join('');
-    grid.innerHTML = html;
-    observeReveal();
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Replay modal                                                       */
-  /* ------------------------------------------------------------------ */
-  function setupModal() {
-    var modal = document.getElementById('hfcModal');
-    if (!modal) return;
-    var lastFocused = null;
-
-    function openModal(trigger) {
-      lastFocused = trigger || document.activeElement;
-      modal.classList.add('hfc-open');
-      document.body.style.overflow = 'hidden';
-      var closeBtn = modal.querySelector('.hfc-modal__close');
-      if (closeBtn) closeBtn.focus();
-      document.addEventListener('keydown', onKeydown);
-    }
-    function closeModal() {
-      modal.classList.remove('hfc-open');
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', onKeydown);
-      if (lastFocused && lastFocused.focus) lastFocused.focus();
-    }
-    function onKeydown(e) {
-      if (e.key === 'Escape') closeModal();
-    }
-
-    document.querySelectorAll('[data-hfc-open-modal]').forEach(function (el) {
-      el.addEventListener('click', function () { openModal(el); });
-    });
-    document.querySelectorAll('[data-hfc-close-modal]').forEach(function (el) {
-      el.addEventListener('click', closeModal);
-    });
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* FAQ accordion                                                      */
-  /* ------------------------------------------------------------------ */
-  function setupFaq() {
-    var items = document.querySelectorAll('.hfc-faq__item');
-    items.forEach(function (item) {
-      var q = item.querySelector('.hfc-faq__q');
-      var a = item.querySelector('.hfc-faq__a');
-      q.addEventListener('click', function () {
-        var isOpen = item.classList.contains('hfc-open');
-        items.forEach(function (other) {
-          other.classList.remove('hfc-open');
-          other.querySelector('.hfc-faq__a').style.maxHeight = null;
-          other.querySelector('.hfc-faq__q').setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
-          item.classList.add('hfc-open');
-          a.style.maxHeight = a.scrollHeight + 'px';
-          q.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Scroll reveal                                                      */
-  /* ------------------------------------------------------------------ */
-  var revealObserver;
-  function observeReveal() {
-    var els = document.querySelectorAll('.hfc-reveal:not(.hfc-visible)');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(function (el) { el.classList.add('hfc-visible'); });
-      return;
-    }
-    if (!revealObserver) {
-      revealObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('hfc-visible');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    }
-    els.forEach(function (el) { revealObserver.observe(el); });
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Sticky mobile CTA                                                  */
-  /* ------------------------------------------------------------------ */
-  function setupStickyCta() {
-    var bar = document.getElementById('hfcStickyCta');
-    var hero = document.querySelector('.hfc-hero');
-    if (!bar || !hero) return;
-    var heroHeight = hero.offsetHeight;
-    var ticking = false;
-    window.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () {
-        bar.classList.toggle('hfc-show', window.scrollY > heroHeight * 0.6);
-        ticking = false;
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Stats counter (counts up from 0 when the strip scrolls into view)  */
-  /* ------------------------------------------------------------------ */
-  function setupStatsCounter() {
-    var statsSection = document.querySelector('.hfc-stats');
-    if (!statsSection) return;
-    var counters = statsSection.querySelectorAll('[data-count-target]');
-    if (!counters.length) return;
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function formatValue(el, value) {
-      var suffix = el.getAttribute('data-count-suffix') || '';
-      var display = el.hasAttribute('data-count-format') ? value.toLocaleString() : String(value);
-      return display + suffix;
-    }
-
-    function animateCounter(el) {
-      var target = parseInt(el.getAttribute('data-count-target'), 10);
-      if (reduceMotion) {
-        el.textContent = formatValue(el, target);
-        return;
-      }
-      var duration = 1400;
-      var start = null;
-      function step(timestamp) {
-        if (!start) start = timestamp;
-        var progress = Math.min((timestamp - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = formatValue(el, Math.floor(eased * target));
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = formatValue(el, target);
-        }
-      }
-      requestAnimationFrame(step);
-    }
-
-    // Start every counter at 0 immediately so there's no flash of the final
-    // number before it animates in.
-    if (!reduceMotion) {
-      counters.forEach(function (el) { el.textContent = formatValue(el, 0); });
-    }
-
-    if (!('IntersectionObserver' in window)) {
-      counters.forEach(animateCounter);
-      return;
-    }
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          counters.forEach(animateCounter);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    observer.observe(statsSection);
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Smooth scroll for in-page anchors                                  */
-  /* ------------------------------------------------------------------ */
-  function setupSmoothScroll() {
-    document.querySelectorAll('.hfc-root a[href^="#hfc-"], .hfc-root a[href^="#hfc-webinar-funnel"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var id = a.getAttribute('href').slice(1);
-        var target = document.getElementById(id);
+    /* ---- Smooth scroll for in-page CTAs ---- */
+    root.querySelectorAll('[data-dlw-scroll]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var targetId = link.getAttribute('href');
+        if (!targetId || targetId.charAt(0) !== '#') return;
+        var target = document.querySelector(targetId);
         if (!target) return;
         e.preventDefault();
-        var top = target.getBoundingClientRect().top + window.pageYOffset - 16;
-        window.scrollTo({ top: top, behavior: 'smooth' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-  }
 
-  function init() {
-    renderWebinars();
-    setupModal();
-    setupFaq();
-    setupStickyCta();
-    setupStatsCounter();
-    setupSmoothScroll();
-    observeReveal();
-    var yearEl = document.getElementById('hfcYear');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-  }
+    /* ---- Sticky top bar + mobile sticky CTA: show after scrolling past hero ---- */
+    var hero = root.querySelector('.dlw-hero');
+    var stickyBar = document.getElementById('dlwStickyBar');
+    var mobileCta = document.getElementById('dlwMobileCta');
+    var ticking = false;
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+    function updateStickyVisibility() {
+      var heroHeight = hero ? hero.offsetHeight : 600;
+      var pastHero = window.scrollY > heroHeight * 0.9;
+      if (stickyBar) stickyBar.classList.toggle('dlw-show', pastHero);
+      if (mobileCta) mobileCta.classList.toggle('dlw-show', pastHero);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateStickyVisibility);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateStickyVisibility();
+
+    /* ---- Scroll-reveal animation via IntersectionObserver ---- */
+    var reveals = root.querySelectorAll('.dlw-reveal');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('dlw-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function (el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add('dlw-visible'); });
+    }
+    /* Safety net: force every reveal element visible after 2.5s regardless
+       of scroll position. Without this, content a visitor never scrolls to
+       trigger (or that a crawler/screenshot tool captures without scrolling)
+       would stay permanently invisible if the observer never fires. */
+    setTimeout(function () {
+      reveals.forEach(function (el) { el.classList.add('dlw-visible'); });
+    }, 2500);
+
+    /* ---- FAQ accordion ---- */
+    root.querySelectorAll('.dlw-faq__item').forEach(function (item) {
+      var q = item.querySelector('.dlw-faq__q');
+      var a = item.querySelector('.dlw-faq__a');
+      if (!q || !a) return;
+      q.addEventListener('click', function () {
+        var isOpen = item.classList.contains('dlw-open');
+        item.classList.toggle('dlw-open', !isOpen);
+        q.setAttribute('aria-expanded', String(!isOpen));
+        a.style.maxHeight = isOpen ? null : a.scrollHeight + 'px';
+      });
+    });
+
+    /* ---- Live countdown to the webinar ----
+       Marketing copy reads "EST" for brand consistency, but October 14, 2026
+       actually falls under Eastern Daylight Time (DST ends Nov 1, 2026), so
+       the real UTC offset used here is -04:00 to keep the countdown accurate
+       to the true start time. */
+    var webinarDate = new Date('2026-10-14T10:00:00-04:00');
+    var daysEl = document.getElementById('dlwDays');
+    var hoursEl = document.getElementById('dlwHours');
+    var minutesEl = document.getElementById('dlwMinutes');
+    var secondsEl = document.getElementById('dlwSeconds');
+    var countdownEl = document.getElementById('dlwCountdown');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      var diff = webinarDate.getTime() - Date.now();
+      if (diff <= 0) {
+        if (countdownEl) countdownEl.innerHTML = '<div class="dlw-countdown__label" style="font-size:14px;color:#fff;">We\'re live right now &mdash; join us!</div>';
+        clearInterval(countdownTimer);
+        return;
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var minutes = Math.floor((diff % 3600000) / 60000);
+      var seconds = Math.floor((diff % 60000) / 1000);
+      if (daysEl) daysEl.textContent = pad(days);
+      if (hoursEl) hoursEl.textContent = pad(hours);
+      if (minutesEl) minutesEl.textContent = pad(minutes);
+      if (secondsEl) secondsEl.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    var countdownTimer = setInterval(updateCountdown, 1000);
+
+    /* ---- Fallback: hide the form loader if the iframe's onload never fires
+       (e.g. it was cached) so the loading spinner never gets stuck. ---- */
+    setTimeout(function () {
+      var loader = document.getElementById('dlwFormLoader');
+      if (loader) loader.classList.add('dlw-hide');
+    }, 4000);
+
+  })();
 </script>

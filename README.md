@@ -7,7 +7,8 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html      ← webinar registration landing page (HTML + CSS + JS, one file)
+thank-you.html  ← post-registration Thank You + Skool community upsell page (one file)
 ```
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
@@ -68,3 +69,29 @@ links and the replay link are also grouped at the top of the `<script>` block in
 single `WEBINARS` config object — update dates, titles, or URLs there and the page
 re-renders the cards automatically, so you never have to hunt through markup to
 change a date.
+
+## `thank-you.html` — post-registration Thank You + upsell page
+
+Shown immediately after someone registers for a webinar. Confirms the signup,
+walks visitors through "What Happens Next," and upsells David Lund's Skool
+community (**not** a hard sell — positioned as a natural next step while they
+wait for the live event). Same one-file, GHL-Custom-HTML-element pattern as
+`index.html`, but scoped under `.hfty-` / `--hfty-*` instead of `.hfc-` so the
+two snippets can never collide if they ever end up on the same page.
+
+Notable choices, all confirmed with the client:
+- **No contact merge fields** — the greeting is generic so the page works
+  whether or not contact data is present.
+- **No countdown timer / hardcoded date** — copy points people to their inbox
+  for the exact date & time, so one page can be reused for any webinar without
+  edits.
+- **System-font stack only** (no Google Fonts request) — "Gotham" isn't a free
+  web font, so the closest premium system equivalents are used instead, kept
+  100% self-contained with zero external requests.
+- **Both supplied David Lund photos are used** — the on-stage/speaking photo in
+  the hero (energy/excitement), the professional headshot in "Meet David Lund"
+  (credibility/trust).
+
+Both "Join the Community" buttons link to
+`https://www.skool.com/the-hotel-financial-coach-6836/about` — search the file
+for `skool.com` if that URL ever needs to change.

@@ -1,0 +1,992 @@
+<!--
+  ============================================================================
+  THE HOTEL FINANCIAL COACH — WEBINAR THANK YOU + COMMUNITY UPSELL PAGE
+  ============================================================================
+  Shown immediately after a visitor registers for one of David Lund's free
+  webinars. Goals, in order: confirm the registration, tell them exactly what
+  happens next, build excitement, and invite them into the Skool community
+  while they wait for the live event.
+
+  Built as a single, self-contained FRAGMENT (not a full HTML document) so it
+  can be pasted directly into one GoHighLevel "Custom HTML" element, the same
+  pattern used by index.html in this repo. GHL injects this snippet into an
+  existing page, so <!DOCTYPE>/<html>/<head>/<body> wrappers are intentionally
+  omitted, and every style is scoped under the ".hfty-" prefix / "--hfty-" CSS
+  custom properties so it can never collide with other elements on the page
+  (including index.html's own ".hfc-" scope, if both ever load together).
+
+  DECISIONS BAKED INTO THIS VERSION (confirmed with the client):
+  - No contact merge fields — the greeting is generic so this page works
+    whether or not contact data is present.
+  - No countdown timer / specific date — copy points people to their inbox
+    for exact date & time, so this one page can be reused for any webinar.
+  - Typography is a 100% self-contained system-font stack (no external font
+    request at all) — "Gotham" isn't available as a free web font, so the
+    closest premium system equivalents (San Francisco / Segoe UI / Helvetica
+    Neue) are used instead. Nothing to load, nothing to break.
+  - Both supplied David Lund photos are used: the on-stage/speaking photo
+    powers the hero (energy, excitement), and the professional headshot
+    anchors the "Meet David Lund" section (credibility, trust).
+
+  IMAGES: hosted on GHL Media Storage — nothing to re-upload.
+  - Logo:            .../6a463930d0f487539639fccf.png
+  - Hero (speaking): .../6a4639307f3b0b00346b92de.png
+  - Headshot:        .../6a464ce96fe10df00f387f57.png
+  To swap later, search this file for the section comment and replace the
+  <img src="...">. All images use object-fit: contain inside a fixed-ratio
+  frame, so none can ever be stretched or distorted regardless of their
+  native dimensions.
+
+  CTA LINK: every "Join the Community" button points to
+  https://www.skool.com/the-hotel-financial-coach-6836/about
+  Update both occurrences (search "SKOOL_URL" is not a real token — this is
+  plain HTML, so just search for "skool.com" and replace both hrefs) if the
+  community URL ever changes.
+  ============================================================================
+-->
+
+<div class="hfty-root">
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS
+       ========================================================================== */
+    .hfty-root {
+      --hfty-burgundy: #8B0000;
+      --hfty-burgundy-dark: #5c0000;
+      --hfty-burgundy-deep: #3a0a0a;
+      --hfty-gold: #C89B2A;
+      --hfty-gold-light: #E7CD86;
+      --hfty-white: #FFFFFF;
+      --hfty-cream: #FBF9F5;
+      --hfty-ink: #211615;
+      --hfty-gray: #6B615D;
+      --hfty-gray-light: #948B86;
+      --hfty-border: #ECE4D8;
+      --hfty-shadow: 0 24px 60px -24px rgba(33, 22, 21, 0.28);
+      --hfty-shadow-sm: 0 10px 26px -14px rgba(33, 22, 21, 0.20);
+      --hfty-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --hfty-radius-lg: 22px;
+      --hfty-radius: 16px;
+      --hfty-radius-sm: 10px;
+      --hfty-container: 1180px;
+      --hfty-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+      font-family: var(--hfty-font);
+      color: var(--hfty-ink);
+      background: var(--hfty-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .hfty-root, .hfty-root *, .hfty-root *::before, .hfty-root *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hfty-root img { max-width: 100%; display: block; }
+    .hfty-root a { color: inherit; text-decoration: none; }
+    .hfty-root ul { list-style: none; }
+    .hfty-root svg { display: block; flex-shrink: 0; }
+    .hfty-root button { font-family: inherit; cursor: pointer; }
+
+    .hfty-root h1, .hfty-root h2, .hfty-root h3, .hfty-root h4 {
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--hfty-ink);
+    }
+
+    .hfty-root :focus-visible {
+      outline: 2px solid var(--hfty-gold);
+      outline-offset: 3px;
+    }
+
+    .hfty-container {
+      max-width: var(--hfty-container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hfty-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--hfty-gold);
+    }
+    .hfty-eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--hfty-gold);
+      display: inline-block;
+      border-radius: 2px;
+    }
+    .hfty-eyebrow--center { justify-content: center; }
+
+    .hfty-section { padding: 88px 0; }
+    .hfty-section--tight { padding: 64px 0; }
+    @media (max-width: 640px) {
+      .hfty-section { padding: 56px 0; }
+      .hfty-section--tight { padding: 44px 0; }
+    }
+
+    .hfty-center { text-align: center; }
+    .hfty-lede {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--hfty-gray);
+      font-size: clamp(16px, 1.7vw, 18.5px);
+    }
+
+    /* ==========================================================================
+       BUTTONS
+       ========================================================================== */
+    .hfty-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      max-width: 100%;
+      font-size: 16.5px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 17px 34px;
+      border-radius: 100px;
+      text-align: center;
+      transition: transform 0.25s var(--hfty-ease), box-shadow 0.25s var(--hfty-ease), background-color 0.25s var(--hfty-ease);
+    }
+    .hfty-btn:hover { transform: translateY(-2px); }
+    .hfty-btn:active { transform: translateY(0); }
+
+    /* Below ~480px a full-length CTA label at --lg size no longer fits on one
+       line even at full viewport width — let it wrap to two lines instead of
+       silently overflowing (the root's overflow-x: hidden would otherwise
+       clip it rather than reflow it). */
+    @media (max-width: 480px) {
+      .hfty-btn--lg { padding: 18px 28px; font-size: 16.5px; white-space: normal; }
+    }
+
+    /* Dark/burgundy button on light backgrounds — always white text for contrast.
+       Selectors are doubled up (.hfty-btn.hfty-btn--primary) so their specificity
+       reliably beats the generic ".hfty-root a { color: inherit }" link rule —
+       both buttons in this page are <a> tags, so that rule would otherwise win
+       and silently render the label in the wrong (invisible-on-invisible) color. */
+    .hfty-btn.hfty-btn--primary {
+      background: var(--hfty-burgundy);
+      color: var(--hfty-white);
+      box-shadow: 0 14px 30px -12px rgba(139, 0, 0, 0.45);
+    }
+    .hfty-btn.hfty-btn--primary:hover {
+      background: var(--hfty-burgundy-dark);
+      box-shadow: 0 18px 36px -12px rgba(139, 0, 0, 0.55);
+    }
+
+    /* Light/white button reserved for use on burgundy panels — burgundy text */
+    .hfty-btn.hfty-btn--invert {
+      background: var(--hfty-white);
+      color: var(--hfty-burgundy);
+      box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35);
+    }
+    .hfty-btn.hfty-btn--invert:hover {
+      background: var(--hfty-gold-light);
+      color: var(--hfty-burgundy-dark);
+    }
+
+    .hfty-btn--lg { padding: 20px 42px; font-size: 18px; }
+
+    .hfty-icon-arrow { width: 18px; height: 18px; transition: transform 0.25s var(--hfty-ease); }
+    .hfty-btn:hover .hfty-icon-arrow { transform: translateX(4px); }
+
+    /* ==========================================================================
+       HERO
+       ========================================================================== */
+    .hfty-hero {
+      position: relative;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(200, 155, 42, 0.16), transparent 45%),
+        linear-gradient(180deg, var(--hfty-cream) 0%, var(--hfty-white) 78%);
+      padding: 56px 0 96px;
+      overflow: hidden;
+    }
+
+    .hfty-hero__logo-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 44px;
+    }
+    .hfty-hero__logo { height: 46px; width: auto; object-fit: contain; }
+
+    .hfty-hero__badge {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+    .hfty-hero__check {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--hfty-burgundy), var(--hfty-burgundy-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 32px -12px rgba(139, 0, 0, 0.5), 0 0 0 6px rgba(200, 155, 42, 0.18);
+      animation: hfty-pop 0.7s var(--hfty-ease) both;
+    }
+    .hfty-hero__check svg { width: 34px; height: 34px; stroke: var(--hfty-white); }
+
+    .hfty-hero h1 {
+      text-align: center;
+      font-size: clamp(34px, 5.4vw, 58px);
+      margin-bottom: 16px;
+    }
+    .hfty-hero h1 .hfty-accent { color: var(--hfty-burgundy); }
+
+    .hfty-hero__sub {
+      text-align: center;
+      font-size: clamp(18px, 2.4vw, 23px);
+      font-weight: 600;
+      color: var(--hfty-burgundy);
+      margin-bottom: 20px;
+    }
+
+    .hfty-hero__body {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--hfty-gray);
+      font-size: 17px;
+    }
+    .hfty-hero__body p + p { margin-top: 14px; }
+    .hfty-hero__body strong { color: var(--hfty-ink); }
+
+    .hfty-hero__media {
+      position: relative;
+      max-width: 620px;
+      margin: 52px auto 0;
+      border-radius: var(--hfty-radius-lg);
+      background: var(--hfty-white);
+      box-shadow: var(--hfty-shadow);
+      border: 1px solid var(--hfty-border);
+      padding: 14px;
+    }
+    .hfty-hero__media-frame {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: calc(var(--hfty-radius-lg) - 8px);
+      overflow: hidden;
+      background: var(--hfty-burgundy-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hfty-hero__media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .hfty-hero__media-caption {
+      text-align: center;
+      padding: 16px 8px 6px;
+      font-size: 14px;
+      color: var(--hfty-gray);
+      font-weight: 600;
+    }
+    .hfty-hero__media-caption span { color: var(--hfty-gold); }
+
+    .hfty-scrollcue {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .hfty-scrollcue a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--hfty-burgundy);
+      letter-spacing: 0.02em;
+    }
+    .hfty-scrollcue svg { width: 16px; height: 16px; animation: hfty-bounce 1.8s ease-in-out infinite; }
+
+    /* ==========================================================================
+       STEPS ("What Happens Next")
+       ========================================================================== */
+    .hfty-steps {
+      background: var(--hfty-white);
+    }
+    .hfty-steps__grid {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 22px;
+    }
+    .hfty-step {
+      position: relative;
+      background: var(--hfty-cream);
+      border: 1px solid var(--hfty-border);
+      border-radius: var(--hfty-radius);
+      padding: 30px 22px 26px;
+      text-align: left;
+      transition: transform 0.3s var(--hfty-ease), box-shadow 0.3s var(--hfty-ease);
+    }
+    .hfty-step:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--hfty-shadow-sm);
+    }
+    .hfty-step__num {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--hfty-gold);
+      letter-spacing: 0.05em;
+    }
+    .hfty-step__icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: var(--hfty-burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .hfty-step__icon svg { width: 24px; height: 24px; stroke: var(--hfty-white); }
+    .hfty-step h3 { font-size: 17.5px; margin-bottom: 8px; }
+    .hfty-step p { font-size: 14.5px; color: var(--hfty-gray); }
+
+    /* ==========================================================================
+       UPSELL INTRO (burgundy panel)
+       ========================================================================== */
+    .hfty-upsell {
+      position: relative;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(200, 155, 42, 0.22), transparent 50%),
+        linear-gradient(155deg, var(--hfty-burgundy) 0%, var(--hfty-burgundy-dark) 60%, var(--hfty-burgundy-deep) 100%);
+      color: var(--hfty-white);
+      overflow: hidden;
+    }
+    .hfty-upsell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 90px);
+      pointer-events: none;
+    }
+    .hfty-upsell .hfty-eyebrow { color: var(--hfty-gold-light); }
+    .hfty-upsell .hfty-eyebrow::before { background: var(--hfty-gold-light); }
+    .hfty-upsell h2 { color: var(--hfty-white); }
+    .hfty-upsell .hfty-lede { color: rgba(255,255,255,0.86); }
+    .hfty-upsell__inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hfty-upsell__cta { margin-top: 34px; }
+    .hfty-upsell__note {
+      margin-top: 18px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ==========================================================================
+       WHY JOIN — benefit cards
+       ========================================================================== */
+    .hfty-why { background: var(--hfty-white); }
+    .hfty-why__grid {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 26px;
+    }
+    .hfty-benefit {
+      background: var(--hfty-white);
+      border: 1px solid var(--hfty-border);
+      border-radius: var(--hfty-radius);
+      padding: 32px 26px;
+      transition: transform 0.3s var(--hfty-ease), box-shadow 0.3s var(--hfty-ease), border-color 0.3s var(--hfty-ease);
+    }
+    .hfty-benefit:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--hfty-shadow-sm);
+      border-color: var(--hfty-gold-light);
+    }
+    .hfty-benefit__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--hfty-cream);
+      border: 1.5px solid var(--hfty-gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hfty-benefit__icon svg { width: 24px; height: 24px; stroke: var(--hfty-burgundy); }
+    .hfty-benefit h3 { font-size: 18px; margin-bottom: 10px; }
+    .hfty-benefit p { font-size: 15px; color: var(--hfty-gray); }
+
+    /* ==========================================================================
+       MEET DAVID
+       ========================================================================== */
+    .hfty-meet { background: var(--hfty-cream); }
+    .hfty-meet__grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: minmax(260px, 380px) 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .hfty-meet__media {
+      background: var(--hfty-white);
+      border-radius: var(--hfty-radius-lg);
+      box-shadow: var(--hfty-shadow);
+      border: 1px solid var(--hfty-border);
+      padding: 14px;
+    }
+    .hfty-meet__frame {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: calc(var(--hfty-radius-lg) - 8px);
+      overflow: hidden;
+      background: var(--hfty-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hfty-meet__frame img { width: 100%; height: 100%; object-fit: contain; }
+
+    .hfty-meet__body h2 { font-size: clamp(28px, 3.4vw, 38px); margin-bottom: 18px; }
+    .hfty-meet__body p { color: var(--hfty-gray); font-size: 16.5px; }
+    .hfty-meet__body p + p { margin-top: 14px; }
+
+    .hfty-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .hfty-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--hfty-burgundy);
+      background: var(--hfty-white);
+      border: 1.5px solid var(--hfty-gold-light);
+      padding: 9px 16px;
+      border-radius: 100px;
+    }
+    .hfty-pill svg { width: 14px; height: 14px; stroke: var(--hfty-gold); }
+
+    @media (max-width: 860px) {
+      .hfty-meet__grid { grid-template-columns: 1fr; gap: 36px; }
+      .hfty-meet__media { max-width: 340px; margin: 0 auto; }
+      .hfty-meet__body { text-align: center; }
+      .hfty-pills { justify-content: center; }
+    }
+
+    /* ==========================================================================
+       FINAL CTA
+       ========================================================================== */
+    .hfty-final {
+      position: relative;
+      background: linear-gradient(155deg, var(--hfty-burgundy-dark) 0%, var(--hfty-burgundy-deep) 100%);
+      color: var(--hfty-white);
+      overflow: hidden;
+    }
+    .hfty-final::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,155,42,0.25), transparent 70%);
+    }
+    .hfty-final__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hfty-final .hfty-eyebrow { color: var(--hfty-gold-light); }
+    .hfty-final .hfty-eyebrow::before { background: var(--hfty-gold-light); }
+    .hfty-final h2 { color: var(--hfty-white); font-size: clamp(28px, 3.6vw, 40px); margin-top: 14px; }
+    .hfty-final p { color: rgba(255,255,255,0.85); margin-top: 18px; font-size: 16.5px; }
+    .hfty-final__cta { margin-top: 34px; }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .hfty-footer {
+      background: var(--hfty-white);
+      padding: 40px 0 44px;
+      text-align: center;
+      border-top: 1px solid var(--hfty-border);
+    }
+    .hfty-footer__logo { height: 28px; width: auto; object-fit: contain; margin: 0 auto 14px; }
+    .hfty-footer p { font-size: 13px; color: var(--hfty-gray-light); }
+
+    /* ==========================================================================
+       SCROLL-REVEAL ANIMATION (progressive enhancement)
+       ========================================================================== */
+    .hfty-reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s var(--hfty-ease), transform 0.7s var(--hfty-ease);
+    }
+    .hfty-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hfty-reveal--stagger.is-visible { transition-delay: var(--hfty-delay, 0s); }
+
+    @keyframes hfty-pop {
+      0% { transform: scale(0.4); opacity: 0; }
+      70% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    @keyframes hfty-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* Confetti particles — purely decorative, removed from DOM after animating */
+    .hfty-confetti {
+      position: fixed;
+      top: -12px;
+      z-index: 9999;
+      border-radius: 2px;
+      pointer-events: none;
+      animation: hfty-fall linear forwards;
+    }
+    @keyframes hfty-fall {
+      to { transform: translateY(105vh) rotate(540deg); opacity: 0.9; }
+    }
+
+    /* Respect reduced-motion preferences across the whole experience */
+    @media (prefers-reduced-motion: reduce) {
+      .hfty-root, .hfty-root * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hfty-reveal { opacity: 1; transform: none; }
+    }
+  </style>
+
+  <!-- ==== SECTION: HERO — confirmation + excitement ==== -->
+  <section class="hfty-hero">
+    <div class="hfty-container">
+
+      <div class="hfty-hero__logo-row">
+        <img
+          class="hfty-hero__logo"
+          src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png"
+          alt="The Hotel Financial Coach logo"
+          width="220" height="46"
+        >
+      </div>
+
+      <div class="hfty-hero__badge">
+        <span class="hfty-hero__check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12.5l5 5L20 6.5"/>
+          </svg>
+        </span>
+      </div>
+
+      <h1>🎉 You&rsquo;re <span class="hfty-accent">Registered!</span></h1>
+      <p class="hfty-hero__sub">Your seat has been successfully reserved.</p>
+
+      <div class="hfty-hero__body">
+        <p>Thank you for registering for this free webinar with <strong>David Lund, The Hotel Financial Coach</strong>. You&rsquo;ve just taken a real step toward leading your hotel with more financial confidence — and we&rsquo;re genuinely excited to have you with us.</p>
+        <p>Keep an eye on your inbox: a confirmation email with your webinar link and all the details is on its way to you right now.</p>
+      </div>
+
+      <!-- Hero image: David speaking on stage — chosen for energy and excitement -->
+      <div class="hfty-hero__media hfty-reveal">
+        <div class="hfty-hero__media-frame">
+          <img
+            src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4639307f3b0b00346b92de.png"
+            alt="David Lund presenting on stage as The Hotel Financial Coach"
+            loading="eager"
+          >
+        </div>
+        <p class="hfty-hero__media-caption">David Lund <span>&middot; The Hotel Financial Coach</span></p>
+      </div>
+
+      <div class="hfty-scrollcue">
+        <a href="#hfty-next-steps">
+          See what happens next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==== SECTION: WHAT HAPPENS NEXT ==== -->
+  <section class="hfty-steps hfty-section" id="hfty-next-steps">
+    <div class="hfty-container">
+      <div class="hfty-center hfty-reveal">
+        <span class="hfty-eyebrow hfty-eyebrow--center">Your Roadmap</span>
+        <h2 style="margin-top:14px; font-size:clamp(28px,3.6vw,40px);">What Happens Next?</h2>
+        <p class="hfty-lede">Here&rsquo;s exactly what to expect between now and the live event.</p>
+      </div>
+
+      <div class="hfty-steps__grid">
+
+        <article class="hfty-step hfty-reveal">
+          <span class="hfty-step__num">01</span>
+          <span class="hfty-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </span>
+          <h3>Check Your Inbox</h3>
+          <p>Look for a confirmation email with your webinar link and details. If you don&rsquo;t see it in a few minutes, peek in spam or promotions.</p>
+        </article>
+
+        <article class="hfty-step hfty-reveal">
+          <span class="hfty-step__num">02</span>
+          <span class="hfty-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+          </span>
+          <h3>Save the Date</h3>
+          <p>Add the webinar to your calendar right away so it&rsquo;s locked into your schedule — future you will thank you.</p>
+        </article>
+
+        <article class="hfty-step hfty-reveal">
+          <span class="hfty-step__num">03</span>
+          <span class="hfty-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          </span>
+          <h3>Watch for Reminders</h3>
+          <p>We&rsquo;ll send a few friendly reminders before the event, along with tips to help you get the most out of your time with David.</p>
+        </article>
+
+        <article class="hfty-step hfty-reveal">
+          <span class="hfty-step__num">04</span>
+          <span class="hfty-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          </span>
+          <h3>Arrive a Few Minutes Early</h3>
+          <p>Join a little before start time to settle in, test your audio, and grab a notebook — you&rsquo;ll want to take notes.</p>
+        </article>
+
+        <article class="hfty-step hfty-reveal">
+          <span class="hfty-step__num">05</span>
+          <span class="hfty-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          </span>
+          <h3>Come Ready to Learn</h3>
+          <p>Get ready for practical, real-world hotel financial strategies you can start using right away — no fluff, just tools that work.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION: UPSELL INTRO — community invitation ==== -->
+  <section class="hfty-upsell hfty-section">
+    <div class="hfty-container">
+      <div class="hfty-upsell__inner hfty-reveal">
+        <span class="hfty-eyebrow hfty-eyebrow--center">While You Wait</span>
+        <h2 style="margin-top:14px; font-size:clamp(28px,3.8vw,42px);">Don&rsquo;t Wait Until the Webinar&hellip; Start Learning Today</h2>
+        <p class="hfty-lede">
+          The webinar is just the beginning. If you&rsquo;re serious about growing into a stronger,
+          more financially confident hotel leader, you don&rsquo;t have to wait for the live event
+          to start making progress. Inside <strong>The Hotel Financial Coach Community</strong>,
+          you&rsquo;ll find practical lessons, direct access to David, and a network of hospitality
+          professionals working through the exact same challenges you are — starting right now.
+        </p>
+        <div class="hfty-upsell__cta">
+          <a
+            class="hfty-btn hfty-btn--invert hfty-btn--lg"
+            href="https://www.skool.com/the-hotel-financial-coach-6836/about"
+            target="_blank"
+            rel="noopener"
+          >
+            Join The Hotel Financial Coach Community
+            <svg class="hfty-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <p class="hfty-upsell__note">Free to explore — no pressure, just a natural next step for ambitious hotel leaders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION: WHY JOIN THE COMMUNITY ==== -->
+  <section class="hfty-why hfty-section">
+    <div class="hfty-container">
+      <div class="hfty-center hfty-reveal">
+        <span class="hfty-eyebrow hfty-eyebrow--center">The Benefits</span>
+        <h2 style="margin-top:14px; font-size:clamp(28px,3.6vw,40px);">Why Join the Community?</h2>
+        <p class="hfty-lede">A dedicated space to keep growing as a hotel financial leader, long after the webinar ends.</p>
+      </div>
+
+      <div class="hfty-why__grid">
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+          </span>
+          <h3>Learn Directly From David</h3>
+          <p>Get direct access to David Lund&rsquo;s frameworks and real-world financial leadership experience — not secondhand advice.</p>
+        </article>
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          </span>
+          <h3>Sharpen Your Financial Leadership</h3>
+          <p>Build the confidence and fluency to speak the language of ownership — P&amp;Ls, budgets, forecasts, and the numbers that matter most.</p>
+        </article>
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+          </span>
+          <h3>Practical, Hotel-Specific Education</h3>
+          <p>Every lesson is built specifically for hospitality leaders — no generic finance theory, just what applies to your property.</p>
+        </article>
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M15.7 14.2c2.7.4 4.8 2.4 4.8 5.3"/></svg>
+          </span>
+          <h3>A Community of Peers</h3>
+          <p>Connect with GMs, department heads, and rising leaders across the industry navigating the same financial challenges as you.</p>
+        </article>
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-8.9 8.4 8.6 8.6 0 01-3.6-.9L3 20l1.1-5a8.3 8.3 0 01-1-4A8.4 8.4 0 0111.9 3a8.5 8.5 0 019 8.5z"/></svg>
+          </span>
+          <h3>Ask Questions, Get Real Answers</h3>
+          <p>Bring your real scenarios and get thoughtful input from David and fellow members — education that talks back.</p>
+        </article>
+
+        <article class="hfty-benefit hfty-reveal">
+          <span class="hfty-benefit__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+          </span>
+          <h3>Stay Motivated Between Webinars</h3>
+          <p>Keep your momentum going in the weeks between live events, so learning becomes a habit rather than a once-in-a-while event.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION: MEET DAVID LUND ==== -->
+  <section class="hfty-meet hfty-section">
+    <div class="hfty-container">
+      <div class="hfty-center hfty-reveal">
+        <span class="hfty-eyebrow hfty-eyebrow--center">Your Instructor</span>
+      </div>
+
+      <div class="hfty-meet__grid">
+
+        <!-- Headshot — chosen for the "Meet David" section to build credibility -->
+        <div class="hfty-meet__media hfty-reveal">
+          <div class="hfty-meet__frame">
+            <img
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a464ce96fe10df00f387f57.png"
+              alt="Professional headshot of David Lund, The Hotel Financial Coach"
+              loading="lazy"
+            >
+          </div>
+        </div>
+
+        <div class="hfty-meet__body hfty-reveal">
+          <h2>Meet David Lund</h2>
+          <p>David Lund is <strong>The Hotel Financial Coach</strong> — a hotel financial leadership expert, keynote speaker, and author who has spent his career helping hospitality professionals understand the numbers behind great decision-making.</p>
+          <p>Through keynotes, coaching, and his growing online community, David has helped hundreds of GMs, department heads, and rising leaders build the financial confidence to lead their properties like owners, not just operators.</p>
+          <p>He&rsquo;s not here to make finance complicated. He&rsquo;s here to make it make sense.</p>
+
+          <div class="hfty-pills">
+            <span class="hfty-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>
+              Hotel Financial Leadership Expert
+            </span>
+            <span class="hfty-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+              Keynote Speaker
+            </span>
+            <span class="hfty-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              Author
+            </span>
+            <span class="hfty-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+              Founder, The Hotel Financial Coach
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION: FINAL CTA ==== -->
+  <section class="hfty-final hfty-section">
+    <div class="hfty-container">
+      <div class="hfty-final__inner hfty-reveal">
+        <span class="hfty-eyebrow hfty-eyebrow--center">Your Next Step</span>
+        <h2>Continue Your Leadership Journey Today</h2>
+        <p>Your webinar seat is confirmed — but the best hotel leaders don&rsquo;t wait for a single event to start growing. Step inside The Hotel Financial Coach Community today and keep building the financial confidence that sets great leaders apart.</p>
+        <div class="hfty-final__cta">
+          <a
+            class="hfty-btn hfty-btn--invert hfty-btn--lg"
+            href="https://www.skool.com/the-hotel-financial-coach-6836/about"
+            target="_blank"
+            rel="noopener"
+          >
+            Join The Hotel Financial Coach Community
+            <svg class="hfty-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== SECTION: FOOTER ==== -->
+  <footer class="hfty-footer">
+    <div class="hfty-container">
+      <img
+        class="hfty-footer__logo"
+        src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png"
+        alt="The Hotel Financial Coach logo"
+        width="140" height="28"
+      >
+      <p>&copy; <span id="hfty-year">2026</span> The Hotel Financial Coach. All rights reserved. &mdash; See you at the webinar!</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  /* ============================================================================
+     THANK YOU + UPSELL PAGE — BEHAVIOR
+     Vanilla JS only. Everything here is a progressive enhancement: if JS fails
+     to run for any reason, the page is still fully readable and every link and
+     section works exactly as a static page.
+     ============================================================================ */
+  (function () {
+    "use strict";
+
+    var root = document.currentScript ? document.currentScript.closest(".hfty-root") : null;
+    if (!root) { root = document.querySelector(".hfty-root"); }
+    if (!root) { return; }
+
+    var prefersReducedMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---- Footer year, kept accurate without hardcoding it in markup ---- */
+    var yearEl = root.querySelector("#hfty-year");
+    if (yearEl) { yearEl.textContent = String(new Date().getFullYear()); }
+
+    /* ---- Scroll-reveal: fade/slide sections and cards in as they enter view ---- */
+    var revealEls = root.querySelectorAll(".hfty-reveal");
+    if ("IntersectionObserver" in window && !prefersReducedMotion) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+      /* Stagger the "What Happens Next" and "Why Join" cards slightly so they
+         don't all pop in at once. */
+      ["hfty-step", "hfty-benefit"].forEach(function (cardClass) {
+        var cards = root.querySelectorAll("." + cardClass);
+        cards.forEach(function (card, i) {
+          card.style.setProperty("--hfty-delay", (i % 6) * 0.08 + "s");
+          card.classList.add("hfty-reveal--stagger");
+        });
+      });
+    } else {
+      // No IntersectionObserver support, or the visitor prefers reduced motion:
+      // show everything immediately rather than leaving it hidden.
+      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    }
+
+    /* ---- Smooth in-page scroll for the hero's "see what happens next" cue ----
+       (native CSS `scroll-behavior: smooth` on .hfty-root already covers most
+       browsers; this is a small JS fallback plus an accessible focus move.) */
+    var scrollLink = root.querySelector('a[href="#hfty-next-steps"]');
+    if (scrollLink) {
+      scrollLink.addEventListener("click", function (e) {
+        var target = root.querySelector("#hfty-next-steps");
+        if (!target) { return; }
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+        target.setAttribute("tabindex", "-1");
+        target.focus({ preventScroll: true });
+      });
+    }
+
+    /* ---- One-time celebratory confetti burst on load ----
+       Small, dependency-free, and skipped entirely for reduced-motion
+       visitors. Particles remove themselves from the DOM once their fall
+       animation finishes, so nothing lingers or leaks memory. */
+    function launchConfetti() {
+      if (prefersReducedMotion) { return; }
+
+      var colors = ["#8B0000", "#C89B2A", "#E7CD86", "#FFFFFF"];
+      var count = window.innerWidth < 640 ? 26 : 46;
+      var frag = document.createDocumentFragment();
+
+      for (var i = 0; i < count; i++) {
+        var piece = document.createElement("span");
+        piece.className = "hfty-confetti";
+        var size = 6 + Math.random() * 6;
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.width = size + "px";
+        piece.style.height = size * 0.4 + "px";
+        piece.style.background = colors[i % colors.length];
+        piece.style.animationDuration = 2.6 + Math.random() * 1.6 + "s";
+        piece.style.animationDelay = Math.random() * 0.4 + "s";
+        piece.style.opacity = String(0.75 + Math.random() * 0.25);
+        frag.appendChild(piece);
+      }
+
+      document.body.appendChild(frag);
+
+      // Clean up every particle after the longest possible animation finishes.
+      window.setTimeout(function () {
+        root.ownerDocument.querySelectorAll(".hfty-confetti").forEach(function (el) {
+          el.remove();
+        });
+      }, 4600);
+    }
+
+    if (document.readyState === "complete") {
+      launchConfetti();
+    } else {
+      window.addEventListener("load", launchConfetti, { once: true });
+    }
+  })();
+</script>

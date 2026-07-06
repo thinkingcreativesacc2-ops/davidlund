@@ -62,7 +62,11 @@ into or collide with other elements on the same GHL page.
 
   .hfcr-page * { box-sizing: border-box; }
   .hfcr-page img { max-width: 100%; display: block; }
-  .hfcr-page a { text-decoration: none; color: inherit; }
+  /* No color here on purpose: every <a> on this page has its own explicit
+     color via a button variant or .hfcr-footer a. A color rule this generic
+     would out-specificity those single-class rules and force dark text onto
+     dark-background buttons (a bug this comment used to hide). */
+  .hfcr-page a { text-decoration: none; }
   .hfcr-page ul { list-style: none; margin: 0; padding: 0; }
   .hfcr-page h1, .hfcr-page h2, .hfcr-page h3, .hfcr-page h4, .hfcr-page p { margin: 0; }
   .hfcr-page svg { flex-shrink: 0; }

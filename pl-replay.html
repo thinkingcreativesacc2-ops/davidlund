@@ -1,0 +1,2707 @@
+<!--
+
+==============================================================================
+
+THE HOTEL FINANCIAL COACH — WEBINAR REPLAY LANDING PAGE
+
+"How to Read Your P&L in 30 Minutes"
+
+==============================================================================
+
+
+
+WHAT THIS FILE IS
+
+This is a self-contained snippet (scoped <style>, a wrapping <div>, then a
+
+<script>) — not a full <!DOCTYPE html> document. That's intentional: GoHighLevel
+
+injects a Custom HTML element's contents into an existing page, so a fragment
+
+that doesn't declare its own <html>/<head>/<body> avoids duplicate-meta and
+
+style-collision issues. Copy everything below and paste it into one GHL
+
+Custom HTML element.
+
+
+
+HOW TO UPDATE THE SKOOL LINK
+
+Search for "SKOOL_URL" near the top of the <script> block at the bottom of
+
+this file. That one constant drives every "Join" button on the page — update
+
+it there once and every CTA updates automatically.
+
+
+
+HOW TO FIND A SECTION
+
+Every major section is wrapped in an HTML comment reading "SECTION: NAME".
+
+Search for "SECTION:" to jump between them.
+
+
+
+NAMESPACING
+
+All CSS classes are prefixed "hfcr-" (Hotel Financial Coach Replay) and all
+
+custom properties are prefixed "--hfcr-" so this snippet's styles can't leak
+
+into or collide with other elements on the same GHL page.
+
+
+
+FONT NOTE
+
+"Gotham" is a licensed commercial typeface and isn't available on Google
+
+Fonts, so it can't be embedded here. "Montserrat" is used for headlines
+
+(closest free geometric-sans match to Gotham's proportions) and "Inter" for
+
+body copy (excellent readability at small sizes). If your organization owns
+
+a Gotham web-font license, add the @font-face block and swap the family
+
+names in --hfcr-font-head / --hfcr-font-body below — nothing else needs to
+
+change.
+
+==============================================================================
+
+-->
+
+
+
+<!-- Preconnect + font import (safe inside a GHL Custom HTML element) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+<div class="hfcr-page">
+
+<style>
+
+  /* ==========================================================================
+
+     ROOT VARIABLES — brand palette, spacing, shadows
+
+     ========================================================================== */
+
+  .hfcr-page {
+
+    --hfcr-burgundy: #8B0000;
+
+    --hfcr-burgundy-dark: #6e0000;
+
+    --hfcr-gold: #C89B2A;
+
+    --hfcr-gold-light: #e8d19a;
+
+    --hfcr-white: #FFFFFF;
+
+    --hfcr-cream: #FBF9F6;
+
+    --hfcr-ink: #241d1a;
+
+    --hfcr-ink-soft: #5a534f;
+
+    --hfcr-border: #eee7dd;
+
+    --hfcr-shadow-sm: 0 2px 10px rgba(40, 20, 10, 0.06);
+
+    --hfcr-shadow-md: 0 12px 32px rgba(60, 20, 10, 0.10);
+
+    --hfcr-shadow-lg: 0 24px 64px rgba(60, 20, 10, 0.16);
+
+    --hfcr-radius-sm: 10px;
+
+    --hfcr-radius-md: 16px;
+
+    --hfcr-radius-lg: 24px;
+
+    --hfcr-font-head: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+
+    --hfcr-font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+
+
+    font-family: var(--hfcr-font-body);
+
+    color: var(--hfcr-ink);
+
+    background: var(--hfcr-white);
+
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    overflow-x: hidden;
+
+  }
+
+
+
+  .hfcr-page * { box-sizing: border-box; }
+
+  .hfcr-page img { max-width: 100%; display: block; }
+
+  /* No color here on purpose: every <a> on this page has its own explicit
+
+     color via a button variant or .hfcr-footer a. A color rule this generic
+
+     would out-specificity those single-class rules and force dark text onto
+
+     dark-background buttons (a bug this comment used to hide). */
+
+  .hfcr-page a { text-decoration: none; }
+
+  .hfcr-page ul { list-style: none; margin: 0; padding: 0; }
+
+  .hfcr-page h1, .hfcr-page h2, .hfcr-page h3, .hfcr-page h4, .hfcr-page p { margin: 0; }
+
+  .hfcr-page svg { flex-shrink: 0; }
+
+
+
+  /* Headlines and bold UI labels use the Montserrat headline font; body
+
+     copy stays on Inter (set as the page default above). */
+
+  .hfcr-page h1,
+
+  .hfcr-page h2,
+
+  .hfcr-page h3,
+
+  .hfcr-page h4,
+
+  .hfcr-page .hfcr-eyebrow,
+
+  .hfcr-page .hfcr-badge,
+
+  .hfcr-page .hfcr-btn,
+
+  .hfcr-page .hfcr-price-amount,
+
+  .hfcr-page .hfcr-about-titles span {
+
+    font-family: var(--hfcr-font-head);
+
+  }
+
+
+
+  /* Skip link — accessibility: lets keyboard/screen-reader users jump to the replay */
+
+  .hfcr-skip-link {
+
+    position: absolute;
+
+    left: -9999px;
+
+    top: 0;
+
+    background: var(--hfcr-burgundy);
+
+    color: var(--hfcr-white);
+
+    padding: 12px 20px;
+
+    border-radius: 0 0 8px 0;
+
+    z-index: 999;
+
+    font-weight: 600;
+
+  }
+
+  .hfcr-skip-link:focus {
+
+    left: 0;
+
+  }
+
+
+
+  /* Focus states for keyboard navigation */
+
+  .hfcr-page a:focus-visible,
+
+  .hfcr-page button:focus-visible {
+
+    outline: 3px solid var(--hfcr-gold);
+
+    outline-offset: 2px;
+
+  }
+
+
+
+  /* ==========================================================================
+
+     LAYOUT HELPERS
+
+     ========================================================================== */
+
+  .hfcr-container {
+
+    max-width: 1120px;
+
+    margin: 0 auto;
+
+    padding: 0 24px;
+
+  }
+
+
+
+  /* Grid items default to min-width:auto, which can hold a column open at its
+
+     content's intrinsic width and clip on narrow screens. Force them shrinkable
+
+     so normal text wrapping takes over at every breakpoint. */
+
+  .hfcr-hero-grid > *,
+
+  .hfcr-about-grid > *,
+
+  .hfcr-learn-grid > *,
+
+  .hfcr-audience-grid > *,
+
+  .hfcr-benefits-grid > * {
+
+    min-width: 0;
+
+  }
+
+
+
+  .hfcr-section {
+
+    padding: 88px 0;
+
+  }
+
+
+
+  .hfcr-section--tight { padding: 64px 0; }
+
+
+
+  .hfcr-section--cream { background: var(--hfcr-cream); }
+
+
+
+  .hfcr-eyebrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+    color: var(--hfcr-burgundy);
+
+    margin-bottom: 18px;
+
+  }
+
+
+
+  .hfcr-eyebrow::before {
+
+    content: "";
+
+    width: 26px;
+
+    height: 2px;
+
+    background: var(--hfcr-gold);
+
+    display: inline-block;
+
+  }
+
+
+
+  .hfcr-heading {
+
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+
+    font-weight: 800;
+
+    color: var(--hfcr-burgundy);
+
+    letter-spacing: -0.01em;
+
+    line-height: 1.15;
+
+  }
+
+
+
+  .hfcr-subheading {
+
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+
+    color: var(--hfcr-ink-soft);
+
+    font-weight: 400;
+
+    margin-top: 18px;
+
+    max-width: 640px;
+
+  }
+
+
+
+  .hfcr-header-block {
+
+    text-align: center;
+
+    max-width: 720px;
+
+    margin: 0 auto 56px;
+
+  }
+
+
+
+  .hfcr-header-block .hfcr-eyebrow { justify-content: center; }
+
+  .hfcr-header-block .hfcr-subheading { margin-left: auto; margin-right: auto; }
+
+
+
+  /* Scroll-reveal animation target — toggled via IntersectionObserver in JS */
+
+  .hfcr-reveal {
+
+    opacity: 0;
+
+    transform: translateY(24px);
+
+    transition: opacity 0.7s ease, transform 0.7s ease;
+
+  }
+
+  .hfcr-reveal.hfcr-is-visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .hfcr-reveal { opacity: 1; transform: none; transition: none; }
+
+    .hfcr-page * { scroll-behavior: auto !important; animation: none !important; }
+
+  }
+
+
+
+  /* ==========================================================================
+
+     BUTTONS
+
+     ========================================================================== */
+
+  .hfcr-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 17px 34px;
+
+    border-radius: 100px;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+
+    border: 2px solid transparent;
+
+    cursor: pointer;
+
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+
+    white-space: nowrap;
+
+  }
+
+
+
+  .hfcr-btn--primary {
+
+    background: var(--hfcr-burgundy);
+
+    color: var(--hfcr-white);
+
+    box-shadow: var(--hfcr-shadow-md);
+
+  }
+
+  .hfcr-btn--primary:hover {
+
+    background: var(--hfcr-burgundy-dark);
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--hfcr-shadow-lg);
+
+  }
+
+
+
+  .hfcr-btn--outline {
+
+    background: transparent;
+
+    color: var(--hfcr-burgundy);
+
+    border-color: var(--hfcr-burgundy);
+
+  }
+
+  .hfcr-btn--outline:hover {
+
+    background: var(--hfcr-burgundy);
+
+    color: var(--hfcr-white);
+
+    transform: translateY(-2px);
+
+  }
+
+
+
+  .hfcr-btn--gold-line {
+
+    background: var(--hfcr-white);
+
+    color: var(--hfcr-burgundy);
+
+    border-color: var(--hfcr-gold);
+
+  }
+
+  .hfcr-btn--gold-line:hover {
+
+    background: var(--hfcr-gold);
+
+    color: var(--hfcr-white);
+
+    transform: translateY(-2px);
+
+  }
+
+
+
+  .hfcr-btn--block { width: 100%; }
+
+
+
+  .hfcr-btn-row {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 16px;
+
+    align-items: center;
+
+  }
+
+
+
+  /* ==========================================================================
+
+     SECTION: HERO
+
+     ========================================================================== */
+
+  .hfcr-hero {
+
+    padding: 64px 0 40px;
+
+    background:
+
+      radial-gradient(circle at 12% 8%, rgba(200,155,42,0.08), transparent 45%),
+
+      radial-gradient(circle at 90% 0%, rgba(139,0,0,0.05), transparent 40%),
+
+      var(--hfcr-white);
+
+  }
+
+
+
+  .hfcr-hero-grid {
+
+    display: grid;
+
+    grid-template-columns: 1.05fr 0.95fr;
+
+    gap: 56px;
+
+    align-items: center;
+
+  }
+
+
+
+  .hfcr-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: var(--hfcr-burgundy);
+
+    color: var(--hfcr-white);
+
+    padding: 9px 18px 9px 14px;
+
+    border-radius: 100px;
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 22px;
+
+  }
+
+  .hfcr-badge svg { width: 14px; height: 14px; }
+
+
+
+  .hfcr-hero-title {
+
+    font-size: clamp(2.1rem, 4.4vw, 3.15rem);
+
+    font-weight: 800;
+
+    color: var(--hfcr-burgundy);
+
+    line-height: 1.12;
+
+    letter-spacing: -0.015em;
+
+  }
+
+
+
+  .hfcr-hero-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px 24px;
+
+    margin-top: 22px;
+
+    font-size: 0.95rem;
+
+    color: var(--hfcr-ink-soft);
+
+    font-weight: 600;
+
+  }
+
+
+
+  .hfcr-hero-meta span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+  }
+
+
+
+  .hfcr-hero-meta svg {
+
+    width: 16px;
+
+    height: 16px;
+
+    color: var(--hfcr-gold);
+
+  }
+
+
+
+  .hfcr-hero-copy {
+
+    margin-top: 26px;
+
+    font-size: 1.1rem;
+
+    color: var(--hfcr-ink-soft);
+
+    max-width: 560px;
+
+  }
+
+
+
+  .hfcr-hero-note {
+
+    margin-top: 26px;
+
+    padding: 16px 20px;
+
+    background: var(--hfcr-cream);
+
+    border-left: 3px solid var(--hfcr-gold);
+
+    border-radius: 0 var(--hfcr-radius-sm) var(--hfcr-radius-sm) 0;
+
+    font-size: 1rem;
+
+    color: var(--hfcr-ink);
+
+    max-width: 560px;
+
+  }
+
+
+
+  .hfcr-hero-cta {
+
+    margin-top: 34px;
+
+  }
+
+
+
+  /* Hero thumbnail card */
+
+  .hfcr-thumb-card {
+
+    position: relative;
+
+    background: var(--hfcr-white);
+
+    padding: 14px;
+
+    border-radius: var(--hfcr-radius-lg);
+
+    box-shadow: var(--hfcr-shadow-lg);
+
+    border: 1px solid var(--hfcr-border);
+
+  }
+
+
+
+  .hfcr-thumb-card img {
+
+    width: 100%;
+
+    height: auto;
+
+    border-radius: calc(var(--hfcr-radius-lg) - 8px);
+
+  }
+
+
+
+  .hfcr-thumb-play {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 78px;
+
+    height: 78px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 0, 0, 0.92);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+
+    cursor: pointer;
+
+    border: 3px solid rgba(255,255,255,0.85);
+
+    transition: transform 0.2s ease;
+
+  }
+
+  .hfcr-thumb-play:hover { transform: translate(-50%, -50%) scale(1.08); }
+
+  .hfcr-thumb-play svg { width: 26px; height: 26px; color: var(--hfcr-white); margin-left: 4px; }
+
+
+
+  .hfcr-thumb-caption {
+
+    text-align: center;
+
+    font-size: 0.85rem;
+
+    color: var(--hfcr-ink-soft);
+
+    font-weight: 600;
+
+    padding: 12px 6px 4px;
+
+  }
+
+
+
+  /* ==========================================================================
+
+     SECTION: VIDEO PLAYER
+
+     ========================================================================== */
+
+  .hfcr-video-section { padding: 24px 0 88px; }
+
+
+
+  .hfcr-video-frame {
+
+    background: #111;
+
+    border-radius: var(--hfcr-radius-lg);
+
+    box-shadow: var(--hfcr-shadow-lg);
+
+    overflow: hidden;
+
+    border: 1px solid var(--hfcr-border);
+
+  }
+
+
+
+  .hfcr-video-frame video {
+
+    width: 100%;
+
+    height: auto;
+
+    max-height: 76vh;
+
+    display: block;
+
+    background: #000;
+
+  }
+
+
+
+  .hfcr-video-meta-row {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-top: 24px;
+
+  }
+
+
+
+  .hfcr-video-meta-row p {
+
+    color: var(--hfcr-ink-soft);
+
+    font-size: 0.98rem;
+
+    max-width: 640px;
+
+  }
+
+
+
+  /* ==========================================================================
+
+     SECTION: ABOUT THIS WEBINAR
+
+     ========================================================================== */
+
+  .hfcr-learn-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+
+    margin-top: 44px;
+
+  }
+
+
+
+  .hfcr-learn-card {
+
+    display: flex;
+
+    gap: 16px;
+
+    padding: 26px;
+
+    background: var(--hfcr-white);
+
+    border: 1px solid var(--hfcr-border);
+
+    border-radius: var(--hfcr-radius-md);
+
+    box-shadow: var(--hfcr-shadow-sm);
+
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  }
+
+  .hfcr-learn-card:hover {
+
+    box-shadow: var(--hfcr-shadow-md);
+
+    transform: translateY(-3px);
+
+  }
+
+
+
+  .hfcr-learn-icon {
+
+    flex-shrink: 0;
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 12px;
+
+    background: rgba(139,0,0,0.08);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+  }
+
+  .hfcr-learn-icon svg { width: 22px; height: 22px; color: var(--hfcr-burgundy); }
+
+
+
+  .hfcr-learn-card h3 {
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+
+    color: var(--hfcr-ink);
+
+    margin-bottom: 6px;
+
+  }
+
+  .hfcr-learn-card p {
+
+    font-size: 0.95rem;
+
+    color: var(--hfcr-ink-soft);
+
+  }
+
+
+
+  /* Audience strip */
+
+  .hfcr-audience {
+
+    margin-top: 56px;
+
+    padding-top: 48px;
+
+    border-top: 1px solid var(--hfcr-border);
+
+  }
+
+
+
+  .hfcr-audience h3 {
+
+    text-align: center;
+
+    font-size: 1.3rem;
+
+    font-weight: 800;
+
+    color: var(--hfcr-burgundy);
+
+    margin-bottom: 32px;
+
+  }
+
+
+
+  .hfcr-audience-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 14px;
+
+  }
+
+
+
+  .hfcr-audience-pill {
+
+    text-align: center;
+
+    padding: 20px 14px;
+
+    background: var(--hfcr-cream);
+
+    border-radius: var(--hfcr-radius-md);
+
+    font-size: 0.9rem;
+
+    font-weight: 700;
+
+    color: var(--hfcr-ink);
+
+    border: 1px solid var(--hfcr-border);
+
+  }
+
+
+
+  .hfcr-audience-pill svg {
+
+    width: 24px;
+
+    height: 24px;
+
+    color: var(--hfcr-gold);
+
+    margin: 0 auto 10px;
+
+  }
+
+
+
+  /* ==========================================================================
+
+     SECTION: MEET DAVID LUND
+
+     ========================================================================== */
+
+  .hfcr-about-grid {
+
+    display: grid;
+
+    grid-template-columns: 0.85fr 1.15fr;
+
+    gap: 56px;
+
+    align-items: center;
+
+  }
+
+
+
+  .hfcr-about-photo {
+
+    background: var(--hfcr-white);
+
+    padding: 12px;
+
+    border-radius: var(--hfcr-radius-lg);
+
+    box-shadow: var(--hfcr-shadow-md);
+
+    border: 1px solid var(--hfcr-border);
+
+  }
+
+  .hfcr-about-photo img {
+
+    width: 100%;
+
+    height: auto;
+
+    border-radius: calc(var(--hfcr-radius-lg) - 6px);
+
+  }
+
+
+
+  .hfcr-about-titles {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 18px 0 22px;
+
+  }
+
+  .hfcr-about-titles span {
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+
+    text-transform: uppercase;
+
+    color: var(--hfcr-burgundy);
+
+    background: rgba(139,0,0,0.07);
+
+    padding: 7px 14px;
+
+    border-radius: 100px;
+
+  }
+
+
+
+  .hfcr-about-copy p {
+
+    color: var(--hfcr-ink-soft);
+
+    font-size: 1.03rem;
+
+    margin-bottom: 16px;
+
+  }
+
+  .hfcr-about-copy p:last-child { margin-bottom: 0; }
+
+
+
+  /* ==========================================================================
+
+     SECTION: SKOOL COMMUNITY CTA
+
+     ========================================================================== */
+
+  .hfcr-skool-section {
+
+    background: linear-gradient(180deg, var(--hfcr-cream) 0%, var(--hfcr-white) 100%);
+
+  }
+
+
+
+  .hfcr-skool-intro {
+
+    max-width: 760px;
+
+    margin: 0 auto 48px;
+
+    text-align: center;
+
+  }
+
+
+
+  .hfcr-skool-logo {
+
+    height: 34px;
+
+    width: auto;
+
+    margin: 0 auto 28px;
+
+  }
+
+
+
+  .hfcr-skool-intro p {
+
+    font-size: 1.08rem;
+
+    color: var(--hfcr-ink-soft);
+
+    margin-top: 18px;
+
+  }
+
+
+
+  .hfcr-price-card {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 28px auto 0;
+
+    padding: 14px 28px;
+
+    background: var(--hfcr-white);
+
+    border: 2px solid var(--hfcr-gold);
+
+    border-radius: 100px;
+
+    box-shadow: var(--hfcr-shadow-sm);
+
+  }
+
+  .hfcr-price-card .hfcr-price-amount {
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+
+    color: var(--hfcr-burgundy);
+
+  }
+
+  .hfcr-price-card .hfcr-price-text {
+
+    font-size: 0.9rem;
+
+    color: var(--hfcr-ink-soft);
+
+    font-weight: 600;
+
+    text-align: left;
+
+    line-height: 1.3;
+
+  }
+
+
+
+  /* Screenshot showcase */
+
+  .hfcr-showcase {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+    max-width: 880px;
+
+    margin: 48px auto 0;
+
+  }
+
+
+
+  .hfcr-showcase-card {
+
+    background: var(--hfcr-white);
+
+    padding: 14px;
+
+    border-radius: var(--hfcr-radius-lg);
+
+    box-shadow: var(--hfcr-shadow-lg);
+
+    border: 1px solid var(--hfcr-border);
+
+  }
+
+  .hfcr-showcase-card img {
+
+    width: 100%;
+
+    height: auto;
+
+    border-radius: calc(var(--hfcr-radius-lg) - 8px);
+
+  }
+
+  .hfcr-showcase-caption {
+
+    text-align: center;
+
+    font-size: 0.88rem;
+
+    color: var(--hfcr-ink-soft);
+
+    font-weight: 600;
+
+    margin-top: 14px;
+
+  }
+
+
+
+  /* Benefits grid */
+
+  .hfcr-benefits-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin: 56px 0 48px;
+
+  }
+
+
+
+  .hfcr-benefit-card {
+
+    padding: 28px 24px;
+
+    background: var(--hfcr-white);
+
+    border-radius: var(--hfcr-radius-md);
+
+    border: 1px solid var(--hfcr-border);
+
+    box-shadow: var(--hfcr-shadow-sm);
+
+    text-align: left;
+
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+
+  }
+
+  .hfcr-benefit-card:hover {
+
+    box-shadow: var(--hfcr-shadow-md);
+
+    transform: translateY(-3px);
+
+    border-color: var(--hfcr-gold);
+
+  }
+
+
+
+  .hfcr-benefit-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 12px;
+
+    background: var(--hfcr-burgundy);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+  }
+
+  .hfcr-benefit-icon svg { width: 22px; height: 22px; color: var(--hfcr-white); }
+
+
+
+  .hfcr-benefit-card h3 {
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+
+    color: var(--hfcr-ink);
+
+    margin-bottom: 8px;
+
+  }
+
+  .hfcr-benefit-card p {
+
+    font-size: 0.93rem;
+
+    color: var(--hfcr-ink-soft);
+
+  }
+
+
+
+  .hfcr-skool-cta-block {
+
+    text-align: center;
+
+    padding-top: 12px;
+
+  }
+
+  .hfcr-skool-cta-block .hfcr-btn-row { justify-content: center; }
+
+  .hfcr-skool-fine-print {
+
+    margin-top: 18px;
+
+    font-size: 0.85rem;
+
+    color: var(--hfcr-ink-soft);
+
+  }
+
+
+
+  /* ==========================================================================
+
+     FOOTER
+
+     ========================================================================== */
+
+  .hfcr-footer {
+
+    padding: 48px 0 100px;
+
+    text-align: center;
+
+    border-top: 1px solid var(--hfcr-border);
+
+  }
+
+  .hfcr-footer img {
+
+    height: 32px;
+
+    width: auto;
+
+    margin: 0 auto 16px;
+
+  }
+
+  .hfcr-footer p {
+
+    font-size: 0.85rem;
+
+    color: var(--hfcr-ink-soft);
+
+  }
+
+  .hfcr-footer a { color: var(--hfcr-burgundy); font-weight: 600; }
+
+
+
+  /* ==========================================================================
+
+     STICKY CTA BAR
+
+     ========================================================================== */
+
+  .hfcr-sticky-cta {
+
+    position: fixed;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 500;
+
+    background: var(--hfcr-white);
+
+    border-top: 1px solid var(--hfcr-border);
+
+    box-shadow: 0 -8px 28px rgba(0,0,0,0.10);
+
+    padding: 14px 20px;
+
+    transform: translateY(120%);
+
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  }
+
+  .hfcr-sticky-cta.hfcr-is-shown { transform: translateY(0); }
+
+
+
+  .hfcr-sticky-inner {
+
+    max-width: 1120px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+  }
+
+
+
+  .hfcr-sticky-text {
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    color: var(--hfcr-ink);
+
+  }
+
+  .hfcr-sticky-text strong { color: var(--hfcr-burgundy); }
+
+
+
+  .hfcr-sticky-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex-shrink: 0;
+
+  }
+
+
+
+  .hfcr-sticky-cta .hfcr-btn {
+
+    padding: 12px 24px;
+
+    font-size: 0.92rem;
+
+  }
+
+
+
+  .hfcr-sticky-close {
+
+    background: transparent;
+
+    border: none;
+
+    color: var(--hfcr-ink-soft);
+
+    cursor: pointer;
+
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+  }
+
+  .hfcr-sticky-close:hover { background: var(--hfcr-cream); color: var(--hfcr-ink); }
+
+  .hfcr-sticky-close svg { width: 18px; height: 18px; }
+
+
+
+  /* ==========================================================================
+
+     RESPONSIVE — TABLET (≤ 992px)
+
+     ========================================================================== */
+
+  @media (max-width: 992px) {
+
+    .hfcr-section { padding: 68px 0; }
+
+    .hfcr-hero { padding: 48px 0 32px; }
+
+
+
+    .hfcr-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    .hfcr-hero-grid > *:first-child { order: 2; }
+
+    .hfcr-hero-grid > *:last-child { order: 1; }
+
+    .hfcr-hero-copy, .hfcr-hero-note { max-width: 100%; }
+
+
+
+    .hfcr-about-grid { grid-template-columns: 1fr; gap: 36px; }
+
+    .hfcr-about-photo { max-width: 340px; margin: 0 auto; }
+
+
+
+    .hfcr-learn-grid { grid-template-columns: 1fr; }
+
+    .hfcr-audience-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .hfcr-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+
+
+
+    .hfcr-sticky-text { display: none; }
+
+    .hfcr-sticky-inner { justify-content: center; }
+
+  }
+
+
+
+  /* ==========================================================================
+
+     RESPONSIVE — MOBILE (≤ 600px)
+
+     ========================================================================== */
+
+  @media (max-width: 600px) {
+
+    .hfcr-section { padding: 52px 0; }
+
+    .hfcr-section--tight { padding: 40px 0; }
+
+    .hfcr-container { padding: 0 18px; }
+
+
+
+    .hfcr-hero-title { font-size: 1.85rem; }
+
+    .hfcr-hero-meta { flex-direction: column; gap: 10px; align-items: flex-start; }
+
+
+
+    .hfcr-thumb-play { width: 60px; height: 60px; }
+
+    .hfcr-thumb-play svg { width: 20px; height: 20px; }
+
+
+
+    .hfcr-video-meta-row { flex-direction: column; align-items: flex-start; }
+
+
+
+    .hfcr-audience-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .hfcr-benefits-grid { grid-template-columns: 1fr; }
+
+
+
+    .hfcr-btn-row { flex-direction: column; align-items: stretch; }
+
+    .hfcr-btn-row .hfcr-btn { width: 100%; }
+
+
+
+    .hfcr-price-card { flex-direction: column; text-align: center; gap: 6px; padding: 18px 24px; }
+
+    .hfcr-price-card .hfcr-price-text { text-align: center; }
+
+
+
+    .hfcr-sticky-cta { padding: 12px 16px; }
+
+    .hfcr-sticky-cta .hfcr-btn { padding: 11px 18px; font-size: 0.86rem; }
+
+  }
+
+</style>
+
+
+
+  <a class="hfcr-skip-link" href="#hfcr-video-section">Skip to webinar replay</a>
+
+
+
+  <main>
+
+    <!-- ==== SECTION: HERO ==== -->
+
+    <section class="hfcr-hero">
+
+      <div class="hfcr-container">
+
+        <div class="hfcr-hero-grid">
+
+          <div>
+
+            <span class="hfcr-badge">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"></polygon></svg>
+
+              Official Webinar Replay
+
+            </span>
+
+
+
+            <h1 class="hfcr-hero-title">How to Read Your P&amp;L in 30 Minutes</h1>
+
+
+
+            <div class="hfcr-hero-meta">
+
+              <span>
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+
+                Originally Presented: Wednesday, July 22, 2026
+
+              </span>
+
+              <span>
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+
+                10:00&nbsp;AM&nbsp;&ndash;&nbsp;11:00&nbsp;AM&nbsp;EST
+
+              </span>
+
+            </div>
+
+
+
+            <p class="hfcr-hero-copy">
+
+              Most hotel leaders were never actually taught how to read a P&amp;L &mdash;
+
+              they pieced it together on the job and hoped it was enough. That gap shows up
+
+              at the worst possible moments: budget meetings, ownership calls, and every time
+
+              your numbers get put on the table.
+
+            </p>
+
+
+
+            <div class="hfcr-hero-note">
+
+              In this replay, David Lund walks you through a real hotel P&amp;L line by line
+
+              &mdash; showing you exactly where to look first, what each number is really
+
+              telling you, and how to walk away with a clear, confident read in 30 minutes
+
+              or less.
+
+            </div>
+
+
+
+            <div class="hfcr-hero-cta">
+
+              <div class="hfcr-btn-row">
+
+                <a href="#hfcr-video-section" class="hfcr-btn hfcr-btn--primary hfcr-js-scroll-to-video">
+
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+
+                  Watch the Replay Now
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div>
+
+            <div class="hfcr-thumb-card">
+
+              <img
+
+                src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png"
+
+                alt="Webinar thumbnail: How to Read Your P&amp;L in 30 Minutes, presented by David Lund"
+
+                width="720"
+
+                height="405"
+
+                loading="eager"
+
+              >
+
+              <button type="button" class="hfcr-thumb-play hfcr-js-scroll-to-video" aria-label="Play the webinar replay">
+
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+
+              </button>
+
+            </div>
+
+            <p class="hfcr-thumb-caption">Click to jump straight to the full replay below</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==== SECTION: VIDEO PLAYER (the centerpiece of the page) ==== -->
+
+    <section class="hfcr-video-section" id="hfcr-video-section">
+
+      <div class="hfcr-container">
+
+        <div class="hfcr-video-frame hfcr-reveal">
+
+          <video
+
+            controls
+
+            playsinline
+
+            preload="metadata"
+
+            poster="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png"
+
+            aria-label="Webinar replay: How to Read Your P&amp;L in 30 Minutes, presented by David Lund"
+
+          >
+
+            <source src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a60ec7dff8e2bd31624c2da.mp4" type="video/mp4">
+
+            Your browser does not support embedded video. You can access the replay recording directly at the link provided by David Lund's team.
+
+          </video>
+
+        </div>
+
+
+
+        <div class="hfcr-video-meta-row">
+
+          <p>Grab a notebook. In the next 30 minutes, David walks through a real hotel P&amp;L
+
+          line by line &mdash; showing you exactly where to look, what the numbers are really
+
+          telling you, and how to walk into your next ownership meeting with total confidence.</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==== SECTION: ABOUT THIS WEBINAR ==== -->
+
+    <section class="hfcr-section hfcr-section--cream">
+
+      <div class="hfcr-container">
+
+        <div class="hfcr-header-block hfcr-reveal">
+
+          <span class="hfcr-eyebrow">About This Webinar</span>
+
+          <h2 class="hfcr-heading">What You'll Learn Inside This Replay</h2>
+
+          <p class="hfcr-subheading">
+
+            This session was built for hotel leaders who want to stop dreading their P&amp;L
+
+            and start using it &mdash; reading it quickly, confidently, and in a way that
+
+            earns trust from ownership.
+
+          </p>
+
+        </div>
+
+
+
+        <div class="hfcr-learn-grid">
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>How to Read a P&amp;L From Top to Bottom</h3>
+
+              <p>The exact order experienced operators scan a P&amp;L in, so you find the real story in the first two minutes.</p>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>The Line Items That Actually Move the Needle</h3>
+
+              <p>Which revenue and expense lines deserve your attention every month &mdash; and which ones are just noise.</p>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>Spotting Trends and Red Flags Fast</h3>
+
+              <p>Pattern-recognition habits that catch a problem while it's still small enough to fix.</p>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>Turning Numbers Into a Story Ownership Trusts</h3>
+
+              <p>How to translate raw numbers into a clear, confident narrative for owners and corporate leadership.</p>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>Common Reading Habits That Erode Confidence</h3>
+
+              <p>The small mistakes that make otherwise sharp leaders look unsure the moment their numbers come up.</p>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="hfcr-learn-card hfcr-reveal">
+
+            <div class="hfcr-learn-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+
+            </div>
+
+            <div>
+
+              <h3>A Repeatable 30-Minute Monthly Framework</h3>
+
+              <p>A simple process you can run every reporting period &mdash; no finance degree required.</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="hfcr-audience">
+
+          <h3>This Replay Is Especially Valuable For:</h3>
+
+          <div class="hfcr-audience-grid">
+
+            <div class="hfcr-audience-pill hfcr-reveal">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+
+              Hotel General Managers
+
+            </div>
+
+            <div class="hfcr-audience-pill hfcr-reveal">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+
+              Department Heads
+
+            </div>
+
+            <div class="hfcr-audience-pill hfcr-reveal">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+
+              Assistant General Managers
+
+            </div>
+
+            <div class="hfcr-audience-pill hfcr-reveal">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M10 21v-6h4v6"></path></svg>
+
+              Hotel Owners
+
+            </div>
+
+            <div class="hfcr-audience-pill hfcr-reveal">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+
+              Hospitality Leaders
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==== SECTION: MEET DAVID LUND ==== -->
+
+    <section class="hfcr-section">
+
+      <div class="hfcr-container">
+
+        <div class="hfcr-about-grid">
+
+          <div class="hfcr-about-photo hfcr-reveal">
+
+            <img
+
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6932fe57e0f0929725c25d88.jpg"
+
+              alt="David Lund, Founder of The Hotel Financial Coach"
+
+              width="600"
+
+              height="750"
+
+              loading="lazy"
+
+            >
+
+          </div>
+
+
+
+          <div class="hfcr-reveal">
+
+            <span class="hfcr-eyebrow">Meet Your Instructor</span>
+
+            <h2 class="hfcr-heading">David Lund</h2>
+
+
+
+            <div class="hfcr-about-titles">
+
+              <span>Hotel Financial Leadership Expert</span>
+
+              <span>Keynote Speaker</span>
+
+              <span>Author</span>
+
+              <span>Founder, The Hotel Financial Coach</span>
+
+            </div>
+
+
+
+            <div class="hfcr-about-copy">
+
+              <p>
+
+                David Lund has spent his career at the intersection of hotel operations and
+
+                hotel finance &mdash; and he built The Hotel Financial Coach around a simple
+
+                belief: hospitality leaders don't struggle with their P&amp;L because they
+
+                lack talent. They struggle because no one ever taught them how to actually
+
+                read one.
+
+              </p>
+
+              <p>
+
+                Through his writing, keynote talks, and coaching, David has helped thousands of
+
+                hotel professionals become stronger, more confident financial leaders &mdash;
+
+                turning P&amp;L statements from a source of anxiety into one of their greatest
+
+                career assets.
+
+              </p>
+
+              <p>
+
+                His approach is practical, direct, and built for people who run hotels, not
+
+                spreadsheets &mdash; which is exactly why leaders at every level, from department
+
+                head to owner, trust him to help them lead with clarity.
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==== SECTION: PROMOTE THE SKOOL COMMUNITY (primary CTA) ==== -->
+
+    <section class="hfcr-section hfcr-skool-section" id="hfcr-skool-section">
+
+      <div class="hfcr-container">
+
+        <div class="hfcr-skool-intro hfcr-reveal">
+
+          <img
+
+            src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4b93192e40aeae0156d73d.webp"
+
+            alt="The Hotel Financial Coach community on Skool"
+
+            class="hfcr-skool-logo"
+
+            width="160"
+
+            height="34"
+
+            loading="lazy"
+
+          >
+
+
+
+          <span class="hfcr-eyebrow">Continue Learning with David Lund</span>
+
+          <h2 class="hfcr-heading">Ready to Take the Next Step?</h2>
+
+          <p>
+
+            This replay is just the beginning. Real financial confidence is built one
+
+            P&amp;L, one decision, and one clear conversation at a time &mdash; and that
+
+            growth doesn't have to stop when the video ends.
+
+          </p>
+
+          <p>
+
+            Inside the Hotel Financial Coach community on Skool, you'll keep building the
+
+            skills this webinar introduced &mdash; with direct access to David, practical
+
+            training you can use the same week, and a community of hotel professionals doing
+
+            the same work you are.
+
+          </p>
+
+
+
+          <div class="hfcr-price-card">
+
+            <span class="hfcr-price-amount">$15</span>
+
+            <span class="hfcr-price-text">per month<br>Full community access</span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Community screenshot showcase -->
+
+        <div class="hfcr-showcase hfcr-reveal">
+
+          <div class="hfcr-showcase-card">
+
+            <img
+
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4b89c5b10447eb5243c1cf.png"
+
+              alt="Preview of the Hotel Financial Coach community on Skool, showing discussions and training resources"
+
+              width="1200"
+
+              height="750"
+
+              loading="lazy"
+
+            >
+
+          </div>
+
+          <p class="hfcr-showcase-caption">A look inside the community you're invited to join</p>
+
+        </div>
+
+
+
+        <!-- Benefits grid -->
+
+        <div class="hfcr-benefits-grid">
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+
+            </div>
+
+            <h3>Continue Learning Beyond the Webinar</h3>
+
+            <p>New training added regularly, so your development doesn't stop when a single session ends.</p>
+
+          </div>
+
+
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+
+            </div>
+
+            <h3>Practical Hotel Finance Education</h3>
+
+            <p>Real-world frameworks for reading, presenting, and owning your numbers &mdash; built specifically for hospitality.</p>
+
+          </div>
+
+
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+
+            </div>
+
+            <h3>Leadership Development Training</h3>
+
+            <p>Grow the executive presence and decision-making skills that ownership groups look for in their next GM.</p>
+
+          </div>
+
+
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+
+            </div>
+
+            <h3>Exclusive Member-Only Training</h3>
+
+            <p>Content created specifically for the community &mdash; not available anywhere else.</p>
+
+          </div>
+
+
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+
+            </div>
+
+            <h3>Community Discussions</h3>
+
+            <p>Ask questions, share wins, and learn alongside hotel professionals working through the same challenges.</p>
+
+          </div>
+
+
+
+          <div class="hfcr-benefit-card hfcr-reveal">
+
+            <div class="hfcr-benefit-icon">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 1 0-16 0"></path></svg>
+
+            </div>
+
+            <h3>Direct Access to David Lund</h3>
+
+            <p>Learn straight from the source &mdash; not a watered-down version of his coaching.</p>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="hfcr-skool-cta-block hfcr-reveal">
+
+          <div class="hfcr-btn-row">
+
+            <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-btn hfcr-btn--primary">
+
+              Join the Community for Just $15
+
+            </a>
+
+            <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-btn hfcr-btn--outline">
+
+              Become a Member
+
+            </a>
+
+          </div>
+
+          <p class="hfcr-skool-fine-print">Cancel anytime. Your next confident P&amp;L review starts with the next decision you make.</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- ==== SECTION: FOOTER ==== -->
+
+  <footer class="hfcr-footer">
+
+    <div class="hfcr-container">
+
+      <img
+
+        src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png"
+
+        alt="The Hotel Financial Coach"
+
+        height="32"
+
+        loading="lazy"
+
+      >
+
+      <p>&copy; <span class="hfcr-js-year">2026</span> The Hotel Financial Coach. All rights reserved.</p>
+
+      <p style="margin-top:6px;">
+
+        Ready to keep growing? <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta>Join the community &rarr;</a>
+
+      </p>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- ==== STICKY CTA BAR ==== -->
+
+  <div class="hfcr-sticky-cta" id="hfcr-sticky-cta" role="complementary" aria-label="Join the community">
+
+    <div class="hfcr-sticky-inner">
+
+      <p class="hfcr-sticky-text">Continue your growth &mdash; <strong>join for just $15</strong></p>
+
+      <div class="hfcr-sticky-actions">
+
+        <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-btn hfcr-btn--primary">
+
+          Continue Learning Today
+
+        </a>
+
+        <button type="button" class="hfcr-sticky-close" id="hfcr-sticky-close" aria-label="Dismiss this bar">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+<script>
+
+  (function () {
+
+    "use strict";
+
+
+
+    /* ========================================================================
+
+       SKOOL LINK — single source of truth
+
+       Update this one constant when the real Skool link is ready; every
+
+       element with [data-skool-cta] on the page updates automatically.
+
+       ======================================================================== */
+
+    var SKOOL_URL = "https://www.skool.com/the-hotel-financial-coach-6836/about";
+
+
+
+    var page = document.currentScript.closest(".hfcr-page") || document;
+
+
+
+    var skoolLinks = page.querySelectorAll("[data-skool-cta]");
+
+    for (var i = 0; i < skoolLinks.length; i++) {
+
+      skoolLinks[i].setAttribute("href", SKOOL_URL);
+
+    }
+
+
+
+    /* ------------------------------------------------------------------
+
+       Scroll-to-video (hero CTA + thumbnail play button)
+
+       ------------------------------------------------------------------ */
+
+    var scrollTriggers = page.querySelectorAll(".hfcr-js-scroll-to-video");
+
+    var videoSection = page.querySelector("#hfcr-video-section");
+
+    for (var s = 0; s < scrollTriggers.length; s++) {
+
+      scrollTriggers[s].addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        if (videoSection) {
+
+          videoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        }
+
+        // Auto-play once the section is in view, respecting browser autoplay rules.
+
+        var video = page.querySelector(".hfcr-video-frame video");
+
+        if (video) {
+
+          setTimeout(function () {
+
+            video.play().catch(function () {
+
+              /* Autoplay blocked — user can press play manually, no action needed. */
+
+            });
+
+          }, 500);
+
+        }
+
+      });
+
+    }
+
+
+
+    /* ------------------------------------------------------------------
+
+       Scroll-reveal animations
+
+       ------------------------------------------------------------------ */
+
+    var revealEls = page.querySelectorAll(".hfcr-reveal");
+
+    if ("IntersectionObserver" in window) {
+
+      var revealObserver = new IntersectionObserver(
+
+        function (entries) {
+
+          entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("hfcr-is-visible");
+
+              revealObserver.unobserve(entry.target);
+
+            }
+
+          });
+
+        },
+
+        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+
+      );
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+    } else {
+
+      // Fallback for very old browsers: just show everything.
+
+      revealEls.forEach(function (el) { el.classList.add("hfcr-is-visible"); });
+
+    }
+
+
+
+    /* ------------------------------------------------------------------
+
+       Sticky CTA bar — appears once the visitor scrolls past the video,
+
+       dismissible for the rest of the session.
+
+       ------------------------------------------------------------------ */
+
+    var stickyBar = page.querySelector("#hfcr-sticky-cta");
+
+    var stickyClose = page.querySelector("#hfcr-sticky-close");
+
+    var footerEl = page.querySelector(".hfcr-footer");
+
+    var STORAGE_KEY = "hfcr_sticky_dismissed";
+
+    var dismissed = false;
+
+    try {
+
+      dismissed = sessionStorage.getItem(STORAGE_KEY) === "1";
+
+    } catch (err) {
+
+      /* sessionStorage unavailable (e.g. privacy mode) — default to not dismissed. */
+
+    }
+
+
+
+    if (stickyBar && videoSection && !dismissed) {
+
+      var barObserver = new IntersectionObserver(
+
+        function (entries) {
+
+          entries.forEach(function (entry) {
+
+            // Show once the video section has scrolled above the viewport,
+
+            // hide again once the footer comes into view so it never covers it.
+
+            if (entry.target === videoSection) {
+
+              if (entry.boundingClientRect.top < 0) {
+
+                stickyBar.classList.add("hfcr-is-shown");
+
+              } else {
+
+                stickyBar.classList.remove("hfcr-is-shown");
+
+              }
+
+            }
+
+            if (entry.target === footerEl && entry.isIntersecting) {
+
+              stickyBar.classList.remove("hfcr-is-shown");
+
+            }
+
+          });
+
+        },
+
+        { threshold: 0 }
+
+      );
+
+      barObserver.observe(videoSection);
+
+      if (footerEl) barObserver.observe(footerEl);
+
+    }
+
+
+
+    if (stickyClose && stickyBar) {
+
+      stickyClose.addEventListener("click", function () {
+
+        stickyBar.classList.remove("hfcr-is-shown");
+
+        try {
+
+          sessionStorage.setItem(STORAGE_KEY, "1");
+
+        } catch (err) {
+
+          /* Ignore if storage is unavailable. */
+
+        }
+
+      });
+
+    }
+
+
+
+    /* ------------------------------------------------------------------
+
+       Footer year
+
+       ------------------------------------------------------------------ */
+
+    var yearEl = page.querySelector(".hfcr-js-year");
+
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  })();
+
+</script>
+
+</div>

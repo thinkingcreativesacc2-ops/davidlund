@@ -1176,25 +1176,9 @@ change.
 
     display: flex;
 
-    align-items: flex-start;
-
     gap: 20px;
 
     margin-bottom: 20px;
-
-  }
-
-
-
-  .hfcr-proof-row--hero {
-
-    margin-bottom: 20px;
-
-  }
-
-  .hfcr-proof-row--hero .hfcr-proof-card--hero {
-
-    width: 100%;
 
   }
 
@@ -1386,10 +1370,6 @@ change.
 
     border-color: var(--hfcr-border);
 
-    padding: 10px;
-
-    display: flex;
-
   }
 
   .hfcr-proof-card--image img {
@@ -1398,11 +1378,9 @@ change.
 
     height: 100%;
 
-    object-fit: contain;
+    object-fit: cover;
 
     display: block;
-
-    border-radius: 16px;
 
   }
 
@@ -1482,23 +1460,37 @@ change.
 
     flex: 1 1 0;
 
-    background: var(--hfcr-proof-burgundy);
+    background: #14100a;
 
   }
 
-  .hfcr-proof-card--video.hfcr-proof-card--hero { flex: 1 1 100%; }
+  .hfcr-proof-card--video.hfcr-proof-card--hero { flex: 1.6 1 0; }
 
 
+
+  /* The video itself is never cropped or stretched — it's letterboxed
+
+     (object-fit: contain) inside a dark frame so it always shows at its
+
+     true proportions, while the card around it still lines up with the
+
+     rest of the row. */
 
   .hfcr-proof-video-wrap {
 
     position: relative;
 
-    background: var(--hfcr-proof-burgundy);
+    height: 100%;
+
+    min-height: 240px;
+
+    background: #14100a;
 
     display: flex;
 
     align-items: center;
+
+    justify-content: center;
 
   }
 
@@ -1506,11 +1498,13 @@ change.
 
     width: 100%;
 
-    height: auto;
+    height: 100%;
+
+    object-fit: contain;
 
     display: block;
 
-    background: #000;
+    background: #14100a;
 
   }
 
@@ -2318,11 +2312,15 @@ change.
 
 
 
-          <!-- Row 1: hero video, full width so it plays at its natural
+          <!-- Row 1: hero video + headline stat. The video is letterboxed
 
-               aspect ratio instead of being stretched to match a sibling. -->
+               (object-fit: contain) so it always shows at its true
 
-          <div class="hfcr-proof-row hfcr-proof-row--hero">
+               proportions, never cropped or stretched, even though the
+
+               card itself stretches to match the stat card's height. -->
+
+          <div class="hfcr-proof-row">
 
             <div class="hfcr-proof-card hfcr-proof-card--video hfcr-proof-card--hero hfcr-reveal">
 
@@ -2348,13 +2346,7 @@ change.
 
             </div>
 
-          </div>
 
-
-
-          <!-- Row 2: headline stat + quote + screenshot -->
-
-          <div class="hfcr-proof-row">
 
             <div class="hfcr-proof-card hfcr-proof-card--stat hfcr-reveal">
 
@@ -2364,7 +2356,13 @@ change.
 
             </div>
 
+          </div>
 
+
+
+          <!-- Row 2: quote + screenshot -->
+
+          <div class="hfcr-proof-row">
 
             <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
 

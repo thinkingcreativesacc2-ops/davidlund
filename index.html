@@ -328,18 +328,25 @@
      at a glance. Only applied at desktop widths - see responsive overrides
      below, which drop it back to a normal stacked/2-col grid on smaller
      screens where there's no room for a size difference to read cleanly. */
-  .hfc-webinars__grid--featured { grid-template-columns: 1.3fr 1fr 1fr; }
-  .hfc-wcard--featured { grid-row: span 2; }
-  .hfc-wcard--featured .hfc-wcard__media { aspect-ratio: 16 / 9; }
+  /* Featured card is wider, not taller: it spans 2 columns and lays out
+     horizontally (image left, content right) so it stays a normal single
+     row's height like every other card - no cross-row height matching to
+     fight with. */
+  .hfc-wcard--featured {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .hfc-wcard--featured .hfc-wcard__media { width: 42%; flex-shrink: 0; aspect-ratio: auto; }
   .hfc-wcard--featured .hfc-wcard__badge { background: var(--hfc-gold); color: var(--hfc-burgundy-deep); }
   .hfc-wcard--featured .hfc-wcard__badge::before { display: none; }
-  .hfc-wcard--featured .hfc-wcard__body { padding: 30px 30px 32px; }
-  .hfc-wcard--featured .hfc-wcard__title { font-size: 25px; }
-  .hfc-wcard--featured .hfc-wcard__desc { font-size: 15.5px; flex: 0 0 auto; margin-bottom: 22px; }
+  .hfc-wcard--featured .hfc-wcard__body { padding: 26px 28px; justify-content: center; }
+  .hfc-wcard--featured .hfc-wcard__title { font-size: 21px; }
+  .hfc-wcard--featured .hfc-wcard__desc { flex: 0 0 auto; }
   .hfc-wcard--featured .hfc-wcard__cta-btn { align-self: flex-start; }
-  .hfc-wcard__list { display: flex; flex-direction: column; gap: 12px; flex: 1; margin-bottom: 22px; justify-content: space-between; }
-  .hfc-wcard__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--hfc-ink); }
-  .hfc-wcard__list svg { width: 18px; height: 18px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
+  .hfc-wcard__list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+  .hfc-wcard__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--hfc-ink); }
+  .hfc-wcard__list svg { width: 17px; height: 17px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
   .hfc-wcard {
     display: flex;
     flex-direction: column;
@@ -665,18 +672,10 @@
     .hfc-about__media { max-width: 420px; margin: 0 auto; }
     .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); }
-    /* Below desktop width, the featured card no longer spans 2 rows, so drop
-       its enlarged content back to normal card sizing too - otherwise its
-       extra height (bigger fonts + bullet list) drags its row-mate card
-       taller to match via grid's default row-stretch behavior. Only the
-       gold "Next Up" badge and button-style CTA remain as the distinction. */
-    .hfc-webinars__grid--featured { grid-template-columns: repeat(2, 1fr); }
-    .hfc-wcard--featured { grid-row: auto; }
-    .hfc-wcard--featured .hfc-wcard__media { aspect-ratio: 16 / 9; }
-    .hfc-wcard--featured .hfc-wcard__body { padding: 24px 24px 26px; }
-    .hfc-wcard--featured .hfc-wcard__title { font-size: 19px; }
-    .hfc-wcard--featured .hfc-wcard__desc { font-size: 14.5px; flex: 1; margin-bottom: 20px; }
-    .hfc-wcard--featured .hfc-wcard__list { display: none; }
+    /* At the 2-column tablet grid, spanning 2 of 2 columns already puts the
+       featured card alone on its own row, so the horizontal layout can stay
+       as-is - nothing here needs resetting until the single-column phone
+       tier below, where side-by-side image+text gets too cramped. */
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
   }
@@ -700,6 +699,11 @@
      keep the 2-column card grid from the 1024px breakpoint above). */
   @media (max-width: 600px) {
     .hfc-webinars__grid { grid-template-columns: 1fr; }
+    /* Side-by-side image+text gets too cramped in a single narrow column -
+       stack the featured card back to the normal vertical card layout. */
+    .hfc-wcard--featured { grid-column: auto; flex-direction: column; }
+    .hfc-wcard--featured .hfc-wcard__media { width: 100%; aspect-ratio: 16 / 9; }
+    .hfc-wcard--featured .hfc-wcard__body { padding: 24px 24px 26px; justify-content: flex-start; }
   }
 
   @media (max-width: 520px) {

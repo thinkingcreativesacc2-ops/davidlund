@@ -322,15 +322,15 @@
      leaving an empty, lopsided gap beside the last card. */
   .hfc-webinars__grid--pair { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
   .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); max-width: 420px; margin: 0 auto; }
-  /* Bento layout for the "Reserve Your Seat" grid: the nearest upcoming
-     webinar gets a bigger version of the exact same card (same 16:9 image,
-     same layout, just larger) spanning both rows beside a smaller 2x2 grid
-     of the rest, so the closest date reads as the priority at a glance.
+  /* Mosaic layout for the "Reserve Your Seat" grid: a clear size hierarchy
+     instead of one oddly-shaped standout. Card 1 (nearest webinar) is
+     biggest, spanning both rows on the left. Cards 2 and 3 are equal,
+     normal-size cards along the top right. Card 4 is a smaller, compact
+     horizontal card spanning both of their columns underneath - so every
+     cell is filled edge-to-edge, nothing looks empty or half-sized.
      align-items:start keeps every card at its own natural height instead of
-     being stretched to fill its grid cell - stretching a spanning item to
-     match two unrelated rows is what produced a dead, oversized gap inside
-     the card before. Only applied at desktop widths - see responsive
-     overrides below for smaller screens. */
+     being stretched to fill its grid cell. Only applied at desktop widths -
+     see responsive overrides below for smaller screens. */
   .hfc-webinars__grid--featured { align-items: start; }
   .hfc-wcard--featured { grid-row: span 2; }
   .hfc-wcard--featured .hfc-wcard__badge { background: var(--hfc-gold); color: var(--hfc-burgundy-deep); }
@@ -342,6 +342,16 @@
   .hfc-wcard__list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
   .hfc-wcard__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--hfc-ink); }
   .hfc-wcard__list svg { width: 17px; height: 17px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
+  .hfc-webinars__grid--featured .hfc-wcard:nth-child(4) { grid-column: 2 / span 2; }
+  .hfc-wcard--compact { flex-direction: row; }
+  .hfc-wcard--compact .hfc-wcard__media { width: 130px; flex-shrink: 0; aspect-ratio: 1 / 1; }
+  .hfc-wcard--compact .hfc-wcard__badge { display: none; }
+  .hfc-wcard--compact .hfc-wcard__body { padding: 16px 20px; }
+  .hfc-wcard--compact .hfc-wcard__date { margin-bottom: 4px; font-size: 11.5px; }
+  .hfc-wcard--compact .hfc-wcard__time { display: none; }
+  .hfc-wcard--compact .hfc-wcard__title { font-size: 15px; margin-bottom: 6px; }
+  .hfc-wcard--compact .hfc-wcard__desc { display: none; }
+  .hfc-wcard--compact .hfc-wcard__cta { font-size: 13px; }
   .hfc-wcard {
     display: flex;
     flex-direction: column;
@@ -679,6 +689,18 @@
     .hfc-wcard--featured .hfc-wcard__title { font-size: 19px; }
     .hfc-wcard--featured .hfc-wcard__desc { font-size: 14.5px; }
     .hfc-wcard--featured .hfc-wcard__list { display: none; }
+    /* Card 4's "spans under 2 and 3" placement only makes sense in the
+       3-column desktop mosaic; below that it's just another normal card
+       in the flow, same size as everything else. */
+    .hfc-webinars__grid--featured .hfc-wcard:nth-child(4) { grid-column: auto; }
+    .hfc-wcard--compact { flex-direction: column; }
+    .hfc-wcard--compact .hfc-wcard__media { width: 100%; aspect-ratio: 16 / 9; }
+    .hfc-wcard--compact .hfc-wcard__badge { display: flex; }
+    .hfc-wcard--compact .hfc-wcard__body { padding: 24px 24px 26px; }
+    .hfc-wcard--compact .hfc-wcard__time { display: block; }
+    .hfc-wcard--compact .hfc-wcard__title { font-size: 19px; margin-bottom: 10px; }
+    .hfc-wcard--compact .hfc-wcard__desc { display: block; }
+    .hfc-wcard--compact .hfc-wcard__cta { font-size: 14px; }
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
   }
@@ -1253,7 +1275,11 @@
     if (!grid) return;
     // With 3+ upcoming sessions, feature the nearest one (index 0) in a
     // bigger card instead of the plain even grid used for 1-2 sessions.
+    // With 4+, the 4th also gets a smaller, compact card so the size
+    // hierarchy reads as biggest -> equal pair -> smallest, with every
+    // grid cell filled (no empty gaps).
     var featured = WEBINARS.length >= 3;
+    var hasCompact = WEBINARS.length >= 4;
     grid.classList.toggle('hfc-webinars__grid--featured', featured);
     if (featured) {
       grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single');
@@ -1262,7 +1288,8 @@
     }
     var html = WEBINARS.map(function (w, i) {
       var isFeatured = featured && i === 0;
-      var cardClass = 'hfc-wcard hfc-reveal' + (isFeatured ? ' hfc-wcard--featured' : '');
+      var isCompact = hasCompact && i === 3;
+      var cardClass = 'hfc-wcard hfc-reveal' + (isFeatured ? ' hfc-wcard--featured' : '') + (isCompact ? ' hfc-wcard--compact' : '');
       var badge = isFeatured ? 'Next Up' : 'Live Webinar';
       var cta = isFeatured
         ? '<span class="hfc-btn hfc-btn--primary hfc-wcard__cta-btn">Reserve My Seat ' + ARROW_ICON + '</span>'

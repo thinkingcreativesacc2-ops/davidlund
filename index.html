@@ -310,72 +310,7 @@
   .hfc-stats__row strong { display: block; color: var(--hfc-gold-light); font-size: 26px; font-family: var(--hfc-font-head); margin-bottom: 4px; }
 
   /* ==========================================================================
-     REPLAY SECTION
-     ========================================================================== */
-  .hfc-replay__grid {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 56px;
-    align-items: center;
-  }
-  .hfc-replay__card {
-    position: relative;
-    border-radius: var(--hfc-radius);
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: var(--hfc-shadow);
-    aspect-ratio: 16/9;
-    border: none;
-    width: 100%;
-    display: block;
-    background: var(--hfc-ink);
-  }
-  .hfc-replay__card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-  .hfc-replay__card:hover img { transform: scale(1.06); }
-  .hfc-replay__card::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(0deg, rgba(20,6,6,0.75) 0%, rgba(20,6,6,0.05) 55%);
-  }
-  .hfc-replay__play {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 78px; height: 78px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.94);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 14px 30px -10px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-    z-index: 2;
-  }
-  .hfc-replay__card:hover .hfc-replay__play { transform: translate(-50%, -50%) scale(1.08); }
-  .hfc-replay__play svg { width: 26px; height: 26px; fill: var(--hfc-burgundy); margin-left: 4px; }
-  .hfc-replay__tag {
-    position: absolute;
-    top: 18px; left: 18px;
-    background: var(--hfc-gold);
-    color: var(--hfc-burgundy-deep);
-    font-family: var(--hfc-font-head);
-    font-weight: 700;
-    font-size: 11.5px;
-    letter-spacing: 0.1em;
-    padding: 7px 14px;
-    border-radius: 100px;
-    z-index: 2;
-  }
-  .hfc-replay__meta { position: absolute; bottom: 18px; left: 20px; right: 20px; color: var(--hfc-white); z-index: 2; }
-  .hfc-replay__meta strong { display: block; font-family: var(--hfc-font-head); font-size: 15px; }
-
-  .hfc-replay__content h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 18px; }
-  .hfc-replay__content > p { color: var(--hfc-gray); font-size: 16.5px; margin-bottom: 24px; }
-  .hfc-replay__list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-  .hfc-replay__list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--hfc-ink); }
-  .hfc-replay__list svg { width: 19px; height: 19px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
-  .hfc-replay__date { font-size: 13px; color: var(--hfc-gray-light); margin-top: 18px; font-weight: 500; }
-
-  /* ==========================================================================
-     LIVE WEBINAR CARDS
+     LIVE WEBINAR CARDS (also the base for replay cards, see modifier below)
      ========================================================================== */
   .hfc-webinars__grid {
     display: grid;
@@ -433,6 +368,35 @@
   }
   .hfc-wcard__cta svg { width: 15px; height: 15px; fill: currentColor; transition: transform 0.25s ease; }
   .hfc-wcard:hover .hfc-wcard__cta svg { transform: translateX(4px); }
+
+  /* Replay card modifier: same card, dark thumbnail treatment + play button +
+     gold "Replay" badge so past sessions read as clearly distinct from the
+     live webinar cards above, without a second component to maintain. */
+  .hfc-wcard--replay { text-align: left; cursor: pointer; }
+  .hfc-wcard--replay .hfc-wcard__media::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(20,6,6,0.7) 0%, rgba(20,6,6,0.15) 50%, rgba(20,6,6,0.4) 100%);
+  }
+  .hfc-wcard--replay .hfc-wcard__badge { background: var(--hfc-gold); color: var(--hfc-burgundy-deep); }
+  .hfc-wcard--replay .hfc-wcard__badge::before { display: none; }
+  .hfc-wcard__play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 26px -8px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+    z-index: 2;
+  }
+  .hfc-wcard--replay:hover .hfc-wcard__play { transform: translate(-50%, -50%) scale(1.1); }
+  .hfc-wcard__play svg { width: 20px; height: 20px; fill: var(--hfc-burgundy); margin-left: 3px; }
+  .hfc-wcard--replay .hfc-wcard__date,
+  .hfc-wcard--replay .hfc-wcard__date svg,
+  .hfc-wcard--replay .hfc-wcard__cta { color: var(--hfc-burgundy); }
+  .hfc-wcard--replay .hfc-wcard__date svg { fill: var(--hfc-burgundy); }
 
   /* ==========================================================================
      ABOUT DAVID
@@ -676,7 +640,6 @@
     .hfc-hero__media { max-width: 420px; margin: 0 auto; }
     .hfc-about__grid { grid-template-columns: 1fr; }
     .hfc-about__media { max-width: 420px; margin: 0 auto; }
-    .hfc-replay__grid { grid-template-columns: 1fr; }
     .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
@@ -728,18 +691,19 @@
        Replaces the site nav/header. This is a single-page funnel, so a full
        navigation menu just gives visitors more ways to leave before they
        register; a persistent, single-focus announcement for the very next
-       live webinar converts harder. Edit the date/title/link here, or in the
-       WEBINARS config in the <script> block below if the July 22 session is
-       no longer the nearest one. -->
+       live webinar converts harder. The date/title/link are filled in by
+       renderPromoBar() from WEBINARS[0] in the <script> block below, so this
+       bar always points at whichever webinar is nearest - nothing to edit
+       here by hand when a session concludes and rolls off the WEBINARS list. -->
   <div class="hfc-promo">
     <div class="hfc-promo__inner">
       <!-- IMAGE: The Hotel Financial Coach logo (hosted on GHL). -->
       <img class="hfc-promo__logo" src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a463930d0f487539639fccf.png" alt="The Hotel Financial Coach">
       <p class="hfc-promo__text">
         <span class="hfc-promo__tag">Free Live Webinar</span>
-        <span class="hfc-promo__datetime">Wed, July 22 &middot; 10&ndash;11 AM EST &mdash; </span><strong>How to Read Your Hotel P&amp;L in 30 Minutes</strong>
+        <span class="hfc-promo__datetime" id="hfcPromoDatetime"></span><strong id="hfcPromoTitle"></strong>
       </p>
-      <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta">
+      <a href="#hfc-webinars" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-promo__cta" id="hfcPromoCta">
         Save My Seat
         <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
       </a>
@@ -757,14 +721,14 @@
           <p class="hfc-hero__sub">David Lund, The Hotel Financial Coach, teaches hotel leaders how to master hotel finance &mdash; without an accounting degree, jargon, or fear of the P&amp;L.</p>
           <p class="hfc-hero__body">In each free session you'll learn the same practical frameworks David has taught to thousands of hospitality leaders: how to read a financial statement in minutes, build a budget ownership trusts, control labor cost, and walk into every ownership meeting prepared.</p>
           <div class="hfc-hero__ctas">
-            <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
+            <a href="#hfc-webinars" class="hfc-btn hfc-btn--gold">
               Reserve Your Seat
               <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
             </a>
-            <button class="hfc-btn hfc-btn--on-dark" data-hfc-open-modal>
+            <a href="#hfc-replay" class="hfc-btn hfc-btn--on-dark">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               Watch the Replay
-            </button>
+            </a>
           </div>
           <div class="hfc-hero__micro">
             <span><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Free to attend</span>
@@ -795,38 +759,10 @@
       </div>
     </section>
 
-    <!-- ==== SECTION: REPLAY ==== -->
-    <section class="hfc-section" id="hfc-replay">
-      <div class="hfc-container hfc-replay__grid">
-        <button class="hfc-replay__card hfc-reveal" data-hfc-open-modal aria-haspopup="dialog">
-          <span class="hfc-replay__tag">Replay &middot; Watch Anytime</span>
-          <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bdd0f4875396396334.png" alt="Replay thumbnail: Why Hotel Leaders Get Passed Over for Promotion, with David Lund">
-          <span class="hfc-replay__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="hfc-replay__meta"><strong>Why Hotel Leaders Get Passed Over for Promotion</strong></span>
-        </button>
-
-        <div class="hfc-replay__content hfc-reveal">
-          <p class="hfc-eyebrow">Watch On Demand</p>
-          <h2>Why Hotel Leaders Get Passed Over for Promotion</h2>
-          <p>Most hotel leaders aren't overlooked because they lack talent &mdash; they're overlooked because they haven't yet learned to speak the language ownership speaks: the language of numbers. In this session, David breaks down the financial blind spots that quietly stall careers, and exactly what to fix first.</p>
-          <ul class="hfc-replay__list">
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>The financial habits that separate promotable leaders from everyone else</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Why "operationally strong" isn't enough &mdash; and what ownership actually evaluates</li>
-            <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>A simple weekly habit that builds financial credibility fast</li>
-          </ul>
-          <button class="hfc-btn hfc-btn--primary" data-hfc-open-modal>
-            Watch the Replay
-            <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
-          </button>
-          <p class="hfc-replay__date">Originally recorded Wednesday, June 24, 2026</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==== SECTION: LIVE WEBINARS ==== -->
-    <section class="hfc-section hfc-section--cream" id="hfc-webinars">
+    <!-- ==== SECTION: LIVE WEBINARS ("Reserve Your Seat") ====
+         Comes right after the hero/stats now so upcoming sessions get first
+         priority; the Replay section (past sessions) follows below it. -->
+    <section class="hfc-section" id="hfc-webinars">
       <div class="hfc-container">
         <div class="hfc-section-head hfc-reveal">
           <p class="hfc-eyebrow" style="justify-content:center;">Reserve Your Seat</p>
@@ -836,7 +772,30 @@
         <div class="hfc-webinars__grid" id="hfcWebinarGrid" aria-live="polite">
           <!-- Live webinar cards are rendered here by JavaScript from the WEBINARS config
                at the top of the <script> block below, so dates/titles/links only need
-               to be edited in one place. -->
+               to be edited in one place. When a session concludes, remove it from
+               WEBINARS and add a matching entry to REPLAYS instead. -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== SECTION: REPLAY ====
+         A grid of past sessions (same card language as the live webinars
+         above, with a "Replay" treatment: gold badge, dark thumbnail
+         overlay, center play button, "Watch Now" CTA). Clicking a card opens
+         a modal that shows what the replay covers and - since a viewer of a
+         past session is a great candidate for the next live one - offers the
+         next upcoming webinar (pulled live from WEBINARS[0]) before a
+         secondary "Proceed to Replay" link. -->
+    <section class="hfc-section hfc-section--cream" id="hfc-replay">
+      <div class="hfc-container">
+        <div class="hfc-section-head hfc-reveal">
+          <p class="hfc-eyebrow" style="justify-content:center;">Watch On Demand</p>
+          <h2>Rewatch Past Sessions Anytime</h2>
+          <p>Missed a live session? Every past webinar is recorded free to watch, on your schedule.</p>
+        </div>
+        <div class="hfc-webinars__grid" id="hfcReplayGrid" aria-live="polite">
+          <!-- Replay cards are rendered here by JavaScript from the REPLAYS config
+               at the top of the <script> block below. -->
         </div>
       </div>
     </section>
@@ -976,14 +935,14 @@
         <h2>Your Next Promotion Starts With Understanding the Numbers.</h2>
         <p>Reserve your seat for an upcoming live session, or start right now with the free replay. Live Q&amp;A spots are limited to keep every session personal.</p>
         <div class="hfc-final__ctas">
-          <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--gold">
+          <a href="#hfc-webinars" class="hfc-btn hfc-btn--gold">
             Reserve Your Seat
             <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
           </a>
-          <button class="hfc-btn hfc-btn--on-dark" data-hfc-open-modal>
+          <a href="#hfc-replay" class="hfc-btn hfc-btn--on-dark">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             Watch the Replay
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -1028,37 +987,36 @@
     </div>
   </footer>
 
-  <!-- ==== REPLAY MODAL (lightbox) ==== -->
+  <!-- ==== REPLAY MODAL (lightbox) ====
+       Content below is a template; populateModal() and renderModalPromo() in
+       the <script> block fill in the actual text/links depending on which
+       replay card was clicked and which webinar is next up in WEBINARS. -->
   <div class="hfc-modal" id="hfcModal" role="dialog" aria-modal="true" aria-labelledby="hfcModalTitle">
     <div class="hfc-modal__backdrop" data-hfc-close-modal></div>
     <div class="hfc-modal__panel">
       <div class="hfc-modal__media">
-        <img src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bdd0f4875396396334.png" alt="Why Hotel Leaders Get Passed Over for Promotion &mdash; replay preview">
+        <img id="hfcModalImg" src="" alt="">
         <button class="hfc-modal__close" data-hfc-close-modal aria-label="Close">
           <svg viewBox="0 0 24 24"><path d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
         </button>
       </div>
       <div class="hfc-modal__body">
-        <h3 id="hfcModalTitle">Why Hotel Leaders Get Passed Over for Promotion</h3>
-        <p class="hfc-modal__meta">Replay &middot; Originally recorded Wednesday, June 24, 2026</p>
-        <p>Most hotel leaders aren't overlooked because they lack talent &mdash; they're overlooked because they haven't yet learned to speak the language ownership speaks. Watch this session to learn exactly what to fix first.</p>
-        <ul class="hfc-modal__list">
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>The financial habits that separate promotable leaders from everyone else</li>
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>Why "operationally strong" isn't enough &mdash; and what ownership actually evaluates</li>
-          <li><svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>A simple weekly habit that builds financial credibility fast</li>
-        </ul>
+        <h3 id="hfcModalTitle"></h3>
+        <p class="hfc-modal__meta" id="hfcModalMeta"></p>
+        <p id="hfcModalDesc"></p>
+        <ul class="hfc-modal__list" id="hfcModalList"></ul>
 
         <!-- Soft gate: push the nearest live webinar before handing over the replay link. -->
-        <div class="hfc-modal__promo">
+        <div class="hfc-modal__promo" id="hfcModalPromo">
           <p class="hfc-modal__promo-eyebrow">Want More Than a Recording?</p>
-          <p class="hfc-modal__promo-text">Join David live for open Q&amp;A on <strong>Wednesday, July 22 at 10&ndash;11 AM EST</strong> &mdash; "How to Read Your Hotel P&amp;L in 30 Minutes."</p>
-          <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-btn--block">
+          <p class="hfc-modal__promo-text" id="hfcModalPromoText"></p>
+          <a href="#" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary hfc-btn--block" id="hfcModalPromoCta">
             Reserve My Seat
             <svg class="hfc-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
           </a>
         </div>
 
-        <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" target="_blank" rel="noopener" class="hfc-modal__skip">
+        <a href="#" target="_blank" rel="noopener" class="hfc-modal__skip" id="hfcModalSkip">
           Proceed to Replay
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>
         </a>
@@ -1069,7 +1027,7 @@
   <!-- ==== STICKY MOBILE CTA ==== -->
   <div class="hfc-sticky-cta" id="hfcStickyCta">
     <span class="hfc-sticky-cta__text">Ready to lead with confidence?</span>
-    <a href="https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes" target="_blank" rel="noopener" class="hfc-btn hfc-btn--primary">Reserve Your Seat</a>
+    <a href="#hfc-webinars" class="hfc-btn hfc-btn--primary">Reserve Your Seat</a>
   </div>
 
 </div>
@@ -1085,18 +1043,6 @@
       "jobTitle": "Hotel Financial Coach",
       "url": "https://hotelfinancialcoach.com",
       "sameAs": ["https://www.skool.com/the-hotel-financial-coach-6836/about"]
-    },
-    {
-      "@type": "Event",
-      "name": "How to Read Your Hotel P&L in 30 Minutes",
-      "startDate": "2026-07-22T10:00:00-04:00",
-      "endDate": "2026-07-22T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page" }
     },
     {
       "@type": "Event",
@@ -1161,15 +1107,7 @@
      ======================================================================== */
   var WEBINARS = [
     {
-      day: '22', month: 'JUL', date: 'Wednesday, July 22, 2026', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'How to Read Your Hotel P&L in 30 Minutes',
-      desc: 'Turn a confusing financial statement into a clear story about how your hotel is really performing &mdash; in half the time it takes you today.',
-      url: 'https://webinar.hotelfinancialcoach.com/how-to-read-your-hotel-pl-in-30-minutes-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png',
-      alt: 'Webinar thumbnail: How to Read Your Hotel P&L in 30 Minutes'
-    },
-    {
-      day: '19', month: 'AUG', date: 'Wednesday, August 19, 2026', time: '10:00 &ndash; 11:00 AM EST',
+      day: '19', month: 'AUG', date: 'Wednesday, August 19, 2026', short: 'Wed, Aug 19', time: '10:00 &ndash; 11:00 AM EST',
       title: 'How to Build a Hotel Budget Like a Leader',
       desc: 'Stop guessing at numbers. Learn the framework top GMs use to build budgets ownership actually trusts.',
       url: 'https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page',
@@ -1177,7 +1115,7 @@
       alt: 'Webinar thumbnail: How to Build a Hotel Budget Like a Leader'
     },
     {
-      day: '16', month: 'SEP', date: 'Wednesday, September 16, 2026', time: '10:00 &ndash; 11:00 AM EST',
+      day: '16', month: 'SEP', date: 'Wednesday, September 16, 2026', short: 'Wed, Sep 16', time: '10:00 &ndash; 11:00 AM EST',
       title: 'The Labor Cost Problem Nobody Talks About',
       desc: 'Discover the hidden drivers behind runaway labor costs &mdash; and the practical levers you control every schedule period.',
       url: 'https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page',
@@ -1185,7 +1123,7 @@
       alt: 'Webinar thumbnail: The Labor Cost Problem Nobody Talks About'
     },
     {
-      day: '14', month: 'OCT', date: 'Wednesday, October 14, 2026', time: '10:00 &ndash; 11:00 AM EST',
+      day: '14', month: 'OCT', date: 'Wednesday, October 14, 2026', short: 'Wed, Oct 14', time: '10:00 &ndash; 11:00 AM EST',
       title: 'The 5 Numbers Every GM Should Know',
       desc: "Cut through the noise of your P&L and focus on the five metrics that actually move profitability and your career.",
       url: 'https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page',
@@ -1193,7 +1131,7 @@
       alt: 'Webinar thumbnail: The 5 Numbers Every GM Should Know'
     },
     {
-      day: '18', month: 'NOV', date: 'Wednesday, November 18, 2026', time: '10:00 &ndash; 11:00 AM EST',
+      day: '18', month: 'NOV', date: 'Wednesday, November 18, 2026', short: 'Wed, Nov 18', time: '10:00 &ndash; 11:00 AM EST',
       title: 'From Department Head to GM: The Financial Shift',
       desc: 'The financial mindset shift that separates department heads from GM-ready leaders &mdash; and how to make it before your next interview.',
       url: 'https://webinar.hotelfinancialcoach.com/from-department-head-to-gm-the-financial-shift',
@@ -1202,8 +1140,47 @@
     }
   ];
 
+  /* ========================================================================
+     REPLAYS CONFIG &mdash; past sessions, newest first. When a live webinar
+     above concludes, remove its entry from WEBINARS and add a matching one
+     here (reusing the same thumbnail is fine). The modal's "bullets" are
+     the "what you'll learn" list shown before the visitor reaches the
+     replay link.
+     ======================================================================== */
+  var REPLAYS = [
+    {
+      title: 'How to Read Your Hotel P&L in 30 Minutes',
+      metaDate: 'Recorded live Wednesday, July 22, 2026',
+      desc: 'Turn a confusing financial statement into a clear story about how your hotel is really performing. In this session, David walks through a real hotel P&amp;L line by line so you can read your own in minutes, not hours.',
+      bullets: [
+        'How to scan a P&amp;L top to bottom without getting lost in the detail',
+        'The variance columns most GMs skip &mdash; and what they actually reveal',
+        'A repeatable 30-minute routine for reviewing your statement each period'
+      ],
+      url: 'https://webinar.hotelfinancialcoach.com/replay---how-to-read-your-pl-in-30-minutes-page',
+      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd2e727c5f35ceb734.png',
+      alt: 'Replay thumbnail: How to Read Your Hotel P&L in 30 Minutes, with David Lund'
+    },
+    {
+      title: 'Why Hotel Leaders Get Passed Over for Promotion',
+      metaDate: 'Originally recorded Wednesday, June 24, 2026',
+      desc: "Most hotel leaders aren't overlooked because they lack talent &mdash; they're overlooked because they haven't yet learned to speak the language ownership speaks: the language of numbers. In this session, David breaks down the financial blind spots that quietly stall careers, and exactly what to fix first.",
+      bullets: [
+        'The financial habits that separate promotable leaders from everyone else',
+        'Why "operationally strong" isn\'t enough &mdash; and what ownership actually evaluates',
+        'A simple weekly habit that builds financial credibility fast'
+      ],
+      url: 'https://www.skool.com/the-hotel-financial-coach-6836/about',
+      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bdd0f4875396396334.png',
+      alt: 'Replay thumbnail: Why Hotel Leaders Get Passed Over for Promotion, with David Lund'
+    }
+  ];
+
   var CAL_ICON = '<svg viewBox="0 0 20 20"><path d="M6 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H8V2H6zM4 8h12v8H4V8z"/></svg>';
   var ARROW_ICON = '<svg viewBox="0 0 24 24"><path d="M13.5 5l6.5 7-6.5 7-1.4-1.4L16.7 13H4v-2h12.7l-4.6-4.6z"/></svg>';
+  var REPLAY_ICON = '<svg viewBox="0 0 20 20"><path d="M10 3a7 7 0 100 14 7 7 0 000-14zm0-2a9 9 0 110 18 9 9 0 010-18z"/><path d="M9 5h1.6v5.2l4 2.4-.8 1.4L9 11.2z"/></svg>';
+  var PLAY_ICON = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+  var CHECK_ICON = '<svg viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-5.4L5.6 9.2l1.4-1.4L9 9.9l4-4.1 1.4 1.4z"/></svg>';
 
   function renderWebinars() {
     var grid = document.getElementById('hfcWebinarGrid');
@@ -1230,9 +1207,86 @@
     observeReveal();
   }
 
+  function renderReplays() {
+    var grid = document.getElementById('hfcReplayGrid');
+    if (!grid) return;
+    var html = REPLAYS.map(function (r, i) {
+      return (
+        '<button type="button" class="hfc-wcard hfc-wcard--replay hfc-reveal" data-hfc-open-modal data-replay-index="' + i + '" aria-haspopup="dialog" aria-label="Watch replay: ' + r.title + '">' +
+          '<div class="hfc-wcard__media">' +
+            '<span class="hfc-wcard__badge">Replay</span>' +
+            '<span class="hfc-wcard__play" aria-hidden="true">' + PLAY_ICON + '</span>' +
+            '<!-- IMAGE: ' + r.title + ' replay thumbnail. Recommended: 1280x720. -->' +
+            '<img src="' + r.img + '" alt="' + r.alt + '" loading="lazy">' +
+          '</div>' +
+          '<div class="hfc-wcard__body">' +
+            '<div class="hfc-wcard__date">' + REPLAY_ICON + '<span>Available Now</span></div>' +
+            '<div class="hfc-wcard__time" style="margin-bottom:14px;font-size:13px;">' + r.metaDate + '</div>' +
+            '<h3 class="hfc-wcard__title">' + r.title + '</h3>' +
+            '<p class="hfc-wcard__desc">' + r.desc + '</p>' +
+            '<span class="hfc-wcard__cta">Watch Now ' + PLAY_ICON + '</span>' +
+          '</div>' +
+        '</button>'
+      );
+    }).join('');
+    grid.innerHTML = html;
+    observeReveal();
+  }
+
   /* ------------------------------------------------------------------ */
-  /* Replay modal                                                       */
+  /* Top promo bar &mdash; always reflects WEBINARS[0], the nearest        */
+  /* upcoming session, so it never goes stale as sessions conclude.     */
   /* ------------------------------------------------------------------ */
+  function renderPromoBar() {
+    var bar = document.querySelector('.hfc-promo');
+    if (!bar) return;
+    if (!WEBINARS.length) { bar.style.display = 'none'; return; }
+    var next = WEBINARS[0];
+    var datetimeEl = document.getElementById('hfcPromoDatetime');
+    var titleEl = document.getElementById('hfcPromoTitle');
+    var ctaEl = document.getElementById('hfcPromoCta');
+    if (datetimeEl) datetimeEl.innerHTML = next.short + ' &middot; ' + next.time + ' &mdash; ';
+    if (titleEl) titleEl.innerHTML = next.title;
+    if (ctaEl) { ctaEl.href = next.url; ctaEl.target = '_blank'; ctaEl.rel = 'noopener'; }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Replay modal &mdash; content is populated dynamically depending on   */
+  /* which replay card was clicked; the "watch live instead" promo box   */
+  /* always offers WEBINARS[0], the nearest upcoming session.           */
+  /* ------------------------------------------------------------------ */
+  function populateModal(replayIndex) {
+    var r = REPLAYS[replayIndex];
+    if (!r) return;
+    var img = document.getElementById('hfcModalImg');
+    var title = document.getElementById('hfcModalTitle');
+    var meta = document.getElementById('hfcModalMeta');
+    var desc = document.getElementById('hfcModalDesc');
+    var list = document.getElementById('hfcModalList');
+    var skip = document.getElementById('hfcModalSkip');
+    if (img) { img.src = r.img; img.alt = r.alt; }
+    if (title) title.innerHTML = r.title;
+    if (meta) meta.innerHTML = 'Replay &middot; ' + r.metaDate;
+    if (desc) desc.innerHTML = r.desc;
+    if (list) {
+      list.innerHTML = r.bullets.map(function (b) {
+        return '<li>' + CHECK_ICON + b + '</li>';
+      }).join('');
+    }
+    if (skip) skip.href = r.url;
+  }
+
+  function renderModalPromo() {
+    var promo = document.getElementById('hfcModalPromo');
+    if (!promo) return;
+    if (!WEBINARS.length) { promo.style.display = 'none'; return; }
+    var next = WEBINARS[0];
+    var text = document.getElementById('hfcModalPromoText');
+    var cta = document.getElementById('hfcModalPromoCta');
+    if (text) text.innerHTML = 'Join David live for open Q&amp;A on <strong>' + next.date + ' at ' + next.time + '</strong> &mdash; "' + next.title + '."';
+    if (cta) cta.href = next.url;
+  }
+
   function setupModal() {
     var modal = document.getElementById('hfcModal');
     if (!modal) return;
@@ -1256,11 +1310,18 @@
       if (e.key === 'Escape') closeModal();
     }
 
-    document.querySelectorAll('[data-hfc-open-modal]').forEach(function (el) {
-      el.addEventListener('click', function () { openModal(el); });
-    });
-    document.querySelectorAll('[data-hfc-close-modal]').forEach(function (el) {
-      el.addEventListener('click', closeModal);
+    // Delegated so it works for the replay cards even though they're
+    // rendered dynamically by renderReplays() above.
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest('[data-hfc-open-modal]');
+      if (trigger) {
+        var idx = trigger.getAttribute('data-replay-index');
+        if (idx !== null) populateModal(parseInt(idx, 10));
+        openModal(trigger);
+        return;
+      }
+      var closer = e.target.closest('[data-hfc-close-modal]');
+      if (closer) closeModal();
     });
   }
 
@@ -1406,7 +1467,10 @@
   }
 
   function init() {
+    renderPromoBar();
     renderWebinars();
+    renderReplays();
+    renderModalPromo();
     setupModal();
     setupFaq();
     setupStickyCta();

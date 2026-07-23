@@ -322,6 +322,24 @@
      leaving an empty, lopsided gap beside the last card. */
   .hfc-webinars__grid--pair { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
   .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); max-width: 420px; margin: 0 auto; }
+  /* Bento layout for the "Reserve Your Seat" grid: the nearest upcoming
+     webinar gets a taller, wider featured card spanning both rows beside a
+     smaller 2x2 grid of the rest, so the closest date reads as the priority
+     at a glance. Only applied at desktop widths - see responsive overrides
+     below, which drop it back to a normal stacked/2-col grid on smaller
+     screens where there's no room for a size difference to read cleanly. */
+  .hfc-webinars__grid--featured { grid-template-columns: 1.3fr 1fr 1fr; }
+  .hfc-wcard--featured { grid-row: span 2; }
+  .hfc-wcard--featured .hfc-wcard__media { aspect-ratio: 16 / 9; }
+  .hfc-wcard--featured .hfc-wcard__badge { background: var(--hfc-gold); color: var(--hfc-burgundy-deep); }
+  .hfc-wcard--featured .hfc-wcard__badge::before { display: none; }
+  .hfc-wcard--featured .hfc-wcard__body { padding: 30px 30px 32px; }
+  .hfc-wcard--featured .hfc-wcard__title { font-size: 25px; }
+  .hfc-wcard--featured .hfc-wcard__desc { font-size: 15.5px; flex: 0 0 auto; margin-bottom: 22px; }
+  .hfc-wcard--featured .hfc-wcard__cta-btn { align-self: flex-start; }
+  .hfc-wcard__list { display: flex; flex-direction: column; gap: 12px; flex: 1; margin-bottom: 22px; justify-content: space-between; }
+  .hfc-wcard__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--hfc-ink); }
+  .hfc-wcard__list svg { width: 18px; height: 18px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
   .hfc-wcard {
     display: flex;
     flex-direction: column;
@@ -647,6 +665,18 @@
     .hfc-about__media { max-width: 420px; margin: 0 auto; }
     .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); }
+    /* Below desktop width, the featured card no longer spans 2 rows, so drop
+       its enlarged content back to normal card sizing too - otherwise its
+       extra height (bigger fonts + bullet list) drags its row-mate card
+       taller to match via grid's default row-stretch behavior. Only the
+       gold "Next Up" badge and button-style CTA remain as the distinction. */
+    .hfc-webinars__grid--featured { grid-template-columns: repeat(2, 1fr); }
+    .hfc-wcard--featured { grid-row: auto; }
+    .hfc-wcard--featured .hfc-wcard__media { aspect-ratio: 16 / 9; }
+    .hfc-wcard--featured .hfc-wcard__body { padding: 24px 24px 26px; }
+    .hfc-wcard--featured .hfc-wcard__title { font-size: 19px; }
+    .hfc-wcard--featured .hfc-wcard__desc { font-size: 14.5px; flex: 1; margin-bottom: 20px; }
+    .hfc-wcard--featured .hfc-wcard__list { display: none; }
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
   }
@@ -1116,6 +1146,11 @@
       day: '19', month: 'AUG', date: 'Wednesday, August 19, 2026', short: 'Wed, Aug 19', time: '10:00 &ndash; 11:00 AM EST',
       title: 'How to Build a Hotel Budget Like a Leader',
       desc: 'Stop guessing at numbers. Learn the framework top GMs use to build budgets ownership actually trusts.',
+      bullets: [
+        'The budgeting framework top GMs use to plan with precision',
+        'How to build a number ownership trusts before it gets questioned',
+        'A simple template you can start using this week'
+      ],
       url: 'https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page',
       img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png',
       alt: 'Webinar thumbnail: How to Build a Hotel Budget Like a Leader'
@@ -1124,6 +1159,11 @@
       day: '16', month: 'SEP', date: 'Wednesday, September 16, 2026', short: 'Wed, Sep 16', time: '10:00 &ndash; 11:00 AM EST',
       title: 'The Labor Cost Problem Nobody Talks About',
       desc: 'Discover the hidden drivers behind runaway labor costs &mdash; and the practical levers you control every schedule period.',
+      bullets: [
+        'The hidden drivers behind runaway labor costs',
+        'Practical levers you control every schedule period',
+        'How to talk about labor cost with your department heads'
+      ],
       url: 'https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page',
       img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png',
       alt: 'Webinar thumbnail: The Labor Cost Problem Nobody Talks About'
@@ -1132,6 +1172,11 @@
       day: '14', month: 'OCT', date: 'Wednesday, October 14, 2026', short: 'Wed, Oct 14', time: '10:00 &ndash; 11:00 AM EST',
       title: 'The 5 Numbers Every GM Should Know',
       desc: "Cut through the noise of your P&L and focus on the five metrics that actually move profitability and your career.",
+      bullets: [
+        'The five metrics that actually move profitability',
+        'How to cut through P&amp;L noise and focus on what matters',
+        'A one-page tracker to review with ownership monthly'
+      ],
       url: 'https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page',
       img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd99a69659affe66e2.png',
       alt: 'Webinar thumbnail: The 5 Numbers Every GM Should Know'
@@ -1140,6 +1185,11 @@
       day: '18', month: 'NOV', date: 'Wednesday, November 18, 2026', short: 'Wed, Nov 18', time: '10:00 &ndash; 11:00 AM EST',
       title: 'From Department Head to GM: The Financial Shift',
       desc: 'The financial mindset shift that separates department heads from GM-ready leaders &mdash; and how to make it before your next interview.',
+      bullets: [
+        'The financial mindset shift GM-ready leaders make',
+        'How to make the shift before your next interview',
+        'The habits ownership looks for before a promotion'
+      ],
       url: 'https://webinar.hotelfinancialcoach.com/from-department-head-to-gm-the-financial-shift',
       img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd7f3b0b00346b4045.png',
       alt: 'Webinar thumbnail: From Department Head to GM: The Financial Shift'
@@ -1199,12 +1249,31 @@
   function renderWebinars() {
     var grid = document.getElementById('hfcWebinarGrid');
     if (!grid) return;
-    applyGridDensity(grid, WEBINARS.length);
-    var html = WEBINARS.map(function (w) {
+    // With 3+ upcoming sessions, feature the nearest one (index 0) in a
+    // bigger card instead of the plain even grid used for 1-2 sessions.
+    var featured = WEBINARS.length >= 3;
+    grid.classList.toggle('hfc-webinars__grid--featured', featured);
+    if (featured) {
+      grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single');
+    } else {
+      applyGridDensity(grid, WEBINARS.length);
+    }
+    var html = WEBINARS.map(function (w, i) {
+      var isFeatured = featured && i === 0;
+      var cardClass = 'hfc-wcard hfc-reveal' + (isFeatured ? ' hfc-wcard--featured' : '');
+      var badge = isFeatured ? 'Next Up' : 'Live Webinar';
+      var cta = isFeatured
+        ? '<span class="hfc-btn hfc-btn--primary hfc-wcard__cta-btn">Reserve My Seat ' + ARROW_ICON + '</span>'
+        : '<span class="hfc-wcard__cta">Reserve My Seat ' + ARROW_ICON + '</span>';
+      var bullets = (isFeatured && w.bullets)
+        ? '<ul class="hfc-wcard__list">' + w.bullets.map(function (b) {
+            return '<li>' + CHECK_ICON + b + '</li>';
+          }).join('') + '</ul>'
+        : '';
       return (
-        '<a class="hfc-wcard hfc-reveal" href="' + w.url + '" target="_blank" rel="noopener" aria-label="Reserve your seat: ' + w.title + '">' +
+        '<a class="' + cardClass + '" href="' + w.url + '" target="_blank" rel="noopener" aria-label="Reserve your seat: ' + w.title + '">' +
           '<div class="hfc-wcard__media">' +
-            '<span class="hfc-wcard__badge">Live Webinar</span>' +
+            '<span class="hfc-wcard__badge">' + badge + '</span>' +
             '<!-- IMAGE: ' + w.title + ' thumbnail. Recommended: 1280x720. -->' +
             '<img src="' + w.img + '" alt="' + w.alt + '" loading="lazy">' +
           '</div>' +
@@ -1213,7 +1282,8 @@
             '<div class="hfc-wcard__time" style="margin-bottom:14px;font-size:13px;">' + w.time + '</div>' +
             '<h3 class="hfc-wcard__title">' + w.title + '</h3>' +
             '<p class="hfc-wcard__desc">' + w.desc + '</p>' +
-            '<span class="hfc-wcard__cta">Reserve My Seat ' + ARROW_ICON + '</span>' +
+            bullets +
+            cta +
           '</div>' +
         '</a>'
       );

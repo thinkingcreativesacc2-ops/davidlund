@@ -1176,9 +1176,25 @@ change.
 
     display: flex;
 
+    align-items: flex-start;
+
     gap: 20px;
 
     margin-bottom: 20px;
+
+  }
+
+
+
+  .hfcr-proof-row--hero {
+
+    margin-bottom: 20px;
+
+  }
+
+  .hfcr-proof-row--hero .hfcr-proof-card--hero {
+
+    width: 100%;
 
   }
 
@@ -1470,7 +1486,7 @@ change.
 
   }
 
-  .hfcr-proof-card--video.hfcr-proof-card--hero { flex: 1.6 1 0; }
+  .hfcr-proof-card--video.hfcr-proof-card--hero { flex: 1 1 100%; }
 
 
 
@@ -1928,8 +1944,6 @@ change.
 
     .hfcr-proof-row > * { flex: 1 1 260px; }
 
-    .hfcr-proof-card--video.hfcr-proof-card--hero { flex: 1 1 100%; }
-
 
 
     .hfcr-sticky-text { display: none; }
@@ -1975,8 +1989,6 @@ change.
     .hfcr-proof-section { padding: 44px 20px; border-radius: 20px; }
 
     .hfcr-proof-row { flex-direction: column; }
-
-    .hfcr-proof-card--video.hfcr-proof-card--hero,
 
     .hfcr-proof-row > * { flex: 1 1 auto; }
 
@@ -2306,9 +2318,11 @@ change.
 
 
 
-          <!-- Row 1: hero video + headline stat -->
+          <!-- Row 1: hero video, full width so it plays at its natural
 
-          <div class="hfcr-proof-row">
+               aspect ratio instead of being stretched to match a sibling. -->
+
+          <div class="hfcr-proof-row hfcr-proof-row--hero">
 
             <div class="hfcr-proof-card hfcr-proof-card--video hfcr-proof-card--hero hfcr-reveal">
 
@@ -2334,7 +2348,13 @@ change.
 
             </div>
 
+          </div>
 
+
+
+          <!-- Row 2: headline stat + quote + screenshot -->
+
+          <div class="hfcr-proof-row">
 
             <div class="hfcr-proof-card hfcr-proof-card--stat hfcr-reveal">
 
@@ -2344,13 +2364,7 @@ change.
 
             </div>
 
-          </div>
 
-
-
-          <!-- Row 2: quote + screenshot -->
-
-          <div class="hfcr-proof-row">
 
             <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
 

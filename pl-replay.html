@@ -272,7 +272,7 @@ change.
 
   .hfcr-hero-grid > *,
 
-  .hfcr-benefits-grid > * {
+  .hfcr-proof-grid > * {
 
     min-width: 0;
 
@@ -1042,9 +1042,33 @@ change.
 
 
 
-  /* Benefits grid */
+  /* Proof grid — mixed testimonial quotes, attendee screenshots, and video clips */
 
-  .hfcr-benefits-grid {
+  .hfcr-proof-heading {
+
+    text-align: center;
+
+    max-width: 640px;
+
+    margin: 0 auto;
+
+  }
+
+  .hfcr-proof-heading .hfcr-eyebrow { justify-content: center; }
+
+  .hfcr-proof-heading h3 {
+
+    font-size: 1.3rem;
+
+    font-weight: 800;
+
+    color: var(--hfcr-burgundy);
+
+  }
+
+
+
+  .hfcr-proof-grid {
 
     display: grid;
 
@@ -1052,15 +1076,13 @@ change.
 
     gap: 20px;
 
-    margin: 56px 0 48px;
+    margin: 36px 0 48px;
 
   }
 
 
 
-  .hfcr-benefit-card {
-
-    padding: 28px 24px;
+  .hfcr-proof-card {
 
     background: var(--hfcr-white);
 
@@ -1070,13 +1092,13 @@ change.
 
     box-shadow: var(--hfcr-shadow-sm);
 
-    text-align: left;
+    overflow: hidden;
 
     transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
 
   }
 
-  .hfcr-benefit-card:hover {
+  .hfcr-proof-card:hover {
 
     box-shadow: var(--hfcr-shadow-md);
 
@@ -1088,13 +1110,23 @@ change.
 
 
 
-  .hfcr-benefit-icon {
+  .hfcr-proof-card--quote {
 
-    width: 46px;
+    padding: 28px 24px;
 
-    height: 46px;
+    text-align: left;
 
-    border-radius: 12px;
+  }
+
+
+
+  .hfcr-proof-quote-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 10px;
 
     background: var(--hfcr-burgundy);
 
@@ -1108,29 +1140,55 @@ change.
 
   }
 
-  .hfcr-benefit-icon svg { width: 22px; height: 22px; color: var(--hfcr-white); }
+  .hfcr-proof-quote-icon svg { width: 18px; height: 18px; color: var(--hfcr-white); }
 
 
 
-  .hfcr-benefit-card h3 {
+  .hfcr-proof-card--quote blockquote {
 
-    font-size: 1.05rem;
-
-    font-weight: 700;
+    font-size: 0.96rem;
 
     color: var(--hfcr-ink);
 
-    margin-bottom: 8px;
+    font-style: italic;
+
+    margin: 0 0 14px;
 
   }
 
-  .hfcr-benefit-card p {
 
-    font-size: 0.93rem;
 
-    color: var(--hfcr-ink-soft);
+  .hfcr-proof-card--quote cite {
+
+    display: block;
+
+    font-size: 0.85rem;
+
+    font-weight: 700;
+
+    font-style: normal;
+
+    color: var(--hfcr-burgundy);
 
   }
+
+
+
+  .hfcr-proof-card--image img,
+
+  .hfcr-proof-card--video video {
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+
+  }
+
+  .hfcr-proof-card--video video { background: #000; }
 
 
 
@@ -1340,7 +1398,7 @@ change.
 
 
 
-    .hfcr-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+    .hfcr-proof-grid { grid-template-columns: repeat(2, 1fr); }
 
 
 
@@ -1384,7 +1442,11 @@ change.
 
 
 
-    .hfcr-benefits-grid { grid-template-columns: 1fr; }
+    .hfcr-proof-grid { grid-template-columns: 1fr; }
+
+    .hfcr-proof-card--image img,
+
+    .hfcr-proof-card--video video { height: 180px; }
 
 
 
@@ -1690,101 +1752,239 @@ change.
 
 
 
-        <!-- Benefits grid -->
+        <!-- Proof grid: testimonial quotes, attendee screenshots, and video clips -->
 
-        <div class="hfcr-benefits-grid">
+        <div class="hfcr-proof-heading hfcr-reveal">
 
-          <div class="hfcr-benefit-card hfcr-reveal">
+          <span class="hfcr-eyebrow">Real Feedback, Real Results</span>
 
-            <div class="hfcr-benefit-icon">
+          <h3>What Past Attendees Are Saying</h3>
 
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+
+
+
+        <div class="hfcr-proof-grid">
+
+          <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
+
+            <div class="hfcr-proof-quote-icon">
+
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path></svg>
 
             </div>
 
-            <h3>Continue Learning Beyond the Webinar</h3>
+            <blockquote>&ldquo;The exercises are great &mdash; they showed me exactly where to find the real information on the P&amp;L.&rdquo;</blockquote>
 
-            <p>New training added regularly, so your development doesn't stop when a single session ends.</p>
+            <cite>Ken, Newport Beach</cite>
 
           </div>
 
 
 
-          <div class="hfcr-benefit-card hfcr-reveal">
+          <div class="hfcr-proof-card hfcr-proof-card--image hfcr-reveal">
 
-            <div class="hfcr-benefit-icon">
+            <img
 
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61c1dd2d3c3208085689fb.png"
 
-            </div>
+              alt="Attendee feedback screenshot from a past Hotel Financial Coach session"
 
-            <h3>Practical Hotel Finance Education</h3>
+              width="600"
 
-            <p>Real-world frameworks for reading, presenting, and owning your numbers &mdash; built specifically for hospitality.</p>
+              height="440"
 
-          </div>
+              loading="lazy"
 
-
-
-          <div class="hfcr-benefit-card hfcr-reveal">
-
-            <div class="hfcr-benefit-icon">
-
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-
-            </div>
-
-            <h3>Leadership Development Training</h3>
-
-            <p>Grow the executive presence and decision-making skills that ownership groups look for in their next GM.</p>
+            >
 
           </div>
 
 
 
-          <div class="hfcr-benefit-card hfcr-reveal">
+          <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
 
-            <div class="hfcr-benefit-icon">
+            <div class="hfcr-proof-quote-icon">
 
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path></svg>
 
             </div>
 
-            <h3>Exclusive Member-Only Training</h3>
+            <blockquote>&ldquo;You helped us see the numbers are just as important as our guests and colleagues &mdash; because we finally understand how we impact them.&rdquo;</blockquote>
 
-            <p>Content created specifically for the community &mdash; not available anywhere else.</p>
+            <cite>Anonymous, Vancouver</cite>
 
           </div>
 
 
 
-          <div class="hfcr-benefit-card hfcr-reveal">
+          <div class="hfcr-proof-card hfcr-proof-card--image hfcr-reveal">
 
-            <div class="hfcr-benefit-icon">
+            <img
 
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61bdb3de69375f6aabd6df.png"
 
-            </div>
+              alt="Attendee feedback screenshot from a past Hotel Financial Coach session"
 
-            <h3>Community Discussions</h3>
+              width="600"
 
-            <p>Ask questions, share wins, and learn alongside hotel professionals working through the same challenges.</p>
+              height="440"
+
+              loading="lazy"
+
+            >
 
           </div>
 
 
 
-          <div class="hfcr-benefit-card hfcr-reveal">
+          <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
 
-            <div class="hfcr-benefit-icon">
+            <div class="hfcr-proof-quote-icon">
 
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 1 0-16 0"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path></svg>
 
             </div>
 
-            <h3>Direct Access to David Lund</h3>
+            <blockquote>&ldquo;I had a real paradigm shift &mdash; I make a difference to the hotel's financial success, it's not just up to my boss.&rdquo;</blockquote>
 
-            <p>Learn straight from the source &mdash; not a watered-down version of his coaching.</p>
+            <cite>Ben, Room Service Manager, Vancouver</cite>
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--image hfcr-reveal">
+
+            <img
+
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61bdb3ab5cbf799a50709f.png"
+
+              alt="Attendee feedback screenshot from a past Hotel Financial Coach session"
+
+              width="600"
+
+              height="440"
+
+              loading="lazy"
+
+            >
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--video hfcr-reveal">
+
+            <video
+
+              controls
+
+              playsinline
+
+              preload="metadata"
+
+              aria-label="Video testimonial from a past Hotel Financial Coach attendee"
+
+            >
+
+              <source src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61bf2dde69375f6aad6216.mp4" type="video/mp4">
+
+            </video>
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
+
+            <div class="hfcr-proof-quote-icon">
+
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path></svg>
+
+            </div>
+
+            <blockquote>&ldquo;Finally! This course gave me the confidence to get involved in our overall purpose.&rdquo;</blockquote>
+
+            <cite>Craig, Director of Group Sales, San Francisco</cite>
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--image hfcr-reveal">
+
+            <img
+
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61bdb3ab5cbf799a507098.png"
+
+              alt="Attendee feedback screenshot from a past Hotel Financial Coach session"
+
+              width="600"
+
+              height="440"
+
+              loading="lazy"
+
+            >
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--video hfcr-reveal">
+
+            <video
+
+              controls
+
+              playsinline
+
+              preload="metadata"
+
+              aria-label="Video testimonial from a past Hotel Financial Coach attendee"
+
+            >
+
+              <source src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61c23bab5cbf799a51fc49.mp4" type="video/mp4">
+
+            </video>
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--quote hfcr-reveal">
+
+            <div class="hfcr-proof-quote-icon">
+
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path></svg>
+
+            </div>
+
+            <blockquote>&ldquo;I was apprehensive going in &mdash; numbers, ugh! &mdash; but David kept us engaged, and I benefited more than I expected.&rdquo;</blockquote>
+
+            <cite>Brooke, Reservations Manager, Lake Louise</cite>
+
+          </div>
+
+
+
+          <div class="hfcr-proof-card hfcr-proof-card--image hfcr-reveal">
+
+            <img
+
+              src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a61bdb3ab5cbf799a507093.png"
+
+              alt="Attendee feedback screenshot from a past Hotel Financial Coach session"
+
+              width="600"
+
+              height="440"
+
+              loading="lazy"
+
+            >
 
           </div>
 

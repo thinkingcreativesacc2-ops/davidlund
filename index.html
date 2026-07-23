@@ -322,30 +322,22 @@
      leaving an empty, lopsided gap beside the last card. */
   .hfc-webinars__grid--pair { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
   .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); max-width: 420px; margin: 0 auto; }
-  /* Fixed layout spec for the "Reserve Your Seat" grid (not a responsive
-     auto-balancing grid - the empty cell is intentional):
-       column 1: card 1, spanning both rows (biggest)
-       column 2, row 1: card 2      column 3, row 1: card 3  (equal size)
-       column 2, row 2: card 4 (its own natural, smaller size)
-       column 3, row 2: intentionally empty
-     This is plain CSS Grid auto-placement - card 4 is simply the next item
-     in source order, and with column 1 already occupied by card 1's span,
-     it lands in column 2/row 2 with no explicit rule needed. Nothing here
-     stretches to match anything else (align-items:start), and column
-     3/row 2 is left blank on purpose rather than filled or spanned into.
-     Only applied at desktop widths - see responsive overrides below. */
-  .hfc-webinars__grid--featured {
-    grid-template-columns: 1.8fr 1fr 1fr;
-    align-items: start;
-  }
-  .hfc-wcard--featured { grid-row: span 2; }
+  /* Layout for the "Reserve Your Seat" grid: the nearest webinar is a single
+     full-width featured card on its own row (grid-column: 1 / -1), with the
+     rest following underneath in the normal equal-width 3-column grid. A
+     full-width span works identically at any column count, so unlike the
+     row/column-spanning versions tried before, this needs no responsive
+     reset - it just naturally becomes a full-width card above a 2-column
+     (tablet) or 1-column (phone) stack too. */
+  .hfc-wcard--featured { grid-column: 1 / -1; }
   .hfc-wcard--featured .hfc-wcard__badge { background: var(--hfc-gold); color: var(--hfc-burgundy-deep); }
   .hfc-wcard--featured .hfc-wcard__badge::before { display: none; }
-  .hfc-wcard--featured .hfc-wcard__body { padding: 28px 30px 30px; }
-  .hfc-wcard--featured .hfc-wcard__title { font-size: 23px; }
-  .hfc-wcard--featured .hfc-wcard__desc { font-size: 15px; }
+  .hfc-wcard--featured .hfc-wcard__media { aspect-ratio: 16 / 9; }
+  .hfc-wcard--featured .hfc-wcard__body { padding: 30px 34px 34px; }
+  .hfc-wcard--featured .hfc-wcard__title { font-size: 25px; }
+  .hfc-wcard--featured .hfc-wcard__desc { font-size: 16px; max-width: 640px; }
   .hfc-wcard--featured .hfc-wcard__cta-btn { align-self: flex-start; }
-  .hfc-wcard__list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .hfc-wcard__list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; max-width: 640px; }
   .hfc-wcard__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--hfc-ink); }
   .hfc-wcard__list svg { width: 17px; height: 17px; fill: var(--hfc-gold); flex-shrink: 0; margin-top: 2px; }
   .hfc-wcard {
@@ -673,18 +665,8 @@
     .hfc-about__media { max-width: 420px; margin: 0 auto; }
     .hfc-webinars__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); }
-    /* Below desktop width there's no room for a 3-column bento shape, so the
-       featured card drops back to a normal grid cell (no row span) at
-       normal card sizing too - otherwise, with row-stretching restored for
-       uniform card heights, its extra content would drag its row-mate
-       taller to match. Only the gold "Next Up" badge and button-style CTA
-       remain as the distinction at this size. */
-    .hfc-webinars__grid--featured { align-items: stretch; }
-    .hfc-wcard--featured { grid-row: auto; }
-    .hfc-wcard--featured .hfc-wcard__body { padding: 24px 24px 26px; }
-    .hfc-wcard--featured .hfc-wcard__title { font-size: 19px; }
-    .hfc-wcard--featured .hfc-wcard__desc { font-size: 14.5px; }
-    .hfc-wcard--featured .hfc-wcard__list { display: none; }
+    /* The full-width span (grid-column: 1 / -1) works identically at any
+       column count, so no reset needed here at all. */
     .hfc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
     .hfc-footer__top { grid-template-columns: 1fr 1fr; }
   }

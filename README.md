@@ -68,3 +68,36 @@ links and the replay link are also grouped at the top of the `<script>` block in
 single `WEBINARS` config object — update dates, titles, or URLs there and the page
 re-renders the cards automatically, so you never have to hunt through markup to
 change a date.
+
+---
+
+# Dr. Bryan K. Williams — 20th Anniversary Celebration Replay Experience
+
+A separate, unrelated single-file deliverable: `bryan-williams-20th-anniversary-replay.html`.
+It's a premium, story-driven replay experience for Dr. Bryan K. Williams' 20th
+Anniversary Celebration — hero, legacy storytelling, three session cards with a
+video modal, a legacy statement banner, and a final CTA — built the same way as
+`index.html` above (a self-contained GHL Custom HTML fragment, no `<head>`/`<body>`
+wrapper, styles scoped under a unique prefix so it can sit on a page with other
+elements).
+
+**Before publishing, replace these placeholders:**
+
+- **Logo** — the hero's focal point is currently a hand-built inline SVG medallion
+  (search the file for `HERO EMBLEM`). Swap it for `<img class="dbw-emblem" src="[official logo URL]" ...>` once the real 20th Anniversary logo is uploaded to GHL Media Storage.
+- **Session videos** — the `SESSIONS` array near the top of the `<script>` block
+  holds each day's title, description, duration, and `video` embed URL. All three
+  currently point at a harmless public placeholder video so the modal is fully
+  functional to preview; replace each `video` value with the real Day 1/2/3
+  recording URL (YouTube/Vimeo embed URL or GHL-hosted video page).
+- **Thumbnails** — each session card uses a distinct gold-on-navy gradient
+  "poster" instead of a stock photo, so the page ships premium and fast with zero
+  external image dependencies. Add a real `<img>` inside `.dbw-card__media` if you
+  later want photo thumbnails.
+- **Links** — the "Continue Learning With Dr. Bryan" button and the footer social
+  icons are marked `PLACEHOLDER LINK` / `PLACEHOLDER LINKS` and default to `#`;
+  point them at Dr. Bryan's real site, community, or social profiles.
+
+Everything else (copy, layout, animations, the share button, the scroll-reveal
+and count-up effects) works as-is — paste the file's contents into one GHL
+Custom HTML element.

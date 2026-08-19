@@ -7,7 +7,9 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html          ← webinar funnel landing page (HTML + CSS + JS, one file)
+budget-replay.html  ← replay page for "How to Build a Hotel Budget Like a Leader"
+                       (Aug 19, 2026), same self-contained pattern, "hfcr-" prefixed
 ```
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already

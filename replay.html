@@ -338,10 +338,28 @@
   .hfcr-proof-cta-btn:hover { background: var(--hfcr-proof-gold-light); transform: translateY(-2px); box-shadow: 0 16px 36px rgba(200,155,42,0.45); }
   .hfcr-proof-cta-fine-print { margin-top: 18px; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
 
-  /* Transition panel reuses this exact card treatment (see markup below) plus
-     an eyebrow on top, so it needs one extra rule: center that eyebrow like
-     the rest of the panel's content. */
+  /* Final CTA's eyebrow needs the same centered-badge treatment as header
+     blocks elsewhere on the page. */
   .hfcr-proof-cta .hfcr-eyebrow { justify-content: center; }
+
+  /* ==========================================================================
+     TRANSITION PANEL (the "replay is gone, community is next" bridge)
+     Same visual language as .hfcr-proof-cta above, but built on the base
+     --hfcr-* tokens (defined on .hfcr-page) instead of the --hfcr-proof-*
+     tokens, which only exist inside .hfcr-proof-section — this panel lives
+     outside that section, so it needs colors that resolve everywhere.
+     ========================================================================== */
+  .hfcr-transition-panel { position: relative; background: linear-gradient(135deg, var(--hfcr-burgundy) 0%, var(--hfcr-burgundy-dark) 100%); border-radius: var(--hfcr-radius-lg); padding: 56px 40px; text-align: center; overflow: hidden; box-shadow: var(--hfcr-shadow-lg); }
+  .hfcr-transition-panel::before { content: ""; position: absolute; top: -120px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(200,155,42,0.35), transparent 70%); }
+  .hfcr-transition-panel > * { position: relative; }
+  .hfcr-transition-panel .hfcr-eyebrow { justify-content: center; }
+  .hfcr-transition-panel h2 { font-size: clamp(1.6rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--hfcr-white); margin-top: 6px; }
+  .hfcr-transition-panel p { max-width: 480px; margin: 14px auto 30px; font-size: 1rem; color: rgba(255,255,255,0.82); line-height: 1.6; }
+  .hfcr-transition-panel-fine-print { margin-top: 18px; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 600px) {
+    .hfcr-transition-panel { padding: 40px 24px; }
+  }
 
   /* ==========================================================================
      FOOTER
@@ -489,19 +507,19 @@
   <!-- ==== SECTION: TRANSITION (bridges "replay is gone" to "join the community") ==== -->
   <section class="hfcr-transition-section" id="hfcr-transition-section">
     <div class="hfcr-container">
-      <div class="hfcr-proof-cta hfcr-reveal">
+      <div class="hfcr-transition-panel hfcr-reveal">
         <span class="hfcr-eyebrow hfcr-eyebrow--on-dark">Keep Growing With David</span>
-        <h2 style="font-family:var(--hfcr-font-head); font-size:clamp(1.6rem, 2.8vw, 2.1rem); font-weight:800; color:var(--hfcr-white); margin-top:6px;">The Replay May Be Gone. Your Growth Doesn't Have to Be.</h2>
+        <h2>The Replay May Be Gone. Your Growth Doesn't Have to Be.</h2>
         <p>
           Inside the Hotel Financial Coach community, you'll keep building the
           same budgeting, P&amp;L, and forecasting skills this session
           introduced &mdash; with direct access to David and practical
           training you can put to work the same week.
         </p>
-        <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-proof-cta-btn">
+        <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-btn hfcr-btn--gold-solid">
           Join the Hotel Financial Coach Community
         </a>
-        <p class="hfcr-proof-cta-fine-print">$15/month &middot; Cancel anytime</p>
+        <p class="hfcr-transition-panel-fine-print">$15/month &middot; Cancel anytime</p>
       </div>
     </div>
   </section>

@@ -21,18 +21,19 @@ so nothing needs to be uploaded to this repo to preview or ship the page.
 | Top promo bar + footer logo | Hotel Financial Coach logo |
 | Hero section | David Lund speaking on stage |
 | "Meet David Lund" section | David Lund professional headshot |
-| Replay card + modal — "Why Hotel Leaders Get Passed Over for Promotion" | replay thumbnail |
-| Live webinar — "How to Read Your Hotel P&L in 30 Minutes" | webinar thumbnail |
-| Live webinar — "How to Build a Hotel Budget Like a Leader" | webinar thumbnail |
-| Live webinar — "The Labor Cost Problem Nobody Talks About" | webinar thumbnail |
 | Live webinar — "The 5 Numbers Every GM Should Know" | webinar thumbnail |
 | Live webinar — "From Department Head to GM: The Financial Shift" | webinar thumbnail |
+| Replay card + modal — "The Labor Cost Problem Nobody Talks About" | webinar thumbnail |
+| Replay card + modal — "How to Build a Hotel Budget Like a Leader" | webinar thumbnail |
+| Replay card + modal — "How to Read Your Hotel P&L in 30 Minutes" | replay thumbnail |
+| Replay card + modal — "Why Hotel Leaders Get Passed Over for Promotion" | replay thumbnail |
 
 To swap any image later: open `index.html`, search for the section by its visible
 text (e.g. search "Meet David Lund" or the webinar title), and replace the `src`
-value on the nearby `<img>` tag with a new hosted URL. The five live-webinar
+value on the nearby `<img>` tag with a new hosted URL. The live-webinar
 thumbnails also live together in the `WEBINARS` config object near the top of the
-`<script>` block, so you can update all five `img` values in one place.
+`<script>` block (and the past-session thumbnails in `REPLAYS` right below it), so
+you can update every `img` value in one place.
 
 There's no Open Graph / social-share image wired into this snippet (that's a
 `<head>`-level `<meta>` tag, which belongs to GHL's page/funnel SEO settings, not
@@ -54,17 +55,22 @@ to `--hfc-*` to avoid colliding with other elements/styles already on your GHL p
 
 There is no site navigation/header — for a single-page funnel, a nav menu mostly
 just gives visitors more ways to leave before registering. In its place is a slim
-**top promo bar** advertising the nearest upcoming live webinar (currently July 22,
-"How to Read Your Hotel P&L in 30 Minutes") with a direct "Save My Seat" link. If
-that webinar has already passed, update the date/title/link in the promo bar markup
-near the top of the page body (look for the `<!-- SECTION: TOP PROMO BAR -->` comment)
-to point at whichever session is coming up next.
+**top promo bar** advertising the nearest upcoming live webinar with a direct
+"Save My Seat" link. Nothing in that bar is hand-written — it renders itself from
+`WEBINARS[0]`, so it always points at whichever session is nearest and never needs
+editing when one concludes.
 
 ## Editing copy or links later
 
 Every major section is marked with an HTML comment (`<!-- ==== SECTION: ... ==== -->`)
-so you or a future editor can find things fast. The five live-webinar registration
-links and the replay link are also grouped at the top of the `<script>` block in a
-single `WEBINARS` config object — update dates, titles, or URLs there and the page
-re-renders the cards automatically, so you never have to hunt through markup to
-change a date.
+so you or a future editor can find things fast. Every live-webinar registration link
+and every replay link is grouped at the top of the `<script>` block in two config
+arrays, `WEBINARS` (upcoming) and `REPLAYS` (past, newest first) — update dates,
+titles, or URLs there and the page re-renders the cards automatically, so you never
+have to hunt through markup to change a date.
+
+**When a live session concludes:** move its entry out of `WEBINARS` and into the top
+of `REPLAYS` (swap `day`/`month`/`date`/`short`/`time` for a single `metaDate` line,
+and point `url` at the replay page), then delete its matching `Event` block from the
+JSON-LD `@graph` near the bottom of the file so only sessions people can still
+register for stay marked up for search.

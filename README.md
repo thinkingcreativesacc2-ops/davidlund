@@ -7,8 +7,17 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html                ← the webinar funnel landing page (HTML + CSS + JS, one file)
+replay-labor-cost.html    ← replay page: "The Labor Cost Problem Nobody Talks About"
 ```
+
+Each file is its own standalone GoHighLevel Custom HTML snippet and goes on its
+own GHL page. `replay-labor-cost.html` is also the reusable **replay template**:
+to publish the next replay, copy it and change four things — the `<h1>` title,
+the "Originally Presented" date line, the thumbnail URL (it appears twice: the
+hero `<img>` and the video's `poster`), and the `<source src>` on the main
+`<video>`. Its CSS/JS is namespaced `hfcr-` so it can never collide with the
+funnel page's `hfc-` styles.
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
 wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),

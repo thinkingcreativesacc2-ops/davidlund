@@ -7,8 +7,18 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html   ← the entire deliverable (HTML + CSS + JS, one file)
+index.html           ← the funnel landing page (HTML + CSS + JS, one file)
+webinar-replay.html  ← the gated replay page (HTML + CSS + JS, one file)
 ```
+
+`webinar-replay.html` is the page a past attendee lands on. The recording no
+longer plays there — the replay now lives inside the Hotel Financial Coach
+community on Skool, so the page says so and sends the visitor to join. There is
+no `<video>` element in that file; in its place is the burgundy "unlock" band
+(search the file for `SECTION: UNLOCK BAND`). Its classes are prefixed `hfcr-`
+so it can sit on the same GHL site as `index.html` without style collisions, and
+every CTA on it is driven by the single `SKOOL_URL` constant at the top of its
+`<script>` block.
 
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
 wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),

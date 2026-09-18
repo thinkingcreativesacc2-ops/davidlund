@@ -20,6 +20,19 @@ so it can sit on the same GHL site as `index.html` without style collisions, and
 every CTA on it is driven by the single `SKOOL_URL` constant at the top of its
 `<script>` block.
 
+Its sections, in order: hero → unlock band → Skool community → social proof →
+final CTA → footer.
+
+### Placeholder images in the social-proof grid
+
+The bento grid under "Trusted by Hotel Leaders Around the World" mixes
+testimonials with screenshots of the community. Three of those tiles (the
+success-story video and two screenshots) point at images this page already uses,
+as stand-ins — the real collage shots aren't hosted yet. Each one is marked with
+a `SWAP IMAGE` comment: upload the real file to GHL Media Storage and replace the
+`src`. The success-story tile currently links to Skool; point its `href` at the
+real video if you'd rather it play.
+
 There is no `assets/` folder — every photo, thumbnail, and the logo are already
 wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),
 so nothing needs to be uploaded to this repo to preview or ship the page.

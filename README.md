@@ -7,35 +7,32 @@ webinar's own registration page — this page itself has no opt-in form.
 ## Files
 
 ```
-index.html           ← the funnel landing page (HTML + CSS + JS, one file)
-webinar-replay.html  ← the gated replay page (HTML + CSS + JS, one file)
+index.html                                   ← the funnel landing page
+webinar-replay-passed-over-for-promotion.html ← replay page, June 24 session
+webinar-replay-read-your-pl.html              ← replay page, July 22 session
 ```
 
-`webinar-replay.html` is the page a past attendee lands on. The recording no
-longer plays there — the replay now lives inside the Hotel Financial Coach
-community on Skool, so the page says so and sends the visitor to join. There is
-no `<video>` element in that file; in its place is the burgundy "unlock" band
-(search the file for `SECTION: UNLOCK BAND`). Its classes are prefixed `hfcr-`
-so it can sit on the same GHL site as `index.html` without style collisions, and
-every CTA on it is driven by the single `SKOOL_URL` constant at the top of its
-`<script>` block.
+Each file is one complete deliverable (HTML + CSS + JS) for a single GHL Custom
+HTML element.
 
-Its sections, in order: hero → unlock band → Skool community → social proof →
+### The replay pages
+
+Both replay pages are gated: the session recording no longer plays on the page.
+It lives inside the Hotel Financial Coach community on Skool, so the page says
+so and sends the visitor there. There is no player for the session in either
+file — in its place is the burgundy "unlock" band (search a file for
+`SECTION: UNLOCK BAND`). The short client testimonial clips in the social-proof
+section are a different thing and still play inline.
+
+Sections, in order: hero → unlock band → Skool community → social proof →
 final CTA → footer.
 
-### Placeholder images in the social-proof grid
-
-The bento grid under "Trusted by Hotel Leaders Around the World" mixes
-testimonials with screenshots of the community. Three of those tiles (the
-success-story video and two screenshots) point at images this page already uses,
-as stand-ins — the real collage shots aren't hosted yet. Each one is marked with
-a `SWAP IMAGE` comment: upload the real file to GHL Media Storage and replace the
-`src`. The success-story tile currently links to Skool; point its `href` at the
-real video if you'd rather it play.
-
-There is no `assets/` folder — every photo, thumbnail, and the logo are already
-wired to hosted GoHighLevel Media Storage URLs (`assets.cdn.filesafe.space/...`),
-so nothing needs to be uploaded to this repo to preview or ship the page.
+The two pages are identical apart from six page-specific spots — the session
+title, its date, the hero thumbnail, and the skills list in the Skool
+paragraph — so `diff` between them is the fastest way to see what a new replay
+page needs changed. Their classes are prefixed `hfcr-` so they can sit on the
+same GHL site as `index.html` without style collisions, and every CTA is driven
+by the single `SKOOL_URL` constant at the top of each file's `<script>` block.
 
 ## Image map
 

@@ -322,6 +322,13 @@
      leaving an empty, lopsided gap beside the last card. */
   .hfc-webinars__grid--pair { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
   .hfc-webinars__grid--single { grid-template-columns: minmax(0, 420px); max-width: 420px; margin: 0 auto; }
+  /* 4 cards in a 3-column grid leave one card stranded beside two empty
+     cells, so a 4-card grid drops to a balanced 2x2 instead. */
+  .hfc-webinars__grid--quad { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto; }
+  /* When only ONE live webinar is scheduled it is still shown as the big
+     "Next Up" featured card, but capped to a comfortable reading width and
+     centered, so the 16:9 thumbnail doesn't blow up to the full 1200px. */
+  .hfc-webinars__grid--solo { max-width: 860px; margin: 0 auto; }
   /* Layout for the "Reserve Your Seat" grid: the nearest webinar is a single
      full-width featured card on its own row (grid-column: 1 / -1), with the
      rest following underneath in the normal equal-width 3-column grid. A
@@ -934,7 +941,7 @@
           </div>
           <div class="hfc-faq__item">
             <button class="hfc-faq__q" aria-expanded="false"><span>What if I can't attend live?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
-            <div class="hfc-faq__a"><p>Register anyway. You'll be sent access to the recording, and you can also watch our current on-demand session, "Why Hotel Leaders Get Passed Over for Promotion," anytime.</p></div>
+            <div class="hfc-faq__a"><p>Register anyway. You'll be sent access to the recording, and you can also watch our most recent on-demand session, "The 5 Numbers Every GM Should Know," anytime.</p></div>
           </div>
           <div class="hfc-faq__item">
             <button class="hfc-faq__q" aria-expanded="false"><span>Will there be live Q&amp;A?</span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7l5 5 5-5z"/></svg></button>
@@ -1070,42 +1077,6 @@
     },
     {
       "@type": "Event",
-      "name": "How to Build a Hotel Budget Like a Leader",
-      "startDate": "2026-08-19T10:00:00-04:00",
-      "endDate": "2026-08-19T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "The Labor Cost Problem Nobody Talks About",
-      "startDate": "2026-09-16T10:00:00-04:00",
-      "endDate": "2026-09-16T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page" }
-    },
-    {
-      "@type": "Event",
-      "name": "The 5 Numbers Every GM Should Know",
-      "startDate": "2026-10-14T10:00:00-04:00",
-      "endDate": "2026-10-14T11:00:00-04:00",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": { "@type": "VirtualLocation", "url": "https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page" },
-      "performer": { "@type": "Person", "name": "David Lund" },
-      "organizer": { "@type": "Organization", "name": "The Hotel Financial Coach" },
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page" }
-    },
-    {
-      "@type": "Event",
       "name": "From Department Head to GM: The Financial Shift",
       "startDate": "2026-11-18T10:00:00-05:00",
       "endDate": "2026-11-18T11:00:00-05:00",
@@ -1131,45 +1102,6 @@
      ======================================================================== */
   var WEBINARS = [
     {
-      day: '19', month: 'AUG', date: 'Wednesday, August 19, 2026', short: 'Wed, Aug 19', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'How to Build a Hotel Budget Like a Leader',
-      desc: 'Stop guessing at numbers. Learn the framework top GMs use to build budgets ownership actually trusts.',
-      bullets: [
-        'The budgeting framework top GMs use to plan with precision',
-        'How to build a number ownership trusts before it gets questioned',
-        'A simple template you can start using this week'
-      ],
-      url: 'https://webinar.hotelfinancialcoach.com/how-to-build-a-hotel-budget-like-a-leader-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png',
-      alt: 'Webinar thumbnail: How to Build a Hotel Budget Like a Leader'
-    },
-    {
-      day: '16', month: 'SEP', date: 'Wednesday, September 16, 2026', short: 'Wed, Sep 16', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'The Labor Cost Problem Nobody Talks About',
-      desc: 'Discover the hidden drivers behind runaway labor costs &mdash; and the practical levers you control every schedule period.',
-      bullets: [
-        'The hidden drivers behind runaway labor costs',
-        'Practical levers you control every schedule period',
-        'How to talk about labor cost with your department heads'
-      ],
-      url: 'https://webinar.hotelfinancialcoach.com/the-labor-cost-problem-nobody-talks-about-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png',
-      alt: 'Webinar thumbnail: The Labor Cost Problem Nobody Talks About'
-    },
-    {
-      day: '14', month: 'OCT', date: 'Wednesday, October 14, 2026', short: 'Wed, Oct 14', time: '10:00 &ndash; 11:00 AM EST',
-      title: 'The 5 Numbers Every GM Should Know',
-      desc: "Cut through the noise of your P&L and focus on the five metrics that actually move profitability and your career.",
-      bullets: [
-        'The five metrics that actually move profitability',
-        'How to cut through P&amp;L noise and focus on what matters',
-        'A one-page tracker to review with ownership monthly'
-      ],
-      url: 'https://webinar.hotelfinancialcoach.com/the-5-numbers-every-gm-should-know-page',
-      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd99a69659affe66e2.png',
-      alt: 'Webinar thumbnail: The 5 Numbers Every GM Should Know'
-    },
-    {
       day: '18', month: 'NOV', date: 'Wednesday, November 18, 2026', short: 'Wed, Nov 18', time: '10:00 &ndash; 11:00 AM EST',
       title: 'From Department Head to GM: The Financial Shift',
       desc: 'The financial mindset shift that separates department heads from GM-ready leaders &mdash; and how to make it before your next interview.',
@@ -1192,6 +1124,46 @@
      replay link.
      ======================================================================== */
   var REPLAYS = [
+    {
+      title: 'The 5 Numbers Every GM Should Know',
+      metaDate: 'Recorded live Wednesday, October 14, 2026',
+      desc: 'Cut through the noise of your P&amp;L and focus on the five metrics that actually move profitability and your career. In this session, David shows which numbers deserve your attention every period &mdash; and how to track them on one page.',
+      bullets: [
+        'The five metrics that actually move profitability',
+        'How to cut through P&amp;L noise and focus on what matters',
+        'A one-page tracker to review with ownership monthly'
+      ],
+      // [CONFIRM] Published GHL URL of the "replay-5-numbers-every-gm-should-know" page.
+      url: 'https://webinar.hotelfinancialcoach.com/replay---5-numbers-every-gm-should-know',
+      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd99a69659affe66e2.png',
+      alt: 'Replay thumbnail: The 5 Numbers Every GM Should Know, with David Lund'
+    },
+    {
+      title: 'The Labor Cost Problem Nobody Talks About',
+      metaDate: 'Recorded live Wednesday, September 16, 2026',
+      desc: 'Labor is the biggest number on your P&amp;L and the one most leaders feel least able to move. In this session, David breaks down the hidden drivers behind runaway labor costs and the practical levers you actually control every schedule period.',
+      bullets: [
+        'The hidden drivers behind runaway labor costs',
+        'Practical levers you control every schedule period',
+        'How to talk about labor cost with your department heads'
+      ],
+      url: 'https://webinar.hotelfinancialcoach.com/replay---the-labor-cost-nobody-talks-about-page',
+      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png',
+      alt: 'Replay thumbnail: The Labor Cost Problem Nobody Talks About, with David Lund'
+    },
+    {
+      title: 'How to Build a Hotel Budget Like a Leader',
+      metaDate: 'Recorded live Wednesday, August 19, 2026',
+      desc: 'Stop guessing at your numbers. In this session, David walks through the exact framework top GMs use to build a hotel budget ownership actually trusts &mdash; from setting the right assumptions to defending the number in the room.',
+      bullets: [
+        'The budgeting framework top GMs use to plan with precision',
+        'How to build a number ownership trusts before it gets questioned',
+        'A simple template you can start using this week'
+      ],
+      url: 'https://webinar.hotelfinancialcoach.com/replay---how-to-build-a-hotel-budget-like-a-leader',
+      img: 'https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2578.png',
+      alt: 'Replay thumbnail: How to Build a Hotel Budget Like a Leader, with David Lund'
+    },
     {
       title: 'How to Read Your Hotel P&L in 30 Minutes',
       metaDate: 'Recorded live Wednesday, July 22, 2026',
@@ -1229,23 +1201,25 @@
   /* Keeps a short row from leaving a lopsided empty gap beside the last
      card: centers and widens the grid when it holds fewer than 3 items. */
   function applyGridDensity(grid, count) {
-    grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single');
-    if (count === 2) grid.classList.add('hfc-webinars__grid--pair');
+    grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single', 'hfc-webinars__grid--quad', 'hfc-webinars__grid--solo');
+    if (count === 4) grid.classList.add('hfc-webinars__grid--quad');
+    else if (count === 2) grid.classList.add('hfc-webinars__grid--pair');
     else if (count === 1) grid.classList.add('hfc-webinars__grid--single');
   }
 
   function renderWebinars() {
     var grid = document.getElementById('hfcWebinarGrid');
     if (!grid) return;
-    // With 3+ upcoming sessions, feature the nearest one (index 0) in a
-    // bigger card spanning 2 rows. Cards 2 and 3 fill the top-right at
-    // normal size; card 4 (if present) is plain auto-placed by the grid
-    // into column 2/row 2 - column 3/row 2 is intentionally left empty
-    // rather than filled or spanned into.
-    var featured = WEBINARS.length >= 3;
+    // The nearest session (index 0) is highlighted as the big full-width
+    // "Next Up" card when there are 3+ sessions (the rest sit in a normal
+    // row below it) or when it's the only one scheduled (capped to a
+    // centered reading width via --solo). With exactly 2, a balanced pair
+    // of equal cards reads better than a featured card + one orphan.
+    var featured = WEBINARS.length === 1 || WEBINARS.length >= 3;
     grid.classList.toggle('hfc-webinars__grid--featured', featured);
     if (featured) {
-      grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single');
+      grid.classList.remove('hfc-webinars__grid--pair', 'hfc-webinars__grid--single', 'hfc-webinars__grid--quad');
+      grid.classList.toggle('hfc-webinars__grid--solo', WEBINARS.length === 1);
     } else {
       applyGridDensity(grid, WEBINARS.length);
     }

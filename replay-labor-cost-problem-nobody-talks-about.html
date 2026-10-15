@@ -401,6 +401,36 @@ change.
   .hfcr-thumb-play:hover { transform: translate(-50%, -50%) scale(1.08); }
   .hfcr-thumb-play svg { width: 26px; height: 26px; color: var(--hfcr-white); margin-left: 4px; }
 
+  /* Locked variant: the thumbnail is a link to Skool, dimmed slightly,
+     with a lock in place of the play button and a "Members Only" pill. */
+  .hfcr-thumb-card--locked { display: block; }
+  .hfcr-thumb-card--locked img { filter: brightness(0.82); transition: filter 0.2s ease; }
+  .hfcr-thumb-card--locked:hover img { filter: brightness(0.7); }
+  .hfcr-thumb-card--locked:hover .hfcr-thumb-play { transform: translate(-50%, -50%) scale(1.08); }
+  .hfcr-thumb-play--locked { border-color: var(--hfcr-gold); }
+  .hfcr-thumb-play--locked svg { margin-left: 0; color: var(--hfcr-gold-light); }
+
+  .hfcr-thumb-lock-badge {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 100px;
+    background: var(--hfcr-burgundy);
+    color: var(--hfcr-white);
+    font-family: var(--hfcr-font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  }
+  .hfcr-thumb-lock-badge svg { width: 13px; height: 13px; }
+
   .hfcr-thumb-caption {
     text-align: center;
     font-size: 0.85rem;
@@ -1148,16 +1178,20 @@ change.
 
             <div class="hfcr-hero-cta">
               <div class="hfcr-btn-row">
-                <a href="#hfcr-video-section" class="hfcr-btn hfcr-btn--primary hfcr-js-scroll-to-video">
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-                  Watch the Replay Now
+                <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-btn hfcr-btn--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                  Watch Inside the Community
                 </a>
               </div>
             </div>
           </div>
 
           <div>
-            <div class="hfcr-thumb-card">
+            <a href="https://www.skool.com/the-hotel-financial-coach-6836/about" data-skool-cta class="hfcr-thumb-card hfcr-thumb-card--locked" aria-label="Watch the full replay inside the Hotel Financial Coach community">
+              <span class="hfcr-thumb-lock-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                Members Only
+              </span>
               <img
                 src="https://assets.cdn.filesafe.space/YcGEobG2xxCO9HXFD1xi/media/6a4638bd6fe10df00f2b2573.png"
                 alt="Webinar thumbnail: The Labor Cost Problem Nobody Talks About, presented by David Lund"
@@ -1165,11 +1199,11 @@ change.
                 height="405"
                 loading="eager"
               >
-              <button type="button" class="hfcr-thumb-play hfcr-js-scroll-to-video" aria-label="See how to watch the full replay">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-              </button>
-            </div>
-            <p class="hfcr-thumb-caption">The full replay is available inside the community</p>
+              <span class="hfcr-thumb-play hfcr-thumb-play--locked" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+              </span>
+            </a>
+            <p class="hfcr-thumb-caption">Click to watch the full replay inside the community</p>
           </div>
         </div>
       </div>
